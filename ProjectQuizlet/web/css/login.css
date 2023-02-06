@@ -1,0 +1,119 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : Dec 8, 2022, 3:03:25 PM
+    Author     : LENOVO
+*/
+
+body {
+    margin: 0;
+}
+
+.wrapper-sign {
+    display: flex;
+    height: 100vh;
+}
+
+.container-img {
+    background-image: url(../images/login.png);
+    background-position: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    flex: 50%;
+}
+
+.logo {
+    position: absolute;
+    bottom: 1rem;
+    color: white;
+    margin: 3.5%;
+    font-size: 2.25rem;
+    font-weight: 700;
+}
+
+.title-img {
+    width: 70%;
+    color: white !important; 
+    margin: 3.5%;
+    font-weight: 700;
+    font-size: 2.75rem;
+}
+
+.container-form {
+    flex: 50%;
+    padding: 20px 50px;
+}
+
+.wrapper-form {
+    display: flex;
+    margin: 3rem auto auto;
+    padding: 0 2rem 4rem;
+    flex-direction: column;
+}
+
+.register-btn, .login-btn {
+    margin-right: 2rem;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+.methods {
+    display: flex;
+    margin-bottom: 2rem;
+}
+
+.text-form {
+    margin-top: 6px;
+    color: #939bb4;
+    font-weight: 600;
+    font-size: .75rem;
+    letter-spacing: .0625rem;
+    line-height: 1.333333333333333;
+}
+
+.input-form {
+    width: 96%;
+    margin-top: 20px;
+    padding: 12px;
+    font-size: 20px;
+    color: #121d28;
+    word-break: break-word;
+    white-space: pre-wrap;
+    border: none;
+    border-bottom: 3px solid #303545;
+}
+
+.input-form:focus {
+    outline: none;
+    border: none;
+    border-bottom: 4px solid #ffcd1f;
+}
+
+.input-form::placeholder {
+    opacity: .6;
+}
+
+.login-button {
+    width: 100%;
+    margin-top: 30px;
+    background-color: #3ccfcf;
+    color: #fff;
+    border: none;
+    padding: 24px 0;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 700;
+    font-size: 18px;
+}
+
+.register-btn {
+    color: #939bb4 !important;
+    text-decoration: none;
+}
+
+.login-btn {
+    cursor: pointer;
+    color: #000 !important;
+}

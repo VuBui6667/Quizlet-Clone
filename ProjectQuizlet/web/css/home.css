@@ -1,0 +1,71 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : Dec 11, 2022, 8:17:27 PM
+    Author     : LENOVO
+*/
+
+.container-home {
+    background-color: #0a092d;
+    min-height: calc(100vh - 65px) !important;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.content-container {
+    margin-top: 16px;
+}
+
+.study-set-container {
+    padding: 40px;
+}
+
+.title-container {
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    line-height: 1.5;
+}
+
+.item-study-set {
+    width: 300px;
+    height: 100px;
+    background-color: #2e3856;
+    padding: 20px;  
+    color: white;
+    border-radius: 6px;
+    margin-bottom: 30px;
+    cursor: pointer;
+    border-bottom: 4px solid #2e3856;
+    margin-left: 22px;
+}
+
+.item-study-set:hover {
+    border-bottom: 4px solid #fff;
+}
+
+.title-study-set {
+   font-size: 22px;
+   font-weight: 600;
+}
+
+.amount-card {
+    color: #939bb4;
+    font-weight: 600;
+    margin: 10px 0;
+}
+
+.author-study-set {
+    font-weight: 600;
+    margin-top: 30px;
+}
+
+.content-container {
+    display: flex;
+    justify-content: start;
+    flex-wrap: wrap;
+}

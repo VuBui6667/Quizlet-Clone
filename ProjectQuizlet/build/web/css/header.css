@@ -1,0 +1,126 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : Dec 8, 2022, 11:41:12 PM
+    Author     : LENOVO
+*/
+
+body {
+    margin: 0;
+}
+
+.container-nav {
+    display: flex;
+    justify-content: space-between;
+    height: 4rem;
+    background-color: #0a092d;
+    color: white;
+    border-bottom: 1px solid #282e3e;
+}
+
+.nav-left {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.nav-right {
+    display: flex;
+    align-items: center;
+}
+
+.nav-item {
+    cursor: pointer;
+    margin: 0 10px;
+    padding: 20px 0;
+}
+
+.nav-item:first-child {
+    font-size: 28px;
+    font-weight: 700;
+    margin-left: 16px;
+}
+
+.nav-item:last-child {
+    padding: 6px 12px;
+    width: 30px;
+    background-color: #423ed8;
+    border-radius: 4px;
+}
+
+.nav-item a {
+    text-decoration: none;
+    color: white;
+    font-weight: 600;
+}
+
+.search-input {
+    height: 36px;
+    margin-right: 20px;
+    border-radius: 6px;
+    background-color: #2e3856; 
+    border: none;
+    width: 250px;
+    color: #d9dde8;
+    font-size: 16px;
+    font-weight: 600;
+    padding-left: 10px;
+}
+
+.search-input::placeholder {
+    color: #d9dde8;
+}
+
+.container-dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    background: #0a092d !important;
+    width: 120px;
+    position: absolute;
+    top: 30px;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #000;
+    border-radius: 12px;
+    display: none;
+}
+
+.dropdown-content:last-child {
+    right: 50px !important;
+    top: 50px;
+}
+
+.dropdown-item {
+    color: #ccc !important;
+    font-weight: 600;
+    padding: 10px;
+}
+
+.dropdown-item:hover {
+    background: #282e3e;
+    border-radius: 12px;
+    color: white !important;
+}
+
+.show {
+    display: flex;
+}
+
+.user-avatar {
+    background-color: #423ed8;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+    margin-right: 20px;
+    text-transform: uppercase;
+}
