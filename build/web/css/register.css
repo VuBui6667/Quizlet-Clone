@@ -17,6 +17,10 @@ body {
     height: 100vh;
 }
 
+.back-home {
+    display: none;
+    margin-left: 50px;
+}
 .container-img {
     background-image: url(../images/login.png);
     background-position: 50%;

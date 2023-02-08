@@ -122,17 +122,24 @@ public class filter implements Filter {
                     && !url.contains("flashCards")) {
                 res.sendRedirect("login.jsp");
             }
-        } else {
-            if (user.isIsActive() == false) {
-                if (!url.endsWith("verify.jsp") && !url.contains("login")) {
-                    res.sendRedirect("verify.jsp");
-                }
-            } else {
-                if (url.endsWith("login.jsp") || url.endsWith("register.jsp") || url.endsWith("verify.jsp")) {
-                    res.sendRedirect("home");
-                }
-            }
         }
+//        if (user == null) {
+//            if (!url.contains("login") && !url.contains("register")
+//                    && !url.contains("search") && !url.contains("home")
+//                    && !url.contains("flashCards")) {
+//                res.sendRedirect("login.jsp");
+//            }
+//        } else {
+//            if (user.isIsActive() == false) {
+//                if (!url.endsWith("verify.jsp") && !url.contains("login")) {
+//                    res.sendRedirect("verify.jsp");
+//                }
+//            } else {
+//                if (url.endsWith("login.jsp") || url.endsWith("register.jsp") || url.endsWith("verify.jsp")) {
+//                    res.sendRedirect("home");
+//                }
+//            }
+//        }
 
         Throwable problem = null;
         try {

@@ -90,6 +90,7 @@ public class Login extends HttpServlet {
                 ses.setAttribute("code", code);
                 if(sm.sendEmail(user, code)) {
                     response.sendRedirect("verify.jsp");
+                    
                 } else {
                     request.getRequestDispatcher("index.html").forward(request, response);
                 }

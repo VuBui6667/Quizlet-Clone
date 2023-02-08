@@ -93,7 +93,7 @@ public class DAO extends DBContext {
 
     public boolean activeAccount(String email) {
         boolean check = false;
-        String sql = "update User set isActive = 1 where gmail like ?";
+        String sql = "update [User] set isActive = 1 where gmail like ?";
         try {
             PreparedStatement ps = connection.prepareStatement(sql);
             ps.setString(1, email);
