@@ -23,6 +23,7 @@
                     <div class="methods">
                         <a class="register-btn" href="register.jsp">Đăng ký</a>
                         <div class="login-btn">Đăng nhập</div>
+                        <a href="home.jsp">X</a>
                     </div>      
                     <form action="login" method="post">
                         <input type="text" name="user" placeholder="Nhập email hoặc tên người dùng của bạn" class="input-form"/>
