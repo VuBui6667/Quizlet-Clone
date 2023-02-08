@@ -11,6 +11,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Đăng nhập | Quizlet</title>
         <link rel="stylesheet" href="css/login.css"/>   
+        <link rel="stylesheet" href="css/xClick.css"/>   
     </head>
     <body>
         <div class="wrapper-sign">
@@ -23,7 +24,6 @@
                     <div class="methods">
                         <a class="register-btn" href="register.jsp">Đăng ký</a>
                         <div class="login-btn">Đăng nhập</div>
-                        <a href="home.jsp">X</a>
                     </div>      
                     <form action="login" method="post">
                         <input type="text" name="user" placeholder="Nhập email hoặc tên người dùng của bạn" class="input-form"/>
@@ -33,8 +33,9 @@
                         <input type="submit" value="Đăng nhập" class="login-button"/>
                     </form>
                 </div>
-            <div style="color: red; margin-left: 32px">${requestScope.errInput}</div>
+                <div style="color: red; margin-left: 32px">${requestScope.errInput}</div>
             </div>
+            <a class="xclick" href="home.jsp">X</a>
         </div>
     </body>
 </html>
