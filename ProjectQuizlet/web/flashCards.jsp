@@ -64,7 +64,7 @@
         function handleDelete(id) {
             var isConfirm = confirm("Xóa học phần này?");
             if (isConfirm) {
-                window.location.href = "http://localhost:8080/Quizlett/delete?id=" + id;
+                window.location.href = "http://localhost:8080/projectquilet/delete?id=" + id;
             }
         }
 
