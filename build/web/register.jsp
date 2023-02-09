@@ -9,8 +9,8 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Đăng kí | Quizlet</title>
-        <link rel="stylesheet" href="css/register.css"/>
+        <title>Đăng kí | Quizlet</title>    
+        <link rel="stylesheet" href="css/register.css" />
     </head>
     <body>  
         <div class="wrapper-sign">
@@ -23,7 +23,6 @@
                     <div class="methods">
                         <div class="register-btn">Đăng ký</div>
                         <a class="login-btn" href="login.jsp">Đăng nhập</a>
-                        <a class="back-home" href="home.jsp">X</a>
                     </div>      
                     <form action="register" method="post">
                         <div class="text-form">EMAIL</div> 
@@ -37,6 +36,9 @@
                         <p class="errInput" style="color: red;">${requestScope.errEmpty}</p>
                     </form>
                 </div>
+            </div>
+            <div>
+                <a href="home.jsp" class="close"></a>
             </div>
         </div>
     </body>

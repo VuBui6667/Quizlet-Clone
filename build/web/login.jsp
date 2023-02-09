@@ -10,8 +10,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Đăng nhập | Quizlet</title>
-        <link rel="stylesheet" href="css/login.css"/>   
-        <link rel="stylesheet" href="css/xClick.css"/>   
+        <link rel="stylesheet" href="css/login.css" />
     </head>
     <body>
         <div class="wrapper-sign">
@@ -35,7 +34,9 @@
                 </div>
                 <div style="color: red; margin-left: 32px">${requestScope.errInput}</div>
             </div>
-            <a class="xclick" href="home.jsp">X</a>
+            <div>
+                <a href="home.jsp" class="close-login"></a>
+            </div>
         </div>
     </body>
 </html>
