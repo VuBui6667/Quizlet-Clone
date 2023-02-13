@@ -12,7 +12,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-        <link rel="stylesheet" href="css/header.css"/>
+<link rel="stylesheet" href="css/header.css" />
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <script src="https://kit.fontawesome.com/85116df733.js"></script>
     </head>
     <body>
         <% User user = (User)session.getAttribute("user"); %>
@@ -28,13 +30,26 @@
                     <a href="#">Lời giải chuyên gia</a>
                 </div>
                 <div class="nav-item">
-                    <a href="#">Thư viện của bạn</a>
+                    <a href="#">Thư viện của bạn &nbsp;<i class="fa-solid fa-chevron-down"style="font-size: 10px"></i></a>
                 </div>
                 <div class="nav-item container-dropdown">
                     <a onclick="handleOpenDropdown()" id="dropdown-btn">Tạo</a>
                     <div id="content" class="dropdown-content">
                         <a href="createSet" class="dropdown-item">Học phần</a>
-                        <a href="#" class="dropdown-item">Lớp</a> 
+                        <button id="myBtn" class="dropdown-item" onClick="handleOpenModal()">Thư mục</a> 
+                    </div>
+                </div>
+                <div id="myModal" class="modal">
+                    <div class="modal-content">
+                        <span class="close" onClick="handleCloseModal()">×</span>
+                        <h1 style="color: black">Tạo thư mục mới</h1>
+                        <form action="folder" method="post">
+                            <input class="title" type="text" name="title" placeholder="Nhập tiêu đề"></br>
+                            <input class="details" type="text" name="details" placeholder="Nhập mô tả(tùy chọn)">
+                            <div class="button-folder">
+                                <input type="submit" value="Tạo thư mục" class="create-button"/>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -65,6 +80,8 @@
         </div>
     </body>
     <script>
+        var modal = document.getElementById("myModal");
+
         function handleOpenDropdown() {
             var element = document.getElementById("content");
             element.classList.toggle("show");
@@ -75,11 +92,23 @@
             if (!e.target.matches("#dropdown-btn") && element.classList.contains("show")) {
                 element.classList.remove("show");
             }
+            if (e.target.matches("#myModal")) {
+                modal.style.display = "none";
+            }
         }
 
         function handleOpenSetting() {
             var element = document.getElementById("content2");
             element.classList.toggle("show");
         }
+
+        function handleOpenModal() {
+            modal.style.display = "block";
+        }
+
+        function handleCloseModal() {
+            modal.style.display = "none";
+        }
+
     </script>
 </html>

@@ -9,7 +9,7 @@ package model;
  * @author LENOVO
  */
 public class Folder {
-    private String id;
+    private int id;
     private String title;
     private String desc;
     private int userId;
@@ -34,7 +34,7 @@ public class Folder {
         this.isShare = isShare;
     }
     
-    public Folder(String id, String title, String desc, int userId, boolean isShare) {
+    public Folder(int id, String title, String desc, int userId, boolean isShare) {
         this.id = id;
         this.title = title;
         this.desc = desc;
@@ -42,11 +42,11 @@ public class Folder {
         this.isShare = isShare;
     }
 
-    public String getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
