@@ -3,12 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/GitLL/projectswp/web/register.jsp</file>
-            <file>file:/D:/GitLL/projectswp/src/java/controller/Register.java</file>
-            <file>file:/D:/GitLL/projectswp/web/header.jsp</file>
-            <file>file:/D:/GitLL/projectswp/web/home.jsp</file>
-            <file>file:/D:/GitLL/projectswp/web/login.jsp</file>
-            <file>file:/D:/GitLL/projectswp/web/css/register.css</file>
+            <file>file:/D:/testgit/projectswp/web/css/header.css</file>
+            <file>file:/D:/testgit/projectswp/web/createSet.jsp</file>
+            <file>file:/D:/testgit/projectswp/web/folder.jsp</file>
+            <file>file:/D:/testgit/projectswp/web/home.jsp</file>
+            <file>file:/D:/testgit/projectswp/src/java/model/Folder.java</file>
+            <file>file:/D:/testgit/projectswp/src/java/controller/CreateSet.java</file>
+            <file>file:/D:/testgit/projectswp/src/java/controller/Home.java</file>
+            <file>file:/D:/testgit/projectswp/web/header.jsp</file>
+            <file>file:/D:/testgit/projectswp/web/css/folder.css</file>
+            <file>file:/D:/testgit/projectswp/src/java/controller/CreateFolder.java</file>
         </group>
     </open-files>
 </project-private>

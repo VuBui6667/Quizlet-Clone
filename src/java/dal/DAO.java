@@ -8,8 +8,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.List;
 import model.Card;
+import model.Folder;
 import model.StudySet;
 import model.User;
 
@@ -18,12 +18,7 @@ import model.User;
  * @author LENOVO
  */
 public class DAO extends DBContext {
-    public static void main(String[] args) {
-        DAO dao = new DAO();
-        List<User> list = dao.getAllUser();
-        System.out.println(list.get(0).getName());
-    }
-    
+
     public ArrayList<User> getAllUser() {
         ArrayList<User> listU = new ArrayList<>();
         String sql = "select * from [User]";
@@ -40,6 +35,28 @@ public class DAO extends DBContext {
         }
 
         return listU;
+    }
+
+    public ArrayList<Folder> getAllFolder() {
+        ArrayList<Folder> listF = new ArrayList<>();
+        String sql = "select * from [Folder] ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                 Folder f = new Folder(
+                         rs.getInt("folderId"),
+                         rs.getString("title"),
+                         rs.getString("description"),
+                         rs.getInt("userId"),
+                         rs.getBoolean("isShare"));
+                 listF.add(f);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return listF;
     }
 
     public User checkUser(String username, String password) {
@@ -69,6 +86,30 @@ public class DAO extends DBContext {
             st.setBoolean(4, user.isIsActive());
             st.setString(5, user.getAvatar());
             st.setString(6, user.getLanguage());
+            st.executeUpdate();
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void createFolder(Folder folder) {
+        String sql = "INSERT INTO [dbo].[Folder]\n"
+                + "           ([title]\n"
+                + "           ,[description]\n"
+                + "           ,[userId]\n"
+                + "           ,[isShare])\n"
+                + "     VALUES\n"
+                + "           (?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, folder.getTitle());
+            st.setString(2, folder.getDesc());
+            st.setInt(3, folder.getUserId());
+            st.setBoolean(4, folder.isIsShare());
             st.executeUpdate();
 
         } catch (Exception e) {
@@ -333,5 +374,11 @@ public class DAO extends DBContext {
             System.out.println(e);
         }
         return listS;
+    }
+    public static void main(String[] args) {
+        DAO d = new DAO();
+        ArrayList<Folder> s = d.getAllFolder();
+        System.out.println(s.get(0).getTitle());
+        
     }
 }

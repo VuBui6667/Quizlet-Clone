@@ -1,0 +1,72 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Feb 13, 2023, 10:23:53 PM
+    Author     : ASUS
+*/
+
+body {
+    background-color: #0a092d;
+}
+
+.folderSet-section {
+    color: white;
+    margin: 30px 10vw;
+    font-size: 18px;
+}
+
+.control-folderSet {
+    display: flex;
+    justify-content: space-between;
+}
+
+.method-folderSet {
+    display: flex;
+}
+
+.method-item {
+    border: 1px solid white;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+}
+
+.method-item:hover {
+    background-color: #2e3856;
+    cursor: pointer;
+}
+
+.folderSet-info {
+    display: flex;
+}
+
+.folderSet-info p:last-child {
+    margin-left: 30px;
+}
+
+.fa-folder {
+    font-size: 50px;
+    color: #c3c7d5;
+    margin-right: 26px;
+}
+
+.folder-author {
+    display: flex;
+}
+
+.folder-author p {
+    font-size: 22px;
+    font-weight: 700;
+}
+
+.folder-desc {
+    margin-top: -10px;
+    color: #F6F7FB;
+    font-size: 16px;
+}
