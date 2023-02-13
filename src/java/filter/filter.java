@@ -123,6 +123,7 @@ public class filter implements Filter {
                 res.sendRedirect("login.jsp");
             }
         }
+        
 //        if (user == null) {
 //            if (!url.contains("login") && !url.contains("register")
 //                    && !url.contains("search") && !url.contains("home")
