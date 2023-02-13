@@ -15,9 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import model.Folder;
-import model.StudySet;
 import model.User;
-import org.apache.tomcat.jni.SSLContext;
 
 /**
  *
@@ -69,9 +67,9 @@ public class CreateFolder extends HttpServlet {
         User user = (User)ses.getAttribute("user");
         ArrayList<Folder> listF = d.getAllFolder();
         ses.setAttribute("listF", listF);
-ses.setAttribute("d", d);
-ses.setAttribute("user", user);
-        request.getRequestDispatcher("folder.jsp").forward(request, response);
+        ses.setAttribute("d", d);
+        ses.setAttribute("user", user);
+       request.getRequestDispatcher("folder.jsp").forward(request, response);
     }
 
     /**
