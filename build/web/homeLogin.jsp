@@ -13,8 +13,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>Trang chủ | Quizlet</title>
-        <link rel="stylesheet" href="css/home.css"/>
-        <<link rel="stylesheet" href="css/header.css"/>
+<!--        <link rel="stylesheet" href="css/home.css" />-->
         <link rel="stylesheet" href="css/homelogin.css"/>
     </head>
     <body>
@@ -22,7 +21,7 @@
         <div class="wrapper">
              <div class="content1">
             <img class="background-content item1"
-                src="https://images.prismic.io/quizlet-prod/6aa15201-1bbd-4bab-803d-93e7d2d4110e_Alt+Image+1+%281%29.png?auto=compress,format"
+                 src="images_1/q12.png"
                 alt="">
             <div class="content1-container">
                 <div class="content1-paragraph">
@@ -30,7 +29,7 @@
                     <p>Join over 60 million students using Quizlet’s science-backed flashcards, practice tests and
                         expert solutions to improve their grades and reach their goals.</p>
                     <div class="btnsignupfree">
-                        <a href="" class="signupfree">Sign up for free</a>
+                        <a href="register.jsp" class="signupfree">Sign up for free</a>
                     </div>
                     <!-- <button class="signupfree">Sign up for free</button> -->
                 </div>
@@ -50,7 +49,7 @@
                         From math to medicine to modern languages, Quizlet is used by students in over 100 different
                         subjects.</p>
                     <div class="btngetstarted">
-                        <a href="" class="getstarted">Get Started</a>
+                        <a href="register.jsp" class="getstarted">Get Started</a>
                     </div>
                 </div>
                 <div class="items3-1">
@@ -77,7 +76,7 @@
         <div class="content5">
             <div class="content5-items">
                 <div class="items5-1">
-                    <img src="/img/1d359d1f-be06-481d-af18-30a4d93b3b0f_commute-image.webp" alt="" class="imgitems5-1">
+                    <img src="images_1/q1.png" alt="" class="imgitems5-1">
                 </div>
                 <div class="items5-paragraph">
                     <h2>Yesterday’s commute, today’s study session </h2>
@@ -86,12 +85,12 @@
                         <div class="buttonapp">
                             <div class="appst">
                                 <div class="btnappstore">
-                                    <a href="" class="appstore"></a>
+                                    <a href="https://apps.apple.com/us/app/quizlet-flashcards-study-tools/id546473125" class="appstore"></a>
                                     </div>
                             </div>
                             <div class="ggplay">
                                 <div class="btnggplay">
-                                    <a href="" class="googleplay"></a>
+                                    <a href="https://play.google.com/store/apps/details?id=com.quizlet.quizletandroid&hl=en&referrer=utm_source%3D&pli=1" class="googleplay"></a>
                                     </div>
                             </div>
                         </div>
@@ -113,7 +112,7 @@
                     </div>
                     <div class="pwl">
                         <div class="itemimg1">
-                            <img src="/img/learn.svg" alt="" class="learn">
+                            <img src="images_1/learn.svg" alt="" class="learn">
                         </div>
                         <div class="items6-paragraph1">
                             <h3>Practice with Learn</h3>
@@ -125,7 +124,7 @@
                     </div>
                     <div class="tat">
                         <div class="itemimg2">
-                            <img src="/img/Test.svg" alt="" class="test">
+                            <img src="images_1/Test.svg" alt="" class="test">
                         </div>
                         <div class="items6-paragraph2">
                             <h3>Take a Test</h3>
@@ -135,7 +134,7 @@
                     </div>
                     <div class="asg">
                         <div class="itemimg3">
-                            <img src="/img/Smart Grading.svg" alt="" class="smart">
+                            <img src="images_1/Smart Grading.svg" alt="" class="smart">
                         </div>
                         <div class="items6-paragraph3">
                             <h3>Access smart grading</h3>
@@ -148,7 +147,7 @@
                     </div>
                 </div>
                 <div class="content6-2">
-                    <img src="/img/eeaa.png" alt="" class="imgitems6-2">
+                    <img src="images_1/q3.png" alt="" class="imgitems6-2">
                 </div>
             </div>
         </div>
@@ -156,7 +155,7 @@
         <div class="content7">
             <div class="content7-items">
                 <div class="content7-1">
-                    <img src="/img/aaaaaaa.png" alt="" class="imgitem7-1">
+                    <img src="images_1/q4.png" alt="" class="imgitem7-1">
                 </div>
                 <div class="content7-2">
                     <span class="quizplus">QUIZLET PLUS</span>
@@ -167,7 +166,7 @@
                     </div>
                     <div class="tot">
                         <div class="itemimg7-1">
-                            <img src="/img/Textbook Solutions.svg" alt="" class="textbook">
+                            <img src="images_1/Textbook Solutions.svg" alt="" class="textbook">
                         </div>
                         <div class="items7-paragraph1">
                             <h3>Thousands of textbooks</h3>
@@ -176,7 +175,7 @@
                     </div>
                     <div class="ew">
                         <div class="itemimg7-2">
-                            <img src="/img/Solutions.svg" alt="" class="solutions">
+                            <img src="images_1/Solutions.svg" alt="" class="solutions">
                         </div>
                         <div class="items7-paragraph2">
                             <h3>Expert written</h3>
@@ -186,7 +185,7 @@
                     </div>
                     <div class="sbs">
                         <div class="itemimg7-3">
-                            <img src="/img/Step by Step.svg" alt="" class="step">
+                            <img src="images_1/Step by Step.svg" alt="" class="step">
                         </div>
                         <div class="items7-paragraph3">
                             <h3>Step-by-step learning</h3>
@@ -208,7 +207,7 @@
         <div class="content9">
             <div class="content9-1">
                 <div class="imgct9-1">
-                    <img src="/img/8568c5a7-2554-43c5-81bf-322169240769_Image+(12).webp" alt="" class="img9-1">
+                    <img src="images_1/a1.png" alt="" class="img9-1">
                 </div>
                 <div class="content9-paragraph1">
                     <h5>“Quizlet has been supporting my success since high school. Flashcards available on the go are single-handedly getting me through university.”</h5>
@@ -217,7 +216,7 @@
             </div>
             <div class="content9-2">
                 <div class="imgct9-2">
-                    <img src="/img/17a32b86-e009-47f6-acb0-cdc8e89d35c4_06Sydney+1.webp" alt="" class="img9-2">
+                    <img src="images_1/a2.png" alt="" class="img9-2">
                 </div>
                 <div class="content9-paragraph2">
                     <h5>“Learn mode is the best thing that's ever come out of Quizlet. It shows you terms in a way that makes it easiest to remember.”</h5>
@@ -227,7 +226,7 @@
             </div>
             <div class="content9-3">
                 <div class="imgct9-3">
-                    <img src="/img/8160414d-ed6b-41ce-9654-18fc839916f6_oscar+and+owen+photo+for+us+homepage_fullsize+(1)+1.webp"
+                    <img src="images_1/a3.png"
                         alt="" class="img9-3">
                 </div>
                 <div class="content9-paragraph3">
@@ -244,13 +243,13 @@
                         <h1>Empower your students</h1>
                         <p>Help every student confidently learn anything, no matter what they’re striving to achieve. Using Quizlet’s free study sets, study modes and in-class game Checkpoint, you can instantly create a more engaged classroom. Students and teachers can sign up and study for free.</p>
                         <div class="btncafa">
-                            <a href="" class="cafa">Create a free account</a>
+                            <a href="register.jsp" class="cafa">Create a free account</a>
                         </div>
                     </div>
                 </div>
                 <div class="content10-2">
                     <div class="img10ct-2">
-                        <img src="/img/d5b00568-a324-488f-b16b-44480144cb81_Image+for+Text+Callout+(3).webp" alt="" class="img10-2">
+                        <img src="images_1/teacher.png" alt="" class="img10-2">
                     </div>
                 </div>
             </div>

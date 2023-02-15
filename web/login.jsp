@@ -35,7 +35,7 @@
                 <div style="color: red; margin-left: 32px">${requestScope.errInput}</div>
             </div>
             <div>
-                <a href="home.jsp" class="close-login"></a>
+                <a href="homeLogin.jsp" class="close-login"></a>
             </div>
         </div>
     </body>

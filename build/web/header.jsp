@@ -12,9 +12,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
-<link rel="stylesheet" href="css/header.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <script src="https://kit.fontawesome.com/85116df733.js"></script>
+        <link rel="stylesheet" href="css/header.css" />
     </head>
     <body>
         <% User user = (User)session.getAttribute("user"); %>
@@ -67,10 +66,10 @@
                     </c:if>
                     <c:if test="${user==null}" >
                         <div >
-                            <a href="login" class="dropdown-item">Đăng nhập</a>
+                            <a href="login" class="dropdown-item btn-login">Đăng nhập</a>
                         </div>
                         <div >
-                            <a href="register" class="dropdown-item">Đăng kí</a>
+                            <a href="register" class="dropdown-item btn-register">Đăng kí</a>
                         </div>
                     </c:if>
 
@@ -79,6 +78,7 @@
             </div>
         </div>
     </body>
+    <script src="https://kit.fontawesome.com/85116df733.js"></script>
     <script>
         var modal = document.getElementById("myModal");
 
