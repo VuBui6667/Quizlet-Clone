@@ -69,6 +69,7 @@ public class Home extends HttpServlet {
         for(StudySet s: listS) {
             listN.add(d.getUserByUserId(s.getUserId()).getName());
         }
+        ses.setAttribute("d", d);
         ses.setAttribute("listN", listN);
         response.sendRedirect("home.jsp");
     } 

@@ -23,13 +23,13 @@
                 <div class="content-container">
                     <c:forEach items="${listS}" var="s">
                         <a href="flashCards?id=${s.getId()}">
-                        <div class="item-study-set">
-                            <div class="title-study-set">${s.getTitle()}</div>
-                            <div class="amount-card">${s.getNumberCard()} thuật ngữ</div>
-                            <div class="author-study-set">
-                                By ${s.getAuthor()}
+                            <div class="item-study-set">
+                                <div class="title-study-set">${s.getTitle()}</div>
+                                <div class="amount-card">${s.getNumberCard()} thuật ngữ</div>
+                                <div class="author-study-set">
+                                    By ${user.getName()}
+                                </div>
                             </div>
-                        </div>
                         </a>
                     </c:forEach>
                 </div>

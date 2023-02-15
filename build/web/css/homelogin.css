@@ -274,7 +274,7 @@ font-size: 22px;
 }
 
 .btnappstore{
-    background-image: url(/img/apple.0d2b203b03862b8.png);
+    background-image: url(../images_1/appst.png);
     margin-top: 50px;
     padding:9px 60px;
 }
@@ -287,7 +287,7 @@ font-size: 22px;
     padding: 0px 50px;
 } 
 .btnggplay{
-    background-image: url(/img/google_play.d77c48c3ed5f110.png);
+    background-image: url(../images_1/ggplay.png);
     margin-top: 50px;
     padding:9px 60px;
     margin-left: 10px;

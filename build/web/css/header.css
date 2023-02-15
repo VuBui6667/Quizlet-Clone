@@ -37,9 +37,9 @@ body {
     padding: 20px 0;
 }
 .nav-item:hover{
-        border-bottom: 4px solid #fff;
-
-    }
+    border-bottom: 4px solid #fff;
+    margin-bottom: -4px;
+}
 
 .nav-item:first-child {
     font-size: 28px;
@@ -92,6 +92,7 @@ body {
     border: 1px solid #000;
     border-radius: 12px;
     display: none;
+    z-index: 99;
 }
 
 .dropdown-content:last-child {
@@ -240,5 +241,13 @@ body {
     border-radius: 12px;
     color: white !important;
     cursor: pointer;
+}
+
+.logout{
+    position: absolute;
+}
+
+.btn-login {
+    margin-right: 10px !important;
 }
 
