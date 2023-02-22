@@ -83,32 +83,56 @@ body {
 
 .dropdown-content {
     background: #0a092d !important;
-    width: 120px;
+    width: 220px;
     position: absolute;
-    top: 30px;
-    left: 0;
+    top: 50px;
+    right: 20px;
     display: flex;
     flex-direction: column;
     border: 1px solid #000;
     border-radius: 12px;
     display: none;
     z-index: 99;
+    padding-bottom: 7px;
 }
 
-.dropdown-content:last-child {
-    right: 50px !important;
-    top: 50px;
+.user-info {
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.info-name {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: -2px;
+}
+
+.info-email {
+    font-size: 13px;
+    font-weight: 400;
+    margin-top: -2px;
+    white-space: nowrap; 
+    width: 120px; 
+    overflow: hidden;
+    text-overflow: ellipsis; 
 }
 
 .dropdown-item {
     color: #ccc !important;
     font-weight: 600;
-    padding: 10px;
+    padding: 10px 20px;
+}
+
+.border-line {
+    height: 1px;
+    background: #ccc;
+    width: 100%;
+    margin: 7px 0;
 }
 
 .dropdown-item:hover {
     background: #282e3e;
-    border-radius: 12px;
     color: white !important;
 }
 
@@ -129,7 +153,6 @@ body {
     margin-right: 20px;
     text-transform: uppercase;
 }
-
 
 .modal {
     display: none; /* Ẩn Mặc Định */
@@ -250,4 +273,3 @@ body {
 .btn-login {
     margin-right: 10px !important;
 }
-
