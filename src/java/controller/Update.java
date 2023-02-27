@@ -140,7 +140,7 @@ public class Update extends HttpServlet {
             } else {
                 isShare = false;
             }
-            StudySet set = new StudySet(id, titleSet, descSet, isShare, 2, 1, 1);
+            StudySet set = new StudySet(id, titleSet, descSet, isShare, 1);
 
             d.updateStudySet(set);
             for (Card c : listCUpdate) {

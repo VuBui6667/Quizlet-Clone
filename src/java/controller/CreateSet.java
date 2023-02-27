@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import model.Card;
+import model.ListFolder;
 import model.StudySet;
 import model.User;
 
@@ -73,6 +74,7 @@ public class CreateSet extends HttpServlet {
             listC.add(c);
         }
         request.getSession().setAttribute("listC", listC);
+
         request.getRequestDispatcher("createSet.jsp").forward(request, response);
     }
 
@@ -90,9 +92,9 @@ public class CreateSet extends HttpServlet {
         HttpSession ses = request.getSession();
         String btnIncrease = request.getParameter("btn-increase");
         DAO d = new DAO();
-
         ArrayList<Card> listC = new ArrayList<>();
-
+//        int folderId = 0;
+//        folderId = (int)ses.getAttribute("folderId");
         String[] listTitleCard = request.getParameterValues("card-title");
         String[] listDescCard = request.getParameterValues("card-desc");
         for (int i = 0; i < listTitleCard.length; i++) {
@@ -125,7 +127,7 @@ public class CreateSet extends HttpServlet {
                 request.getRequestDispatcher("createSet.jsp").forward(request, response);
             } else {
                 User user = (User) ses.getAttribute("user");
-                StudySet set = new StudySet(0, titleSet, descSet, true, 1, user.getId(), 1);
+                StudySet set = new StudySet(0, titleSet, descSet, true, user.getId());
                 d.addStudySet(set);
                 for (Card c : listC) {
                     if (!c.getTerm().equals("") || !c.getDefinition().equals("")) {
@@ -133,6 +135,11 @@ public class CreateSet extends HttpServlet {
                         d.addCard(c_new);
                     }
                 }
+//                
+//                if (folderId != 0) {
+//                    ListFolder ListF = new ListFolder(d.getIdStudySet(), folderId, 10);
+//                    d.createListFolder(ListF);
+//                }
                 response.sendRedirect("home");
             }
         }

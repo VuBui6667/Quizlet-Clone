@@ -45,7 +45,7 @@
                     </div>
                     <div class="content-container">
                         <c:forEach items="${listF}" var="f">
-                            <a href="flashCards?id=${f.getId()}">
+                            <a href="folderSet?id=${f.getId()}">
                                 <div class="item-folder" >
                                     <div class="folder"></div>
                                     <div class="title-folder">${f.getTitle()}</div>
