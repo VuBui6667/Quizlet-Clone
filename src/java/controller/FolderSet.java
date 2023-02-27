@@ -2,6 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
+
 package controller;
 
 import dal.DAO;
@@ -15,45 +16,43 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import model.Folder;
+import model.StudySet;
 import model.User;
 
 /**
  *
  * @author ASUS
  */
-@WebServlet(name = "CreateFolder", urlPatterns = {"/folder"})
-public class CreateFolder extends HttpServlet {
-
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
+@WebServlet(name="FolderSet", urlPatterns={"/folderSet"})
+public class FolderSet extends HttpServlet {
+   
+    /** 
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try ( PrintWriter out = response.getWriter()) {
+        try (PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CreateFolder</title>");
+            out.println("<title>Servlet FolderSet</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CreateFolder at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet FolderSet at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
-    }
+    } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
-    /**
+    /** 
      * Handles the HTTP <code>GET</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -61,20 +60,25 @@ public class CreateFolder extends HttpServlet {
      */
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+    throws ServletException, IOException {
         DAO d = new DAO();
         HttpSession ses = request.getSession();
         User user = (User)ses.getAttribute("user");
-        ArrayList<Folder> listF = d.getAllFolderByUserId(user.getId());
-        ses.setAttribute("listF", listF);
-        ses.setAttribute("d", d);
-        ses.setAttribute("user", user);
-       request.getRequestDispatcher("folder.jsp").forward(request, response);
-    }
+        int id = Integer.parseInt(request.getParameter("id"));
+        ArrayList<StudySet> listSS = d.getListStudySet(id);
+        Folder f = d.getFolderByFolderId(id);
+        request.setAttribute("f", f);
+        request.setAttribute("folderId", id);
+        request.setAttribute("listSS", listSS);
+        request.setAttribute("d", d);
+        request.setAttribute("user", user);
+        ArrayList<StudySet> listS = d.getAllStudySet();
+        ses.setAttribute("listS", listS);
+        request.getRequestDispatcher("folderSet.jsp").forward(request, response);
+    } 
 
-    /**
+    /** 
      * Handles the HTTP <code>POST</code> method.
-     *
      * @param request servlet request
      * @param response servlet response
      * @throws ServletException if a servlet-specific error occurs
@@ -82,20 +86,21 @@ public class CreateFolder extends HttpServlet {
      */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
-        String title = request.getParameter("title");
-        String details = request.getParameter("details");
-        HttpSession ses = request.getSession();
-        User user = (User) ses.getAttribute("user");
-        Folder f = new Folder(1, title, details, user.getId(), false);
-        DAO dao = new DAO();
-        dao.createFolder(f);
-        doGet(request, response);
+    throws ServletException, IOException {
+        int studySetId = Integer.parseInt(request.getParameter("studySetId"));
+        String methodForm = request.getParameter("method-form");
+        int folderId = Integer.parseInt(request.getParameter("folderId"));
+        DAO d = new DAO();
+        if(methodForm.equals("delete")) {
+            d.deleteStudySetInFolder(folderId, studySetId);   
+        } else if(methodForm.equals("add")) {
+            d.addStudySetInFolder(folderId, studySetId);
+        }
+        response.sendRedirect("folderSet?id=" + folderId);
     }
 
-    /**
+    /** 
      * Returns a short description of the servlet.
-     *
      * @return a String containing servlet description
      */
     @Override

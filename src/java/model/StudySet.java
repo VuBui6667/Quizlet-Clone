@@ -16,30 +16,19 @@ public class StudySet {
     private String title;
     private String description;
     private boolean isShare;
-    private int folderId;
     private int userId;
-    private int classId;
+
 
     public StudySet() {
     }
 
-    public StudySet(int id, String title, String description, boolean isShare, int folderId, int userId, int classId) {
+    public StudySet(int id, String title, String description, boolean isShare, int userId) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.isShare = isShare;
-        this.folderId = folderId;
-        this.userId = userId;
-        this.classId = classId;
-    }
+        this.userId = userId;  }
 
-    public int getClassId() {
-        return classId;
-    }
-
-    public void setClassId(int classId) {
-        this.classId = classId;
-    }
 
     
 
@@ -75,13 +64,6 @@ public class StudySet {
         this.isShare = isShare;
     }
 
-    public int getFolderId() {
-        return folderId;
-    }
-
-    public void setFolderId(int folderId) {
-        this.folderId = folderId;
-    }
 
     public int getUserId() {
         return userId;

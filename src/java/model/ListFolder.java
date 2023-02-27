@@ -9,25 +9,25 @@ package model;
  * @author asus
  */
 public class ListFolder {
-    private int classId;
+    private int studySetId;
     private int folderId;
     private int listFolderId;
 
     public ListFolder() {
     }
 
-    public ListFolder(int classId, int folderId, int listFolderId) {
-        this.classId = classId;
+    public ListFolder(int studySetId, int folderId, int listFolderId) {
+        this.studySetId = studySetId;
         this.folderId = folderId;
         this.listFolderId = listFolderId;
     }
 
-    public int getClassId() {
-        return classId;
+    public int getStudySetId() {
+        return studySetId;
     }
 
-    public void setClassId(int classId) {
-        this.classId = classId;
+    public void setStudySetId(int studySetId) {
+        this.studySetId = studySetId;
     }
 
     public int getFolderId() {

@@ -63,7 +63,7 @@ public class Home extends HttpServlet {
         DAO d = new DAO();
         HttpSession ses = request.getSession();
         User user = (User)ses.getAttribute("user");
-        ArrayList<StudySet> listS = d.getAllStudySet(user);
+        ArrayList<StudySet> listS = d.getAllStudySet();
         ArrayList<String> listN = new ArrayList<>();
         ses.setAttribute("listS", listS);
         for(StudySet s: listS) {

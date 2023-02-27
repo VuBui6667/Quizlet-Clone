@@ -10,6 +10,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import model.Card;
 import model.Folder;
+import model.ListFolder;
 import model.StudySet;
 import model.User;
 
@@ -37,26 +38,86 @@ public class DAO extends DBContext {
         return listU;
     }
 
-    public ArrayList<Folder> getAllFolder() {
+    public ArrayList<Folder> getAllFolderByUserId(int userId) {
         ArrayList<Folder> listF = new ArrayList<>();
-        String sql = "select * from [Folder] ";
+        String sql = "select * from [Folder]where userId=? ";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, userId);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                 Folder f = new Folder(
-                         rs.getInt("folderId"),
-                         rs.getString("title"),
-                         rs.getString("description"),
-                         rs.getInt("userId"),
-                         rs.getBoolean("isShare"));
-                 listF.add(f);
+                Folder f = new Folder(
+                        rs.getInt("folderId"),
+                        rs.getString("title"),
+                        rs.getString("description"),
+                        rs.getInt("userId"),
+                        rs.getBoolean("isShare"));
+                listF.add(f);
             }
         } catch (Exception e) {
             System.out.println(e);
         }
 
         return listF;
+    }
+
+    public ArrayList<Integer> getStudySetIdByFolderId(int folderId) {
+        ArrayList<Integer> listSSId = new ArrayList<>();
+        String sql = "select studySetId from [ListFolder] where folderId =? ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, folderId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                listSSId.add(rs.getInt("studySetId"));
+            }
+            return listSSId;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return null;
+    }
+
+    public ArrayList<StudySet> getListStudySet(int folderId) {
+        ArrayList<Integer> listSSId = getStudySetIdByFolderId(folderId);
+        ArrayList<StudySet> listSS = new ArrayList<>();
+        for (Integer n : listSSId) {
+            listSS.add(getStudySetById(n));
+        }
+        return listSS;
+    }
+
+    public boolean isAddedInFolder(int folderId, int studySetId) {
+        ArrayList<Integer> listSSId = getStudySetIdByFolderId(folderId);
+        for (Integer n : listSSId) {
+            if (studySetId == n) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public Folder getFolderByFolderId(int folderId) {
+        String sql = "select * from [Folder] where folderId =? ";
+        Folder f = new Folder();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, folderId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                f = new Folder(
+                        rs.getInt("folderId"),
+                        rs.getString("title"),
+                        rs.getString("description"),
+                        rs.getInt("userId"),
+                        rs.getBoolean("isShare"));
+            }
+            return f;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
     }
 
     public User checkUser(String username, String password) {
@@ -88,6 +149,21 @@ public class DAO extends DBContext {
             st.setString(6, user.getLanguage());
             st.executeUpdate();
 
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void createListFolder(ListFolder lf) {
+        String sql = "INSERT INTO [dbo].[ListFolder]\n"
+                + "           ([studySetId]\n"
+                + "           ,[folderId])\n"
+                + "     VALUES(?,?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, lf.getStudySetId());
+            st.setInt(2, lf.getFolderId());
+            st.executeUpdate();
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -151,19 +227,18 @@ public class DAO extends DBContext {
                 + "           ([title]\n"
                 + "           ,[description]\n"
                 + "           ,[isShare]\n"
-                + "           ,[folderId]\n"
-                + "           ,[userId]\n"
-                + "           ,[classId])\n"
+                + "           ,[userId])\n"
                 + "     VALUES\n"
-                + "           (?,?,?,?,?,?)";
+                + "           (?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,?)";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, set.getTitle());
             st.setString(2, set.getDescription());
             st.setBoolean(3, true);
-            st.setInt(4, set.getFolderId());
-            st.setInt(5, set.getUserId());
-            st.setInt(6, set.getClassId());
+            st.setInt(4, set.getUserId());
             st.executeUpdate();
 
         } catch (Exception e) {
@@ -195,10 +270,8 @@ public class DAO extends DBContext {
                 + "      ,[title]\n"
                 + "      ,[description]\n"
                 + "      ,[isShare]\n"
-                + "      ,[folderId]\n"
                 + "      ,[userId]\n"
-                + "      ,[classId]\n"
-                + "  FROM [dbo].[StudySet]\n"
+                + "  FROM [dbo].[StudySet]"
                 + "  WHERE userId=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -210,9 +283,7 @@ public class DAO extends DBContext {
                 set.setTitle(rs.getString("title"));
                 set.setDescription(rs.getString("description"));
                 set.setIsShare(rs.getBoolean("isShare"));
-                set.setFolderId(rs.getInt("folderId"));
                 set.setUserId(rs.getInt("userId"));
-                set.setUserId(rs.getInt("classId"));
                 listS.add(set);
             }
         } catch (Exception e) {
@@ -227,9 +298,7 @@ public class DAO extends DBContext {
                 + "      ,[title]\n"
                 + "      ,[description]\n"
                 + "      ,[isShare]\n"
-                + "      ,[folderId]\n"
                 + "      ,[userId]\n"
-                + "      ,[classId]\n"
                 + "  FROM [dbo].[StudySet]\n"
                 + "  WHERE studySetId=?";
         try {
@@ -242,7 +311,6 @@ public class DAO extends DBContext {
                 set.setTitle(rs.getString("title"));
                 set.setDescription(rs.getString("description"));
                 set.setIsShare(rs.getBoolean("isShare"));
-                set.setFolderId(rs.getInt("folderID"));
                 set.setUserId(rs.getInt("userID"));
                 return set;
             }
@@ -289,6 +357,34 @@ public class DAO extends DBContext {
         return null;
     }
 
+    public void deleteStudySetInFolder(int folderId, int studySetId) {
+        String sql = "DELETE FROM [dbo].[ListFolder]\n"
+                + "      WHERE studySetId=? and folderId=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, studySetId);
+            st.setInt(2, folderId);
+            st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void addStudySetInFolder(int folderId, int studySetId) {
+        String sql = "INSERT INTO [dbo].[ListFolder]\n"
+                + "           ([studySetId]\n"
+                + "           ,[folderId])\n"
+                + "     VALUES (?, ?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, studySetId);
+            st.setInt(2, folderId);
+            st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
     public void deleteStudySet(int id) {
         String sql = "DELETE FROM [dbo].[StudySet]\n"
                 + "      WHERE studySetId=?";
@@ -318,18 +414,14 @@ public class DAO extends DBContext {
                 + "   SET [title] = ?\n"
                 + "      ,[description] = ?\n"
                 + "      ,[isShare] = ?\n"
-                + "      ,[folderId] = ?\n"
                 + "      ,[userId] = ?\n"
-                + "      ,[classId] = ?\n"
                 + " WHERE studySetId=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, set.getTitle());
             st.setString(2, set.getDescription());
             st.setBoolean(3, set.isIsShare());
-            st.setInt(4, set.getFolderId());
             st.setInt(5, set.getUserId());
-            st.setInt(6, set.getClassId());
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
@@ -365,9 +457,7 @@ public class DAO extends DBContext {
                         rs.getString("title"),
                         rs.getString("description"),
                         rs.getBoolean("isShare"),
-                        rs.getInt("folderId"),
-                        rs.getInt("userId"),
-                        rs.getInt("classId"));
+                        rs.getInt("userId"));
                 listS.add(set);
             }
         } catch (Exception e) {
@@ -375,10 +465,7 @@ public class DAO extends DBContext {
         }
         return listS;
     }
+
     public static void main(String[] args) {
-        DAO d = new DAO();
-        ArrayList<Folder> s = d.getAllFolder();
-        System.out.println(s.get(0).getTitle());
-        
     }
 }
