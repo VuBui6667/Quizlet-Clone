@@ -20,21 +20,35 @@
             <div class="container-slide">
                 <c:forEach items="${listC}" var="c">
                     <div class="slide">
-                        <label>
-                            <input type="checkbox" />
-                            <div class="flip-card">
+                        <div class="flip-container" onclick="handleFlipCard(${u.getNumberCard(listC, c)} - 1)">
+                            <div class="card-container">
                                 <div class="front">
-                                    ${c.getTerm()}
+                                    <div class="container-info">
+                                        <div>
+                                            Thuật ngữ
+                                            <i class="fa-regular fa-volume"></i>
+                                        </div>
+                                        <div class="num-card">${u.getNumberCard(listC, c)} / ${listC.size()}</div>
+                                        <i class="fa-solid fa-star"></i>
+                                    </div>
+                                    <div class="container-content">${c.getTerm()}</div>
                                 </div>
-                                <div class="back">${c.getDefinition()}</div>
+                                <div class="back">
+                                    <div class="container-info">
+                                        <div>Thuật ngữ</div>
+                                        <div class="num-card">${u.getNumberCard(listC, c)} / ${listC.size()}</div>
+                                        <i class="fa-solid fa-star"></i>
+                                    </div>
+                                    <div class="container-content">${c.getDefinition()}</div>
+                                </div>
                             </div>
-                        </label>
+                        </div>
+                        <div class="card-footer">
+                            <div class="btn-prev" onclick="goPrev()" ><i class="fa-solid fa-angle-left"></i></div>
+                            <div class="btn-next" onclick="goNext(${u.getNumberCard(listC, c)}, ${listC.size()})" ><i class="fa-solid fa-angle-right"></i></div>
+                        </div>
                     </div>
                 </c:forEach>         
-            </div>
-            <div class="card-footer">
-                <div class="btn-prev" onclick="goPrev()" >Prev</div>
-                <div class="btn-next" onclick="goNext()" >Next</div>
             </div>
             <div class="container-cards">
                 <div class="container-info">
@@ -46,8 +60,27 @@
                         </div> 
                     </div>
                     <div class="contain-controller" style="${user.getId() != requestScope.author.getId() ? "display: none" : ""}">
-                        <div><a href="update?id=${set.getId()}">Sửa</a></div>
-                        <div onclick="handleDelete(${set.getId()})">Xóa</div>
+                        <div class="item-controller"><i class="fa-solid fa-plus"></i></div>
+                        <div class="item-controller"><i class="fa-regular fa-share-from-square"></i></div>
+                        <div class="item-controller"><a href="update?id=${set.getId()}"><i class="fa-solid fa-pencil"></i></a></div>
+                        <div class="item-controller" onclick="handleOpenModalDel()"><i class="fa-regular fa-trash-can"></i></div>
+                    </div>
+                </div>
+                <div id="myModalDel" class="modalDel">
+                    <div class="modalDel-content">
+                        <div class="modal-container">
+                            <span class="close" onClick="handleCloseModalDel()">×</span>
+                            <h1>Xóa học phần này?</h1>
+                            <h2>${set.getTitle()}</h2>
+                            <h4>Bạn sắp xoá học phần này và toàn bộ dữ liệu trong đó. Không ai có thể truy cập vào học phần này nữa.</h4>
+                            <p>Bạn có chắc chắn không? Bạn sẽ không được hoàn tác.</p>
+                        </div>
+                        <div class="container-controll">
+                            <div class="btn-cancel" onClick="handleCloseModalDel()">Hủy</div>
+                            <div class="btn-del" onclick="handleDelete(${set.getId()})">
+                                Vâng, hãy xóa học phần
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="number-card">Thuật ngữ trong phần này (${listC.size()})</div>
@@ -58,14 +91,21 @@
                     </div>
                 </c:forEach>
             </div>
-        </div>
+        </div>  
     </body>
     <script>
-        function handleDelete(id) {
-            var isConfirm = confirm("Xóa học phần này?");
-            if (isConfirm) {
-                window.location.href = "http://localhost:8080/projectquizlet/delete?id=" + id;
+
+        function handleFlipCard(i) {
+            var cards = document.querySelectorAll(".card-container");
+            if (cards[i].style.transform === "") {
+                cards[i].style.transform = "rotateX(180deg)"
+            } else {
+                cards[i].style.transform = "";
             }
+        }
+
+        function handleDelete(id) {
+                window.location.href = "http://localhost:8080/projectquizlet/delete?id=" + id;
         }
 
         const slides = document.querySelectorAll(".slide");
@@ -79,16 +119,37 @@
                 var counter = count * 100;
                 slide.style.transform = "translateX(-" + counter + "%)";
             });
+            cards = document.querySelectorAll(".card-container");
+            cards.forEach(card => {
+                card.style.transform = "";
+            });
         };
-        const goNext = () => {
-            console.log("next");
-            count++;
-            slideImage();
+        const goNext = (i, n) => {
+            if (i !== n) {
+                count++;
+                slideImage();
+            }
         };
 
         const goPrev = () => {
             count--;
             slideImage();
         };
+
+        var modalDel = document.getElementById("myModalDel");
+
+        function handleOpenModalDel() {
+            modalDel.style.display = "block";
+        }
+
+        function handleCloseModalDel() {
+            modalDel.style.display = "none";
+        }
+
+        window.onclick = function (e) {
+            if (e.target.matches("#myModalDel")) {
+                modalDel.style.display = "none";
+            }
+        }
     </script>
 </html>
