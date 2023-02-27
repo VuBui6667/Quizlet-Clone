@@ -20,7 +20,7 @@
         <div class="container-create">
             <form action="update" method="post">
                 <div class="header-create">
-                    <div class="create"><a href="flashCards?id=${requestScope.id}">< Trở về học phần</a></div>
+                    <div class="create"><a href="flashCards?id=${requestScope.id}"><i class="fa-solid fa-chevron-left"></i> Trở về học phần</a></div>
                     <input class="btn-create" value="Hoàn tất" type="submit">
                 </div>
                 <input type="text" required name="titleSet" value="${requestScope.titleSet}" placeholder="Nhập tiêu đề, ví dụ: 'Sinh học - Chương 22: Tiến hóa'"  class="input-set"/><br/>

@@ -6,11 +6,14 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     Created on : Dec 13, 2022, 3:08:01 AM
     Author     : LENOVO
 */
+body {
+    background-color: #0a092d;
+}
 
 .container-body {
-    background-color: #0a092d;
     min-height: calc(100vh - 65px) !important;
     padding: 50px 200px;
+    width: 70vw;
 }
 
 .title-study-set {
@@ -82,21 +85,22 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
 
 .contain-controller {
     display: flex;
+    margin-right: 350px;
 }
 
-.contain-controller div {
+.item-controller {
     border: 1px solid white;
-    padding: 6px 10px;
-    border-radius: 12px;
+    padding: 10px 12px;
+    border-radius: 50%;
     cursor: pointer;
 }
 
-.contain-controller div:hover {
+.item-controller:hover {
     background-color: #2e3856;
 }
 
-.contain-controller div:last-child {
-    margin-left: 10px;
+.item-controller {
+    margin: 0 5px;
 }
 
 .container-name {
@@ -120,14 +124,6 @@ a {
     color: white;
 }
 
-.container-slide {
-    width: 50vw;
-    height: 400px;
-    position: relative;
-    margin: 50px;
-    overflow: hidden;
-}
-
 .slide {
     position: absolute;
     perspective: 1000px;
@@ -142,10 +138,11 @@ a {
 
 .container-slide {
     width: 50vw;
-    height: 400px;
+    height: 460px;
     position: relative;
-    margin: 50px;
+    margin: 50px 0;
     overflow: hidden;
+    border-radius: 8px;
 }
 
 .slide {
@@ -160,62 +157,60 @@ a {
     color: white;
 }
 
-label {
-    display: block;
-    position: absolute;
-    width: 50vw;
-    height: 400px;
-    perspective: 1000px;
-    transform-style: preserve-3d;
-    cursor: pointer;
-}
-
-.flip-card {
+.flip-container {
     position: relative;
     width: 100%;
     height: 100%;
-    transform-style: preserve-3d;
-    transition: all 0.5s ease-in-out;
-    z-index: 1;
     background-color: #2e3856;
 }
 
-.flip-card .front,
-.flip-card .back {
+.card-container {
     position: absolute;
-    width: 70%;
+    width: 100%;
     height: 100%;
-    text-align: center;
-    backface-visibility: hidden;
-    border-radius: 0 20px 0 20px;
-    background-color: #2e3856;
-    color: white;
-    padding: 0 100px;
+    transform-style: preserve-3d;
+    transition: all 0.5s ease;
 }
 
 .front {
-    margin: 150px;
-    margin-left: -20px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    color: white;
 }
 
 .back {
-    margin: -150px;
-}
-
-.flip-card .back {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    backface-visibility: hidden;
+    color: white;
     transform: rotateX(180deg);
 }
 
-input {
-    display: none;
+.container-info {
+    width: 100%;
+    margin: 24px 0;
+    margin-left: 32px;
+    display: flex;
+    justify-content: space-between;
 }
 
-:checked + .flip-card {
-    transform: rotateX(180deg);
+.container-content {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60%;
+    font-size: 32px;
 }
-label:hover :checked + .flip-card {
-    transform: rotateX(175deg);
-    box-shadow: 0 20px 20px rgba(255, 255, 255, 0.2);
+
+.fa-star {
+    margin-right: 64px;
+}
+
+.num-card {
+    margin-left: -50px;
 }
 
 .card-footer {
@@ -223,8 +218,8 @@ label:hover :checked + .flip-card {
     position: absolute;
     color: white;
     display: flex;
-    bottom: 20px;
-    left: 240px;
+    bottom: 0;
+    left: 10px;
 }
 
 .btn-prev, .btn-next {
@@ -242,4 +237,78 @@ label:hover :checked + .flip-card {
 .header-slide {
     display: flex;
     justify-content: space-between;
+}
+
+.modalDel {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px; /* Vị trí của modal */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: auto; /* thiết lập scroll khi cần thiết */
+    background: rgba(10, 9, 45, 0.7);
+}
+
+.modalDel-content {
+    margin: auto;
+    border: none !important;
+    width: 50%;
+    border-radius: 14px;
+    color: white;
+    background-color: #2e3856 !important;
+}
+
+.container-controll {
+    display: flex;
+    border-top: 1px solid #ccc;
+    justify-content: end;
+    padding: 20px;
+}
+
+.btn-cancel {
+    padding: 8px 16px;
+    border: 1px solid #d9dde8;
+    border-radius: 8px;
+    background: #0a092d;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-cancel:hover {
+    opacity: .8;
+}
+
+.btn-del {
+    background: #b00020;
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.modal-container {
+    padding: 20px;
+}
+
+.modal-container h1 {
+    font-weight: 600;
+}
+
+.modal-container h2 {
+    font-weight: 700;
+}
+
+.modal-container h4 {
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.modal-container p {
+    font-weight: 700;
 }

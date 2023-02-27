@@ -2,6 +2,7 @@ package utility;
 
 import dal.*;
 import java.util.*;
+import javafx.scene.control.ListCell;
 import model.*;
 
 /**
@@ -89,6 +90,15 @@ public class Utilities {
             return "Password must be between 4 and 12 characters";
         }
         return null;
+    }
+    
+    public int getNumberCard(ArrayList<Card> listC, Card c) {
+        for(int i=0; i<listC.size(); i++) {
+            if(listC.get(i).getId() == c.getId()) {
+                return i+1;
+            }
+        }
+        return -1;
     }
 
     public static void main(String[] args) {
