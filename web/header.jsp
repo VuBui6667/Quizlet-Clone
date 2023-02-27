@@ -61,6 +61,18 @@
                     <c:if test="${user!=null}" >
                         <a class="user-avatar" onclick="handleOpenSetting()"><%= user.getName().charAt(0)%></a>
                         <div id="content2" class="dropdown-content">
+                            <div class="user-info">
+                                <span class="user-avatar"><%= user.getName().charAt(0)%></span>
+                                <div>
+                                    <p class="info-name"><%= user.getName()%></p>
+                                    <p class="info-email"><%= user.getEmail() %></p>
+                                </div>
+                            </div>
+                            <div class="border-line"></div>
+                            <a class="dropdown-item">Hồ sơ</a>
+                            <a class="dropdown-item">Cài đặt</a>
+                            <a class="dropdown-item">Chế độ tối</a>
+                            <div class="border-line"></div>
                             <a href="logout" class="dropdown-item">Đăng xuất</a>
                         </div>
                     </c:if>
@@ -72,8 +84,6 @@
                             <a href="register" class="dropdown-item btn-register">Đăng kí</a>
                         </div>
                     </c:if>
-
-
                 </div>
             </div>
         </div>

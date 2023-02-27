@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import model.Card;
 import model.StudySet;
 import model.User;
+import utility.Utilities;
 
 /**
  *
@@ -66,6 +67,8 @@ public class FlashCards extends HttpServlet {
         StudySet set = d.getStudySetById(id);
         User user = d.getUserByUserId(set.getUserId());
         ArrayList<Card> listC = d.getAllCardInSet(id);
+        Utilities u = new Utilities();
+        request.setAttribute("u", u);
         request.setAttribute("set", set);
         request.setAttribute("listC", listC);
         request.setAttribute("author", user);

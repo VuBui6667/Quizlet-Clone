@@ -3,15 +3,10 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/testgit/projectswp/web/folderSet.jsp</file>
-            <file>file:/D:/testgit/projectswp/web/css/folderSet.css</file>
-            <file>file:/D:/testgit/projectswp/src/java/dal/DAO.java</file>
-            <file>file:/D:/testgit/projectswp/src/java/controller/Search.java</file>
-            <file>file:/D:/testgit/projectswp/src/java/filter/filter.java</file>
-            <file>file:/D:/testgit/projectswp/src/java/controller/Home.java</file>
-            <file>file:/D:/testgit/projectswp/web/header.jsp</file>
-            <file>file:/D:/testgit/projectswp/src/java/model/StudySet.java</file>
-            <file>file:/D:/testgit/projectswp/src/java/controller/FolderSet.java</file>
+            <file>file:/G:/SWP/projectswp/web/css/flashCards.css</file>
+            <file>file:/G:/SWP/projectswp/web/update.jsp</file>
+            <file>file:/G:/SWP/projectswp/web/flashCards.jsp</file>
+            <file>file:/G:/SWP/projectswp/web/css/update.css</file>
         </group>
     </open-files>
 </project-private>
