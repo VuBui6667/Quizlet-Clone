@@ -3,10 +3,18 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/G:/SWP/projectswp/web/folderSet.jsp</file>
+            <file>file:/G:/SWP/projectswp/web/createSet.jsp</file>
+            <file>file:/G:/SWP/projectswp/src/java/dal/DAO.java</file>
             <file>file:/G:/SWP/projectswp/web/css/flashCards.css</file>
             <file>file:/G:/SWP/projectswp/web/update.jsp</file>
+            <file>file:/G:/SWP/projectswp/web/css/folderSet.css</file>
+            <file>file:/G:/SWP/projectswp/src/java/controller/ControllerFolderSet.java</file>
             <file>file:/G:/SWP/projectswp/web/flashCards.jsp</file>
-            <file>file:/G:/SWP/projectswp/web/css/update.css</file>
+            <file>file:/G:/SWP/projectswp/src/java/controller/CreateSet.java</file>
+            <file>file:/G:/SWP/projectswp/src/java/controller/Update.java</file>
+            <file>file:/G:/SWP/projectswp/src/java/controller/FolderSet.java</file>
+            <file>file:/G:/SWP/projectswp/web/header.jsp</file>
         </group>
     </open-files>
 </project-private>

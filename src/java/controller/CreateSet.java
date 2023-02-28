@@ -74,6 +74,12 @@ public class CreateSet extends HttpServlet {
             listC.add(c);
         }
         request.getSession().setAttribute("listC", listC);
+        try {
+            int folderId = Integer.parseInt(request.getParameter("folderId"));
+            request.getSession().setAttribute("folderId", folderId);
+        } catch(Exception e) {
+            System.out.println(e);
+        }
 
         request.getRequestDispatcher("createSet.jsp").forward(request, response);
     }
@@ -93,8 +99,15 @@ public class CreateSet extends HttpServlet {
         String btnIncrease = request.getParameter("btn-increase");
         DAO d = new DAO();
         ArrayList<Card> listC = new ArrayList<>();
-//        int folderId = 0;
-//        folderId = (int)ses.getAttribute("folderId");
+        int folderId = 0;
+//        if(ses.getAttribute("folderId") != null) {
+//            folderId = (int)ses.getAttribute("folderId");
+//        }
+        try {
+            folderId = (int)ses.getAttribute("folderId");
+        } catch(Exception e) {
+            System.out.println(e);
+        }
         String[] listTitleCard = request.getParameterValues("card-title");
         String[] listDescCard = request.getParameterValues("card-desc");
         for (int i = 0; i < listTitleCard.length; i++) {
@@ -135,11 +148,12 @@ public class CreateSet extends HttpServlet {
                         d.addCard(c_new);
                     }
                 }
-//                
-//                if (folderId != 0) {
-//                    ListFolder ListF = new ListFolder(d.getIdStudySet(), folderId, 10);
-//                    d.createListFolder(ListF);
-//                }
+                
+                if (folderId != 0) {
+                    ListFolder ListF = new ListFolder(d.getIdStudySet(), folderId, 10);
+                    d.createListFolder(ListF);
+                    ses.setAttribute("folderId", "");
+                }
                 response.sendRedirect("home");
             }
         }

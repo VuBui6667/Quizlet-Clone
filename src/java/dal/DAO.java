@@ -169,6 +169,18 @@ public class DAO extends DBContext {
         }
     }
 
+    public void deleteInListFolder(int studySetId) {
+        String sql = "DELETE FROM [dbo].[ListFolder]\n"
+                + "      WHERE studySetId = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, studySetId);
+            st.executeUpdate();
+        } catch(Exception e) {
+            System.out.println(e);
+        }
+    }
+
     public void createFolder(Folder folder) {
         String sql = "INSERT INTO [dbo].[Folder]\n"
                 + "           ([title]\n"
@@ -414,14 +426,13 @@ public class DAO extends DBContext {
                 + "   SET [title] = ?\n"
                 + "      ,[description] = ?\n"
                 + "      ,[isShare] = ?\n"
-                + "      ,[userId] = ?\n"
                 + " WHERE studySetId=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, set.getTitle());
             st.setString(2, set.getDescription());
             st.setBoolean(3, set.isIsShare());
-            st.setInt(5, set.getUserId());
+            st.setInt(4, set.getId());
             st.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e);
@@ -432,7 +443,6 @@ public class DAO extends DBContext {
         String sql = "UPDATE [dbo].[Card]\n"
                 + "   SET [term] = ?\n"
                 + "      ,[definition] = ?\n"
-                + "      ,[studySetId] = ?\n"
                 + " WHERE cardId=?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);

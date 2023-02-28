@@ -87,16 +87,7 @@ public class FolderSet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        int studySetId = Integer.parseInt(request.getParameter("studySetId"));
-        String methodForm = request.getParameter("method-form");
-        int folderId = Integer.parseInt(request.getParameter("folderId"));
-        DAO d = new DAO();
-        if(methodForm.equals("delete")) {
-            d.deleteStudySetInFolder(folderId, studySetId);   
-        } else if(methodForm.equals("add")) {
-            d.addStudySetInFolder(folderId, studySetId);
-        }
-        response.sendRedirect("folderSet?id=" + folderId);
+      
     }
 
     /** 

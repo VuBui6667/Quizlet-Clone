@@ -44,30 +44,20 @@
                                 </div>
                                 <div class="content-container">
                                     <c:forEach items="${listS}" var="s">
-                                            <span > 
-                                                <div class="item-study-set1">
-                                                    <div class="title-study-set1">
-                                                            ${s.getTitle()}
-                                                        <c:set var="checkAdded" scope="request" value="${d.isAddedInFolder(folderId,s.getId())}" />
-                                                        <c:if test="${checkAdded}">
-                                                            <form action="folderSet" method="POST" id="form-delete">
-                                                                <input name="folderId" value="${folderId}" class="input-send"/>
-                                                                <input name="studySetId" value="${s.getId()}" class="input-send"/>
-                                                                <input name="method-form" value="delete" class="input-send"/>
-                                                                <i class="fa-solid fa-minus" onclick="submitDelete()"></i>
-                                                            </form>
-                                                        </c:if>
-                                                        <c:if test="${!checkAdded}">
-                                                            <form action="folderSet" method="POST" id="form-add">
-                                                                <input name="folderId" value="${folderId}" class="input-send"/>
-                                                                <input name="studySetId" value="${s.getId()}" class="input-send"/>
-                                                                <input name="method-form" value="add" class="input-send"/>
-                                                                <i class="fa-solid fa-plus add-icon" onclick="submitAdd()"></i>
-                                                            </form>
-                                                        </c:if>
-                                                    </div>
+                                        <span > 
+                                            <div class="item-study-set1">
+                                                <div class="title-study-set1">
+                                                    ${s.getTitle()}
+                                                    <c:set var="checkAdded" scope="request" value="${d.isAddedInFolder(folderId,s.getId())}" />
+                                                    <c:if test="${checkAdded}">
+                                                        <i class="fa-solid fa-minus" onclick="sendMethod(${s.getId()}, ${folderId}, 'delete')"></i>
+                                                    </c:if>
+                                                    <c:if test="${!checkAdded}">
+                                                        <i class="fa-solid fa-plus add-icon" onclick="sendMethod(${s.getId()}, ${folderId}, 'add')"></i>
+                                                    </c:if>
                                                 </div>
-                                            </span>
+                                            </div>
+                                        </span>
                                     </c:forEach>
                                 </div>
                             </div>
@@ -88,17 +78,19 @@
             </div>
 
             <p class="folder-desc">${f.getDesc()}</p>
+            <div class="container-studySet">
             <c:forEach items="${listSS}" var="ss">
-                <a href="flashCards?id=${ss.getId()}">
-                    <div class="item-study-set">
-                        <div class="title-study-set">${ss.getTitle()}</div>
+                    <div class="item-study-set" onclick="handleSelectStudy(${ss.getId()})">
+                        <div class="title-study-set">${ss.getTitle()}
+                            <i class="fa-solid fa-folder-minus" onclick="sendMethod(${ss.getId()}, ${folderId}, 'delete')"></i>
+                        </div>
                         <div class="amount-card">${ss.getNumberCard()} thuật ngữ</div>
                         <div class="author-study-set">
                             By ${d.getUserByUserId(ss.getUserId()).getName()}
                         </div>
                     </div>
-                </a>
             </c:forEach>
+            </div>
         </div>
     </body>
     <script>
@@ -145,16 +137,13 @@
             modal2.style.display = "none";
         }
         
-        function submitDelete() {
-            var formDelete = document.getElementById("form-delete");
-            formDelete.submit();
+        function handleSelectStudy(studySetId) {
+            window.location.href= "flashCards?id=" + studySetId;
         }
         
-        function submitAdd() {
-            var formAdd = document.getElementById("form-add");
-            formAdd.submit();
-            
-        }
+        function sendMethod(studySetId, folderId, method) {
+            window.location.href = "http://localhost:8080/projectquizlet/controllerFolderSet?studySetId=" + studySetId + "&folderId=" + folderId + "&method=" + method;
+        } 
 
     </script>
 </html>
