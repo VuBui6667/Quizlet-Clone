@@ -8,10 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import model.Card;
-import model.Folder;
-import model.StudySet;
-import model.User;
+import model.*;
 
 /**
  *
@@ -44,13 +41,13 @@ public class DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                 Folder f = new Folder(
-                         rs.getInt("folderId"),
-                         rs.getString("title"),
-                         rs.getString("description"),
-                         rs.getInt("userId"),
-                         rs.getBoolean("isShare"));
-                 listF.add(f);
+                Folder f = new Folder(
+                        rs.getInt("folderId"),
+                        rs.getString("title"),
+                        rs.getString("description"),
+                        rs.getInt("userId"),
+                        rs.getBoolean("isShare"));
+                listF.add(f);
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -58,6 +55,54 @@ public class DAO extends DBContext {
 
         return listF;
     }
+
+    public ArrayList<Folder> getTopFiveFolder(int userId) {
+        ArrayList<Folder> listF = new ArrayList<>();
+        String sql = "select top 5 * from Folder where userId = ? order by folderId desc ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, userId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Folder f = new Folder(
+                        rs.getInt("folderId"),
+                        rs.getString("title"),
+                        rs.getString("description"),
+                        rs.getInt("userId"),
+                        rs.getBoolean("isShare"));
+                listF.add(f);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return listF;
+    }
+    
+//    public ArrayList<Class> getTopFiveClass(int userId) {
+//        ArrayList<Class> listC = new ArrayList<>();
+//        String sql = "select top 5 * from Class where userId = ? order by classId desc ";
+//        try {
+//            PreparedStatement st = connection.prepareStatement(sql);
+//            st.setInt(1, userId);
+//            ResultSet rs = st.executeQuery();
+//            while (rs.next()) {
+//                Class c = new Class(
+//                        rs.getInt("classId"),
+//                        rs.getString("className"),
+//                        rs.getString("description"),
+//                        rs.getBoolean("isInvite"),
+//                        rs.getString("inviteCode"),
+//                        rs.getBoolean("isEdit"),
+//                        rs.getString("schoolName"),
+//                        rs.getInt("userId"));
+//                listC.add(c);
+//            }
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
+//        return listC;
+//    }
 
     public User checkUser(String username, String password) {
         ArrayList<User> listU = getAllUser();
@@ -203,6 +248,54 @@ public class DAO extends DBContext {
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, user.getId());
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                StudySet set = new StudySet();
+                set.setId(rs.getInt("studySetId"));
+                set.setTitle(rs.getString("title"));
+                set.setDescription(rs.getString("description"));
+                set.setIsShare(rs.getBoolean("isShare"));
+                set.setFolderId(rs.getInt("folderId"));
+                set.setUserId(rs.getInt("userId"));
+                set.setUserId(rs.getInt("classId"));
+                listS.add(set);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return listS;
+    }
+
+    public ArrayList<StudySet> getFiveStudySet(User user) {
+        ArrayList<StudySet> listS = new ArrayList<>();
+        String sql = "select top 5 * from StudySet where userId = ? order by studySetId desc";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, user.getId());
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                StudySet set = new StudySet();
+                set.setId(rs.getInt("studySetId"));
+                set.setTitle(rs.getString("title"));
+                set.setDescription(rs.getString("description"));
+                set.setIsShare(rs.getBoolean("isShare"));
+                set.setFolderId(rs.getInt("folderId"));
+                set.setUserId(rs.getInt("userId"));
+                set.setUserId(rs.getInt("classId"));
+                listS.add(set);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return listS;
+    }
+
+    public ArrayList<StudySet> getFiveStudySet(int userId) {
+        ArrayList<StudySet> listS = new ArrayList<>();
+        String sql = "select top 5 * from StudySet where userId = ? order by studySetId desc";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, userId);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
                 StudySet set = new StudySet();
@@ -375,10 +468,13 @@ public class DAO extends DBContext {
         }
         return listS;
     }
+
     public static void main(String[] args) {
         DAO d = new DAO();
         ArrayList<Folder> s = d.getAllFolder();
         System.out.println(s.get(0).getTitle());
-        
+        ArrayList<StudySet> set = d.getFiveStudySet(2);
+        System.out.println(set.get(0).getTitle());
+
     }
 }
