@@ -37,6 +37,123 @@ public class DAO extends DBContext {
 
         return listU;
     }
+     public ArrayList<model.Class> getAllClass() {
+        ArrayList<model.Class> listC = new ArrayList<>();
+        String sql = "select * from [Class] ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                model.Class c = new model.Class(
+                        rs.getInt("classId"),
+                        rs.getString("className"),
+                        rs.getString("description"),
+                        rs.getBoolean("isInvite"),
+                        rs.getString("inviteCode"),
+                        rs.getBoolean("isEdit"),
+                        rs.getString("schoolName"),
+                        rs.getInt("userId"));
+                listC.add(c);
+            }
+
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return listC;
+    }
+      public void createClass(model.Class c) {
+        String sql = "INSERT INTO [dbo].[Class]\n"
+                + "           ([className]\n"
+                + "           ,[description]\n"
+                + "           ,[isInvite]\n"
+                + "           ,[inviteCode]\n"
+                + "           ,[isEdit]\n"
+                + "           ,[schoolName]\n"
+                + "           ,[userId])\n"
+                + "     VALUES\n"
+                + "           (?\n"
+                + "           ,? \n"
+                + "		   ,?           \n"
+                + "		   ,?\n"
+                + "           ,?\n"
+                + "           ,?\n"
+                + "           ,?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, c.getName());
+            st.setString(2, c.getDesc());
+            st.setBoolean(3, c.isIsInvite());
+            st.setString(4, c.getInviteCode());
+            st.setBoolean(5, c.isIsEdit());
+            st.setString(6, c.getSchoolName());
+            st.setInt(7, c.getUserId());
+            st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+    }
+      
+      public model.Class getClassByClassId(int classId) {
+        String sql = "select*from [Class] where classId=?";
+        model.Class c = new model.Class();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, classId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                c = new model.Class(
+                        rs.getInt("classId"),
+                        rs.getString("className"),
+                        rs.getString("description"),
+                        rs.getBoolean("isInvite"),
+                        rs.getString("inviteCode"),
+                        rs.getBoolean("isEdit"),
+                        rs.getString("schoolName"),
+                        rs.getInt("userId")
+                );
+            }
+            return c;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+      
+      public model.Class getClassById(int id) {
+        ArrayList<model.Class> listC = new ArrayList<>();
+        String sql = "SELECT [classId]\n"
+                + "      ,[className]\n"
+                + "      ,[description]\n"
+                + "      ,[isInvite]\n"
+                + "      ,[inviteCode]\n"
+                + "      ,[isEdit]\n"
+                + "      ,[schoolName]\n"
+                + "      ,[userId]\n"
+                + "  FROM [dbo].[Class]\n"
+                + "  WHERE classId = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1,id);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()){
+                model.Class c = new model.Class();
+                c.setId(rs.getInt("classId"));
+                c.setName(rs.getString("className"));
+                c.setDesc(rs.getString("description"));
+                c.setIsInvite(rs.getBoolean("isInvite"));
+                c.setInviteCode(rs.getString("inviteCode"));
+                c.setIsEdit(rs.getBoolean("isEdit"));
+                c.setSchoolName(rs.getString("schoolName"));
+                c.setUserId(rs.getInt("userId"));
+                return c;
+            }
+            
+        }catch(Exception e){
+            System.out.println(e);
+        }
+        return null;
+    }
 
     public ArrayList<Folder> getAllFolderByUserId(int userId) {
         ArrayList<Folder> listF = new ArrayList<>();
