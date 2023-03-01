@@ -215,6 +215,30 @@ public class DAO extends DBContext {
         return false;
     }
 
+    public void removeListFolder(int folderId) {
+        String sql = "DELETE FROM [dbo].[ListFolder]\n"
+                + "      WHERE folderId = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, folderId);
+            st.executeUpdate();
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+    }
+
+    public void deleteFolderByFolderId(int folderId) {
+        String sql = "DELETE FROM [dbo].[Folder]\n"
+                + "      WHERE folderId = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, folderId);
+            st.executeUpdate(); 
+        } catch(Exception e) {
+            System.out.println(e);
+        }
+    }
+
     public Folder getFolderByFolderId(int folderId) {
         String sql = "select * from [Folder] where folderId =? ";
         Folder f = new Folder();
@@ -293,7 +317,7 @@ public class DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, studySetId);
             st.executeUpdate();
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
     }
