@@ -87,7 +87,11 @@ public class FolderSet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-      
+      int folderId = Integer.parseInt(request.getParameter("folderId"));
+      DAO d = new DAO();
+      d.removeListFolder(folderId);
+      d.deleteFolderByFolderId(folderId);
+      response.sendRedirect("folder");
     }
 
     /** 

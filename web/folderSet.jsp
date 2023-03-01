@@ -13,7 +13,7 @@
         <title>JSP Page</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://kit.fontawesome.com/85116df733.js"></script>
-        <link rel="stylesheet" href="./css/folderSet.css"/>
+        <link rel="stylesheet" href="css/folderSet.css" />
     </head>
     <body>
         <%@include file="header.jsp" %>
@@ -67,7 +67,31 @@
                         <i class="fa-solid fa-arrow-up-from-bracket"></i>
                     </div>
                     <div class="edit-folderSet method-item">
-                        <i class="fa-solid fa-ellipsis"></i>
+                        <i class="fa-solid fa-ellipsis" onclick="handleOpenDropdown()"></i>
+                        <div id="dropdown-controller" class="dropdown-controller">
+                            <a href="createSet" class="dropdown-item">Sửa</a>
+                            <button id="myBtn" class="dropdown-item" onclick="handleOpenModalDel()">Xóa</a> 
+                        </div>
+                    </div>
+                    <div id="myModalDel" class="modalDel">
+                        <div class="modalDel-content">
+                            <div class="modal-container">
+                                <span class="close" onClick="handleCloseModalDel()">×</span>
+                                <h1>Xóa thư mục</h1>
+                                <h2>${set.getTitle()}</h2>
+                                <h4>Xóa thư mục là thao tác VĨNH VIỄN. Bạn không thể hoàn tác.</h4>
+                                <h4>Bạn chắc chắn muốn xóa thư mục này? Học phần trong thư mục này sẽ không bị xoá.</h4>
+                            </div>
+                            <div class="container-controll">
+                                <div class="btn-cancel" onClick="handleCloseModalDel()">Hủy</div>
+                                <form action="folderSet" method="POST">
+                                    <input name="folderId" value="${folderId}" class="input-send"/>
+                                    <button type="submit" class="btn-del">
+                                        Xóa thư mục
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -79,7 +103,7 @@
 
             <p class="folder-desc">${f.getDesc()}</p>
             <div class="container-studySet">
-            <c:forEach items="${listSS}" var="ss">
+                <c:forEach items="${listSS}" var="ss">
                     <div class="item-study-set" onclick="handleSelectStudy(${ss.getId()})">
                         <div class="title-study-set">${ss.getTitle()}
                             <i class="fa-solid fa-folder-minus" onclick="sendMethod(${ss.getId()}, ${folderId}, 'delete')"></i>
@@ -89,7 +113,7 @@
                             By ${d.getUserByUserId(ss.getUserId()).getName()}
                         </div>
                     </div>
-            </c:forEach>
+                </c:forEach>
             </div>
         </div>
     </body>
@@ -114,7 +138,7 @@
             if (e.target.matches("#myModal2")) {
                 modal2.style.display = "none";
             }
-        }
+        };
 
         function handleOpenSetting() {
             var element = document.getElementById("content2");
@@ -136,14 +160,39 @@
         function handleCloseModal2() {
             modal2.style.display = "none";
         }
-        
+
         function handleSelectStudy(studySetId) {
-            window.location.href= "flashCards?id=" + studySetId;
+            window.location.href = "flashCards?id=" + studySetId;
         }
-        
+
         function sendMethod(studySetId, folderId, method) {
             window.location.href = "http://localhost:8080/projectquizlet/controllerFolderSet?studySetId=" + studySetId + "&folderId=" + folderId + "&method=" + method;
-        } 
+        }
+        
+        var dropdownController = document.getElementById("dropdown-controller");
+
+        function handleOpenDropdown() {
+            dropdownController.classList.toggle("show");
+        }
+        
+        var modalDel = document.getElementById("myModalDel");
+        
+        function handleOpenModalDel() {
+            modalDel.style.display = "block";
+        }
+
+        function handleCloseModalDel() {
+            modalDel.style.display = "none";
+        }
+
+        window.onclick = function (e) {
+            if (e.target.matches("#myModalDel")) {
+                modalDel.style.display = "none";
+            }
+            if(!e.target.matches(".fa-ellipsis") && dropdownController.classList.contains("show")) {
+                dropdownController.classList.remove("show");
+            }
+        };
 
     </script>
 </html>
