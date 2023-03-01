@@ -1,0 +1,160 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Feb 20, 2023, 4:01:14 PM
+    Author     : vieta
+*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.class-section {
+    margin: 30px 10vw;
+}
+
+body {
+    background-color: #0a092d;
+}
+
+.user-info {
+    display: flex;
+    font-size: 24px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+}
+
+.classuser{
+    display:flex;
+}
+.class-className{
+    padding-left: 30px;
+}
+
+.author-mail{
+    font-size: 18px;
+    color: #939bb4;
+    font-weight: 600;
+    margin: 5px 0;
+    letter-spacing: 0;
+}
+
+.user-avatar-class{
+    background-color: #423ed8;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 26px;
+    font-weight: 600;
+    margin-right: 20px;
+    text-transform: uppercase;
+}
+.container-home {
+    background-color: #0a092d;
+    min-height: calc(100vh - 65px) !important;
+}
+
+a{
+    text-decoration: none;
+}
+.content-container {
+    margin-top: 16px;
+}
+.class-container {
+    margin-top: 36px;
+}
+.title-container-class {
+    color: #939BB4;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-right: 20px;
+
+}
+.cate-class{
+    padding-bottom: 10px;
+    border-bottom: 1px solid #939BB4;
+    margin-bottom: 50px;
+}
+
+
+.method-folderSet {
+    display: flex;
+}
+
+.method-item {
+    border: 1px solid white;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+}
+
+.method-item:hover {
+    background-color: #2e3856;
+    cursor: pointer;
+}
+
+
+.item-class {
+    width: 100%;
+    height: 36px;
+    background-color: #2e3856;
+    padding: 20px;
+    color: white;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border-bottom: 4px solid #2e3856;
+    display: flex;
+}
+
+.item-class:hover {
+    border-bottom: 4px solid #fff;
+}
+
+.title-class {
+   font-size: 22px;
+   font-weight: 600;
+   margin-left: 15px;
+}
+
+.class {
+    width: 25px;
+    height: 15px;
+    display: inline-block;
+    position: relative;
+    background-color: #708090;
+    border-radius: 0 3px 3px 3px;
+    /*box-shadow: 4px 4px 7px rgba(0, 0, 0, 0.59);*/
+    margin-bottom: -8px;
+  }
+
+.class:before {
+    content: '';
+    width: 50%;
+    height: 0.2em;
+    border-radius: 0 20px 0 0;
+    background-color: #708090;
+    position: absolute;
+    top: -0.2em;
+    left: 0px;
+  }
+  .btn-folder{
+    padding: 12px 22px;
+    color: #f6f7fb;
+    background-color: #0a092d;
+    font-size: 14px;
+    border: 1px solid white;
+    border-radius: 5px;
+    }

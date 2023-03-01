@@ -1,0 +1,70 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Mar 1, 2023, 1:31:59 AM
+    Author     : vieta
+*/
+body {
+    background-color: #0a092d;
+}
+
+.classSet-section {
+    color: white;
+    margin: 30px 10vw;
+    font-size: 18px;
+}
+
+.control-classSet {
+        display: flex;
+        font-size: 24px;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+}
+
+.method-classSet {
+    display: flex;
+}
+
+.method-item {
+    border: 1px solid white;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+}
+
+.method-item:hover {
+    background-color: #2e3856;
+    cursor: pointer;
+}
+
+.classSet-info {
+    display: flex;
+}
+
+/*.classSet-info p:last-child {
+    margin-left: 30px;
+}*/
+
+.fa-class {
+    font-size: 50px;
+    color: #c3c7d5;
+    margin-right: 26px;
+}
+
+.class-author {
+    padding-left: 30px;
+    padding-bottom: 30px;
+}
+
+.class-desc {
+    margin-top: -10px;
+    color: #F6F7FB;
+    font-size: 16px;
+}

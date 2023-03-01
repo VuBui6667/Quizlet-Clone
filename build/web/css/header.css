@@ -145,6 +145,7 @@ body {
     background-color: rgba(0,0,0,0.4);
 }
 
+
 .modal-content {
     background-color: #fefefe;
     margin: auto;
@@ -199,6 +200,17 @@ body {
 
 .title{
     height: 30px;
+    width: 100%;
+    background-color: #F6F7FB;
+   border-radius:8px;
+     border:0px ;
+    font-size: 20px;
+    color: black;
+    margin-bottom: 20px;
+    padding: 10px 0px;
+}
+.classname{
+     height: 30px;
     width: 100%;
     background-color: #F6F7FB;
    border-radius:8px;
