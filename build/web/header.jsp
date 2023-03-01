@@ -36,89 +36,124 @@
                     <div id="content" class="dropdown-content">
                         <a href="createSet" class="dropdown-item">Học phần</a>
                         <button id="myBtn" class="dropdown-item" onClick="handleOpenModal()">Thư mục</a> 
-                    </div>
-                </div>
-                <div id="myModal" class="modal">
-                    <div class="modal-content">
-                        <span class="close" onClick="handleCloseModal()">×</span>
-                        <h1 style="color: black">Tạo thư mục mới</h1>
-                        <form action="folder" method="post">
-                            <input class="title" type="text" name="title" placeholder="Nhập tiêu đề"></br>
-                            <input class="details" type="text" name="details" placeholder="Nhập mô tả(tùy chọn)">
-                            <div class="button-folder">
-                                <input type="submit" value="Tạo thư mục" class="create-button"/>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-            <div class="nav-right">
-                <form action="search">
-                    <input type="search" name="search" class="search-input" placeholder="Tìm kiếm học phần"/>
-                    <input type="submit" hidden />
-                </form>
-                <div class="container-dropdown" style="display: flex; margin-right: 10px;">
-                    <c:if test="${user!=null}" >
-                        <a class="user-avatar" onclick="handleOpenSetting()"><%= user.getName().charAt(0)%></a>
-                        <div id="content2" class="dropdown-content">
-                            <div class="user-info">
-                                <span class="user-avatar"><%= user.getName().charAt(0)%></span>
-                                <div>
-                                    <p class="info-name"><%= user.getName()%></p>
-                                    <p class="info-email"><%= user.getEmail() %></p>
+                            <button id="myBtn" class="dropdown-item" onClick="handleOpenModal1()">Lớp học</a> 
+
                                 </div>
-                            </div>
-                            <div class="border-line"></div>
-                            <a class="dropdown-item">Hồ sơ</a>
-                            <a class="dropdown-item">Cài đặt</a>
-                            <a class="dropdown-item">Chế độ tối</a>
-                            <div class="border-line"></div>
-                            <a href="logout" class="dropdown-item">Đăng xuất</a>
-                        </div>
-                    </c:if>
-                    <c:if test="${user==null}" >
-                        <div >
-                            <a href="login" class="dropdown-item btn-login">Đăng nhập</a>
-                        </div>
-                        <div >
-                            <a href="register" class="dropdown-item btn-register">Đăng kí</a>
-                        </div>
-                    </c:if>
-                </div>
-            </div>
-        </div>
-    </body>
-    <script src="https://kit.fontawesome.com/85116df733.js"></script>
-    <script>
-        var modal = document.getElementById("myModal");
+                                </div>
+                                <div id="myModal" class="modal">
+                                    <div class="modal-content">
+                                        <span class="close" onClick="handleCloseModal()">×</span>
+                                        <h1 style="color: black">Tạo thư mục mới</h1>
+                                        <form action="folder" method="post">
+                                            <input class="title" type="text" name="title" placeholder="Nhập tiêu đề"></br>
+                                            <input class="details" type="text" name="details" placeholder="Nhập mô tả(tùy chọn)">
+                                            <div class="button-folder">
+                                                <input type="submit" value="Tạo thư mục" class="create-button"/>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                <div id="myModal1" class="modal">
+                                    <div class="modal-content">
+                                        <span class="close" onClick="handleCloseModal1()">×</span>
+                                        <h1 style="color: black">Tạo lớp mới </h1>
+                                        <p>Sắp xếp tài liệu học của bạn và chia sẻ chúng với bạn học của bạn.</p>
+                                        <form action="class" method="post">
+                                            <input  class="classname" type="text" name="classname" placeholder="Nhập tên lớp (khóa học, giáo viên, năm nay, phần vv)"></br>
+                                            <input class="details" type="text" name="detailsclass" placeholder="Nhập mô tả(tùy chọn)">
+                                            <input class="accept" type="checkbox" name="adddel" value="ok"/>cho phép các thành viên trong lớp thêm và bỏ học phần</br> </br> 
+                                            <input class="accept" type="checkbox" name="addpeople" value="ok"/>cho phép các thành viên trong lớp mời thành viên mới
 
-        function handleOpenDropdown() {
-            var element = document.getElementById("content");
-            element.classList.toggle("show");
-        }
+                                            <div class="button-folder">
+                                                <input type="submit" value="Tạo lớp" class="create-button"/>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="nav-right">
+                                    <form action="search">
+                                        <input type="search" name="search" class="search-input" placeholder="Tìm kiếm học phần"/>
+                                        <input type="submit" hidden />
+                                    </form>
+                                    <div class="container-dropdown" style="display: flex; margin-right: 10px;">
+                                        <c:if test="${user!=null}" >
+                                            <a class="user-avatar" onclick="handleOpenSetting()"><%= user.getName().charAt(0)%></a>
+                                            <div id="content2" class="dropdown-content">
+                                                <div class="user-info">
+                                                    <span class="user-avatar"><%= user.getName().charAt(0)%></span>
+                                                    <div>
+                                                        <p class="info-name"><%= user.getName()%></p>
+                                                        <p class="info-email"><%= user.getEmail() %></p>
+                                                    </div>
+                                                </div>
+                                                <div class="border-line"></div>
+                                                <a class="dropdown-item">Hồ sơ</a>
+                                                <a class="dropdown-item">Cài đặt</a>
+                                                <a class="dropdown-item">Chế độ tối</a>
+                                                <div class="border-line"></div>
+                                                <a href="logout" class="dropdown-item">Đăng xuất</a>
+                                            </div>
+                                        </c:if>
+                                        <c:if test="${user==null}" >
+                                            <div >
+                                                <a href="login" class="dropdown-item btn-login">Đăng nhập</a>
+                                            </div>
+                                            <div >
+                                                <a href="register" class="dropdown-item btn-register">Đăng kí</a>
+                                            </div>
+                                        </c:if>
+                                    </div>
+                                </div>
+                                </div>
+                                </body>
+                                <script src="https://kit.fontawesome.com/85116df733.js"></script>
+                                <script>
+                                              var modal = document.getElementById("myModal");
+                            var modal1 = document.getElementById("myModal1");
 
-        window.onclick = function (e) {
-            var element = document.getElementById("content");
-            if (!e.target.matches("#dropdown-btn") && element.classList.contains("show")) {
-                element.classList.remove("show");
-            }
-            if (e.target.matches("#myModal")) {
-                modal.style.display = "none";
-            }
-        }
 
-        function handleOpenSetting() {
-            var element = document.getElementById("content2");
-            element.classList.toggle("show");
-        }
+                            function handleOpenDropdown() {
+                                var element = document.getElementById("content");
+                                element.classList.toggle("show");
+                            }
 
-        function handleOpenModal() {
-            modal.style.display = "block";
-        }
+                            window.onclick = function (e) {
+                                var element = document.getElementById("content");
+                                if (!e.target.matches("#dropdown-btn") && element.classList.contains("show")) {
+                                    element.classList.remove("show");
+                                }
+                                if (e.target.matches("#myModal")) {
+                                    modal.style.display = "none";
+                                }
+                                if (e.target.matches("#myModal1")) {
+                                    modal1.style.display = "none";
+                                }
+                            }
 
-        function handleCloseModal() {
-            modal.style.display = "none";
-        }
 
-    </script>
-</html>
+                            function handleOpenSetting() {
+                                var element = document.getElementById("content2");
+                                element.classList.toggle("show");
+                            }
+
+                            function handleOpenModal() {
+                                modal.style.display = "block";
+                            }
+                            function handleOpenModal1() {
+                                modal1.style.display = "block";
+                            }
+
+
+                            function handleCloseModal() {
+                                modal.style.display = "none";
+
+                            }
+                            function handleCloseModal1() {
+                                modal1.style.display = "none";
+
+                            }
+
+
+                                </script>
+                                </html>
