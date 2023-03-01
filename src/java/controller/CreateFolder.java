@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import model.Folder;
+import model.StudySet;
 import model.User;
 
 /**
@@ -69,6 +70,12 @@ public class CreateFolder extends HttpServlet {
         ses.setAttribute("listF", listF);
         ses.setAttribute("d", d);
         ses.setAttribute("user", user);
+        ArrayList<StudySet> listSet = d.getFiveStudySet(user.getId());
+        request.setAttribute("nameS", d.getUserByUserId(user.getId()).getName());
+        request.setAttribute("listSet", listSet);
+        ArrayList<Folder> listFd = d.getTopFiveFolder(user.getId());
+        request.setAttribute("nameF", d.getUserByUserId(user.getId()).getName());
+        request.setAttribute("listFd", listFd);
        request.getRequestDispatcher("folder.jsp").forward(request, response);
     }
 

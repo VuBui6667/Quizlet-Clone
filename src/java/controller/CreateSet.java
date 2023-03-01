@@ -80,7 +80,7 @@ public class CreateSet extends HttpServlet {
         } catch(Exception e) {
             System.out.println(e);
         }
-
+        
         request.getRequestDispatcher("createSet.jsp").forward(request, response);
     }
 

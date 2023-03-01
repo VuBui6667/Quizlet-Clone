@@ -74,6 +74,12 @@ public class FolderSet extends HttpServlet {
         request.setAttribute("user", user);
         ArrayList<StudySet> listS = d.getAllStudySet();
         ses.setAttribute("listS", listS);
+        ArrayList<StudySet> listSet = d.getFiveStudySet(user.getId());
+        request.setAttribute("nameS", d.getUserByUserId(user.getId()).getName());
+        request.setAttribute("listSet", listSet);
+        ArrayList<Folder> listFd = d.getTopFiveFolder(user.getId());
+        request.setAttribute("nameF", d.getUserByUserId(user.getId()).getName());
+        request.setAttribute("listFd", listFd);
         request.getRequestDispatcher("folderSet.jsp").forward(request, response);
     } 
 
