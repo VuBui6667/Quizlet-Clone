@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
+import model.Folder;
 import model.StudySet;
 import model.User;
 
@@ -71,9 +72,15 @@ public class Home extends HttpServlet {
                 listN.add(s);
             }
         }
+        ArrayList<StudySet> listSet = d.getFiveStudySet(user.getId());
+        request.setAttribute("nameS", d.getUserByUserId(user.getId()).getName());
+        request.setAttribute("listSet", listSet);
         ses.setAttribute("d", d);
+        ArrayList<Folder> listFd = d.getTopFiveFolder(user.getId());
+        request.setAttribute("nameF", d.getUserByUserId(user.getId()).getName());
+        request.setAttribute("listFd", listFd);
         ses.setAttribute("listN", listN);
-        response.sendRedirect("home.jsp");
+        request.getRequestDispatcher("home.jsp").forward(request, response);
     } 
 
     /** 

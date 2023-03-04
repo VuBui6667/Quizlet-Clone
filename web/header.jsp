@@ -28,8 +28,63 @@
                 <div class="nav-item">
                     <a href="#">Lời giải chuyên gia</a>
                 </div>
-                <div class="nav-item">
-                    <a href="#">Thư viện của bạn &nbsp;<i class="fa-solid fa-chevron-down"style="font-size: 10px"></i></a>
+                <div class="nav-item container-dropdown-lib">
+                    <a onclick="handleOpenDropdownLib()" id="dropdown-btn-lib">Thư viện của bạn &nbsp;<i class="fa-solid fa-chevron-down"></i></a>
+                    <div id="content-lib" class="dropdown-content-lib">
+                        <c:if test="${user!=null}" >
+                            <span class="dropdown-item-lib" onclick="handleOpenStudySet()">Học phần</span>
+                            <span class="dropdown-item-lib">Lời giải chuyên gia</span>
+                            <span class="dropdown-item-lib" onclick="handleOpenFolder()">Thư mục</span>
+                            <span class="dropdown-item-lib">Lớp học</span>
+                        </c:if>
+                        <c:if test="${user==null}" >
+                            <a href="login.jsp">Đăng nhập để xem thư viện của bạn.</a>
+                        </c:if>
+                    </div>
+                    <div id="content-libb" class="dropdown-content-libb">
+                        <c:if test="${user!=null}" >
+                            <div class="item-lib" id="studySet-container">
+                                <div class="item-set">
+                                    <c:forEach items="${listSet}" var="set">
+                                        <a href="flashCards?id=${set.getId()}">
+                                            <div class="study-set-item-lib">
+                                                <div class="study-set-title-lib">${set.getTitle()}-hoc phan</div>
+                                                <div class="user-info-lib">
+                                                    <div class="user-avatar-lib">${nameS.charAt(0)}</div>
+                                                    <div class="user-avatar-name">${nameS}</div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </c:forEach>
+                                </div>
+                                <div class="get-all">
+                                    <a href="url">Xem tất cả học phần </a>
+                                </div>
+                            </div>
+                            <div class="item-lib" id="folder-container">
+                                <div class="item-set">
+                                    <c:forEach items="${listFd}" var="fd">
+                                        <a href="folderSet?id=${fd.getId()}">
+                                            <div class="study-set-item-lib">
+                                                <div class="study-set-title-lib">${fd.getTitle()}-thu muc</div>
+                                                <div class="user-info-lib">
+                                                    <div class="user-avatar-lib">${nameF.charAt(0)}</div>
+                                                    <div class="user-avatar-name">${nameF}</div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </c:forEach> 
+                                </div>
+                                <div class="get-all">
+                                    <a href="folder">Xem tất cả thư mục</a>
+                                </div>
+                            </div>
+                        </c:if>
+                        <c:if test="${user==null}" >
+                            Nếu chưa có tài khoản. Xin mời đến mục <a href="register.jsp">Đăng kí </a>
+                        </c:if>
+
+                    </div>
                 </div>
                 <div class="nav-item container-dropdown">
                     <a onclick="handleOpenDropdown()" id="dropdown-btn">Tạo</a>
@@ -109,6 +164,18 @@
                                 </body>
                                 <script src="https://kit.fontawesome.com/85116df733.js"></script>
                                 <script>
+                                    var folderContainer = document.getElementById("folder-container");
+                            var studySetContainer = document.getElementById("studySet-container");
+
+                            function handleOpenFolder() {
+                                folderContainer.style.display = "block";
+                                studySetContainer.style.display = "none";
+
+                            }
+                            function handleOpenStudySet() {
+                                folderContainer.style.display = "none";
+                                studySetContainer.style.display = "block";
+                            }
                                               var modal = document.getElementById("myModal");
                             var modal1 = document.getElementById("myModal1");
 
@@ -116,6 +183,21 @@
                             function handleOpenDropdown() {
                                 var element = document.getElementById("content");
                                 element.classList.toggle("show");
+                            }
+                            function handleOpenDropdownLib() {
+                                var contentLib = document.getElementsByClassName("dropdown-content-lib")[0];
+                                var contentLibb = document.getElementsByClassName("dropdown-content-libb")[0];
+                                if (contentLib.style.display === "") {
+                                    contentLib.style.display = "block";
+                                } else {
+                                    contentLib.style.display = "";
+                                }
+                                if (contentLibb.style.display === "") {
+                                    contentLibb.style.display = "block";
+                                } else {
+                                    contentLibb.style.display = "";
+                                }
+
                             }
 
                             window.onclick = function (e) {
@@ -128,6 +210,14 @@
                                 }
                                 if (e.target.matches("#myModal1")) {
                                     modal1.style.display = "none";
+                                }
+                                var elementLib = document.getElementById("content-lib");
+                                if (!e.target.matches("#dropdown-btn-lib") && elementLib.style.display === "block" && !e.target.matches(".dropdown-item-lib")) {
+                                    elementLib.style.display = "";
+                                }
+                                var elementLibb = document.getElementById("content-libb");
+                                if (!e.target.matches("#dropdown-btn-lib") && elementLibb.style.display === "block" && !e.target.matches(".dropdown-item-lib")) {
+                                    elementLibb.style.display = "";
                                 }
                             }
 
