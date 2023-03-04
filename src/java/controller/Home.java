@@ -73,12 +73,12 @@ public class Home extends HttpServlet {
             }
         }
         ArrayList<StudySet> listSet = d.getFiveStudySet(user.getId());
-        request.setAttribute("nameS", d.getUserByUserId(user.getId()).getName());
-        request.setAttribute("listSet", listSet);
+        ses.setAttribute("nameS", d.getUserByUserId(user.getId()).getName());
+        ses.setAttribute("listSet", listSet);
         ses.setAttribute("d", d);
         ArrayList<Folder> listFd = d.getTopFiveFolder(user.getId());
-        request.setAttribute("nameF", d.getUserByUserId(user.getId()).getName());
-        request.setAttribute("listFd", listFd);
+        ses.setAttribute("nameF", d.getUserByUserId(user.getId()).getName());
+        ses.setAttribute("listFd", listFd);
         ses.setAttribute("listN", listN);
         request.getRequestDispatcher("home.jsp").forward(request, response);
     } 
