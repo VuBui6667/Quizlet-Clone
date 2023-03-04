@@ -154,3 +154,27 @@ Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this t
     width: 60%;
     margin: 0 auto;
 }
+
+.container-share {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.share-btn {
+    width: 20px;
+    height: 20px;
+}
+
+.share-text {
+    color: white;
+    margin: 20px 5px;
+}
+
+.share-text:hover {
+    opacity: 0.8;
+}
+
+input[type='checkbox']:checked {
+  background-color: #423ed8 !important;
+}

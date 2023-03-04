@@ -115,14 +115,7 @@ public class Update extends HttpServlet {
         }
         String titleSet = request.getParameter("titleSet");
         String descSet = request.getParameter("descSet");
-        String isShare_raw = request.getParameter("isShare");
-        if (isShare_raw != null) {
-            if (isShare_raw.equals("on")) {
-                isShare_raw = "true";
-            }
-        } else {
-            isShare_raw = "false";
-        }
+        boolean isShare = request.getParameter("isShare") != null;
 
         if (btnIncrease != null) {
             num = num + 1;
@@ -131,15 +124,9 @@ public class Update extends HttpServlet {
             ses.setAttribute("listC", listC);
             request.setAttribute("titleSet", titleSet);
             request.setAttribute("descSet", descSet);
-            request.setAttribute("isShare", isShare_raw);
+            request.setAttribute("isShare", isShare);
             request.getRequestDispatcher("update.jsp").forward(request, response);
         } else {
-            Boolean isShare;
-            if (isShare_raw.equals("true")) {
-                isShare = true;
-            } else {
-                isShare = false;
-            }
             StudySet set = new StudySet(id, titleSet, descSet, isShare, 1);
 
             d.updateStudySet(set);

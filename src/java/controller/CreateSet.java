@@ -80,6 +80,7 @@ public class CreateSet extends HttpServlet {
         } catch(Exception e) {
             System.out.println(e);
         }
+        request.setAttribute("isShare", true);
 
         request.getRequestDispatcher("createSet.jsp").forward(request, response);
     }
@@ -100,9 +101,6 @@ public class CreateSet extends HttpServlet {
         DAO d = new DAO();
         ArrayList<Card> listC = new ArrayList<>();
         int folderId = 0;
-//        if(ses.getAttribute("folderId") != null) {
-//            folderId = (int)ses.getAttribute("folderId");
-//        }
         try {
             folderId = (int)ses.getAttribute("folderId");
         } catch(Exception e) {
@@ -114,6 +112,7 @@ public class CreateSet extends HttpServlet {
             listC.add(new Card(0, listTitleCard[i], listDescCard[i], 0));
         }
         String titleSet = request.getParameter("titleSet");
+        boolean isShare = request.getParameter("isShare") != null;
         String descSet = request.getParameter("descSet");
 
         if (btnIncrease != null) {
@@ -140,7 +139,7 @@ public class CreateSet extends HttpServlet {
                 request.getRequestDispatcher("createSet.jsp").forward(request, response);
             } else {
                 User user = (User) ses.getAttribute("user");
-                StudySet set = new StudySet(0, titleSet, descSet, true, user.getId());
+                StudySet set = new StudySet(0, titleSet, descSet, isShare, user.getId());
                 d.addStudySet(set);
                 for (Card c : listC) {
                     if (!c.getTerm().equals("") || !c.getDefinition().equals("")) {

@@ -14,7 +14,8 @@
         <link rel="stylesheet" href="css/flashCards.css" />
     </head>
     <body>
-        <%@include file="header.jsp" %>
+        <%@include file="header.jsp" %> 
+        <c:if test="${isShare}">
         <div class="container-body">
             <div class="title-study-set">${set.getTitle()}</div>
             <div class="container-slide">
@@ -92,6 +93,13 @@
                 </c:forEach>
             </div>
         </div>  
+        </c:if>
+        <c:if test="${!isShare}">
+            <div class="container-block">
+                <h1 class="title-block">Học phần đã được bảo vệ</h1>
+                <p class="sub-title">Rất tiếc, chúng tôi cần sự riêng tư!</p>
+            </div>
+        </c:if>
     </body>
     <script>
 

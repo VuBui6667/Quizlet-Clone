@@ -21,7 +21,7 @@
             <div class="study-set-container">
                 <div class="title-container">Học phần</div>
                 <div class="content-container">
-                    <c:forEach items="${listS}" var="s">
+                    <c:forEach items="${listN}" var="s">
                         <a href="flashCards?id=${s.getId()}">
                             <div class="item-study-set">
                                 <div class="title-study-set">${s.getTitle()}</div>

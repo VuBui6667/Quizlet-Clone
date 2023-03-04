@@ -390,7 +390,7 @@ public class DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setString(1, set.getTitle());
             st.setString(2, set.getDescription());
-            st.setBoolean(3, true);
+            st.setBoolean(3, set.isIsShare());
             st.setInt(4, set.getUserId());
             st.executeUpdate();
 

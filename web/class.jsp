@@ -23,26 +23,23 @@
         <%@include file="header.jsp" %>
         <div class="class-section">
             <div class="user-info">
-                <div class="classuser">
-                    <div class="icon-user">
-                        <i class="fa-solid fa-user-group"></i>
-                    </div>
-                    <div class="class-className">
-                        <div class="author">
-                            ${user.getName()}
-                            <p class="author-mail">
-                                ${user.getEmail()} 
-                            </p> 
-                        </div>    
-                    </div>    
-                </div>
+                <a class="user-avatar-folder"><%= user.getName().charAt(0)%></a>
+                <div class="author">
+                    ${user.getName()}
+                    <p class="author-mail">
+                        ${user.getEmail()} 
+                    </p> 
+                </div>    
             </div>
 
             <div class="container-home">
                 <div class="class-container">
                     <div class="cate-class">
-                        <a href="class.jsp" class="title-container-class">Các học phần</a>
-                        <a href="class.jsp" class="title-container-class">Thành viên</a>
+                        <a href="folder.jsp" class="title-container-class">Thành tựu</a>
+                        <a href="folder.jsp" class="title-container-class">Học phần</a>
+                        <a href="folder.jsp" class="title-container-class">Lời giải chuyên gia</a>
+                        <a href="folder.jsp" class="title-container-class">Thư Mục</a>
+                        <a href="class.jsp" class="title-container-class">Lớp học</a>
                     </div>
                      <div>
                         <button  class="btn-folder">Đã Tạo &nbsp;&nbsp;<i class="fa-solid fa-chevron-down"></i></button>

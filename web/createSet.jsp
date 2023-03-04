@@ -28,6 +28,10 @@
                 <div class="title-input">TIÊU ĐỀ</div>
                 <input type="text" name="descSet" value="${requestScope.descSet}" placeholder="Thêm mô tả..." class="input-set"/><br/>
                 <div class="title-input">MÔ TẢ</div>
+                <div class="container-share">
+                    <input class="share-btn" id="isShare" name="isShare" type="checkbox" ${isShare ? "checked" : ""} value="${isShare}"/>
+                    <label for="isShare" class="share-text">Chia sẻ với mọi người</label>
+                </div>
                 <div class="error-add" style="${err_card != null ? "" : "display: none"}">${requestScope.err_card}</div>
                 <c:forEach var="i" begin="1" end="${requestScope.numberCard}" >
                     <div class="container-card">

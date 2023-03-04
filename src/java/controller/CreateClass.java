@@ -87,9 +87,11 @@ public class CreateClass extends HttpServlet {
 //            String name = request.getParameter("className");
         String className = request.getParameter("classname");
         String details = request.getParameter("detailsclass");
+        Boolean isControllStudySet = Boolean.parseBoolean(request.getParameter("adddel"));
+        Boolean isControllMember = Boolean.parseBoolean(request.getParameter("addpeople"));
         HttpSession ses = request.getSession();
         User user = (User) ses.getAttribute("user");
-        Class c = new Class(1, className, details, false, "", false, "", user.getId());
+        Class c = new Class(1, className, details, isControllMember, "", isControllStudySet, "", user.getId());
         DAO dao = new DAO();
         request.setAttribute("classname", className);
         request.setAttribute("c", c);

@@ -28,7 +28,7 @@
                 <input type="text" name="descSet" value="${requestScope.descSet}" placeholder="Thêm mô tả..." class="input-set"/><br/>
                 <div class="title-input">MÔ TẢ</div>
                 <div class="container-share">
-                    <input class="share-btn" id="isShare" name="isShare" type="checkbox" ${requestScope.isShare ? "checked" : ""}/>
+                    <input class="share-btn" id="isShare" name="isShare" type="checkbox" ${requestScope.isShare ? "checked" : ""} value="${isShare}"/>
                     <label for="isShare" class="share-text">Chia sẻ với mọi người</label>
                 </div>
                 <c:forEach var="i" begin="1" end="${requestScope.numCard}" >

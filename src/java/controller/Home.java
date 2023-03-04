@@ -64,10 +64,12 @@ public class Home extends HttpServlet {
         HttpSession ses = request.getSession();
         User user = (User)ses.getAttribute("user");
         ArrayList<StudySet> listS = d.getAllStudySet();
-        ArrayList<String> listN = new ArrayList<>();
+        ArrayList<StudySet> listN = new ArrayList<StudySet>();
         ses.setAttribute("listS", listS);
         for(StudySet s: listS) {
-            listN.add(d.getUserByUserId(s.getUserId()).getName());
+            if(s.getUserId() == user.getId()) {
+                listN.add(s);
+            }
         }
         ses.setAttribute("d", d);
         ses.setAttribute("listN", listN);

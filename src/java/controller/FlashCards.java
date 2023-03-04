@@ -65,13 +65,19 @@ public class FlashCards extends HttpServlet {
         int id = Integer.parseInt(id_raw);
         DAO d = new DAO();
         StudySet set = d.getStudySetById(id);
-        User user = d.getUserByUserId(set.getUserId());
+        User author = d.getUserByUserId(set.getUserId());
+        User user = (User)request.getSession().getAttribute("user");
         ArrayList<Card> listC = d.getAllCardInSet(id);
         Utilities u = new Utilities();
+        boolean isShare = true;
+        if(!set.isIsShare() && set.getUserId() != user.getId()) {
+            isShare = false;
+        }
+        request.setAttribute("isShare", isShare);
         request.setAttribute("u", u);
         request.setAttribute("set", set);
         request.setAttribute("listC", listC);
-        request.setAttribute("author", user);
+        request.setAttribute("author", author);
         request.getRequestDispatcher("flashCards.jsp").forward(request, response);
     } 
 

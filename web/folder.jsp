@@ -37,7 +37,7 @@
                         <a href="folder.jsp" class="title-container-folder">Học phần</a>
                         <a href="folder.jsp" class="title-container-folder">Lời giải chuyên gia</a>
                         <a href="folder.jsp" class="title-container-folder">Thư Mục</a>
-                        <a href="folder.jsp" class="title-container-folder">Lớp học</a>
+                        <a href="class.jsp" class="title-container-folder">Lớp học</a>
                     </div>
                     <div>
                         <button  class="btn-folder">Đã Tạo &nbsp;&nbsp;<i class="fa-solid fa-chevron-down"></i></button>
