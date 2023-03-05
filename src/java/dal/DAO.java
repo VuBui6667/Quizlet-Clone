@@ -616,6 +616,50 @@ public class DAO extends DBContext {
         }
         return listS;
     }
+    
+    public ArrayList<Folder> getTopFiveFolder(int userId) {
+        ArrayList<Folder> listFd = new ArrayList<>();
+        String sql = "select top 5 * from Folder where userId = ? order by folderId desc ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, userId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Folder f = new Folder(
+                        rs.getInt("folderId"),
+                        rs.getString("title"),
+                        rs.getString("description"),
+                        rs.getInt("userId"),
+                        rs.getBoolean("isShare"));
+                listFd.add(f);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return listFd;
+    }
+
+    public ArrayList<StudySet> getFiveStudySet(int userId) {
+        ArrayList<StudySet> listS = new ArrayList<>();
+        String sql = "select top 5 * from StudySet where userId = ? order by studySetId desc";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, userId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                StudySet set = new StudySet();
+                set.setId(rs.getInt("studySetId"));
+                set.setTitle(rs.getString("title"));
+                set.setDescription(rs.getString("description"));
+                set.setIsShare(rs.getBoolean("isShare"));
+                set.setUserId(rs.getInt("userId"));
+                listS.add(set);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return listS;
+    }
 
     public static void main(String[] args) {
     }
