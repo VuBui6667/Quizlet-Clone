@@ -20,6 +20,43 @@ import model.User;
  */
 public class DAO extends DBContext {
 
+    public void addStudiedCard(int userId, int cardId, int studySetId) {
+        String sql = "INSERT INTO [dbo].[FlashCards]\n"
+                + "           ([userId]\n"
+                + "           ,[cardId]\n"
+                + "           ,[studySetId])\n"
+                + "     VALUES(?,?,?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, userId);
+            st.setInt(2, cardId);
+            st.setInt(3, studySetId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public ArrayList<Integer> getListStudiedCardId(int studySetId, int userId) {
+        String sql = "SELECT [userId]\n"
+                + "      ,[cardId]\n"
+                + "  FROM [dbo].[FlashCards]"
+                + "  WHERE studySetId = ? and userId = ?";
+        ArrayList<Integer> listId = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, studySetId);
+            st.setInt(2, userId);
+            ResultSet rs = st.executeQuery();
+            while(rs.next()) {
+                listId.add(rs.getInt("cardId"));
+            }
+        } catch(SQLException e) {
+            System.out.println(e);
+        }
+        return listId;
+    }
+
     public ArrayList<User> getAllUser() {
         ArrayList<User> listU = new ArrayList<>();
         String sql = "select * from [User]";
@@ -31,13 +68,14 @@ public class DAO extends DBContext {
                         rs.getBoolean("isActive"), rs.getString("avatar"), rs.getInt("userId"), rs.getString("language"));
                 listU.add(u);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
 
         return listU;
     }
-     public ArrayList<model.Class> getAllClass() {
+
+    public ArrayList<model.Class> getAllClass() {
         ArrayList<model.Class> listC = new ArrayList<>();
         String sql = "select * from [Class] ";
         try {
@@ -56,12 +94,13 @@ public class DAO extends DBContext {
                 listC.add(c);
             }
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return listC;
     }
-      public void createClass(model.Class c) {
+
+    public void createClass(model.Class c) {
         String sql = "INSERT INTO [dbo].[Class]\n"
                 + "           ([className]\n"
                 + "           ,[description]\n"
@@ -88,13 +127,13 @@ public class DAO extends DBContext {
             st.setString(6, c.getSchoolName());
             st.setInt(7, c.getUserId());
             st.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
 
     }
-      
-      public model.Class getClassByClassId(int classId) {
+
+    public model.Class getClassByClassId(int classId) {
         String sql = "select*from [Class] where classId=?";
         model.Class c = new model.Class();
         try {
@@ -114,13 +153,13 @@ public class DAO extends DBContext {
                 );
             }
             return c;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return null;
     }
-      
-      public model.Class getClassById(int id) {
+
+    public model.Class getClassById(int id) {
         ArrayList<model.Class> listC = new ArrayList<>();
         String sql = "SELECT [classId]\n"
                 + "      ,[className]\n"
@@ -134,9 +173,9 @@ public class DAO extends DBContext {
                 + "  WHERE classId = ?";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1,id);
+            st.setInt(1, id);
             ResultSet rs = st.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 model.Class c = new model.Class();
                 c.setId(rs.getInt("classId"));
                 c.setName(rs.getString("className"));
@@ -148,8 +187,8 @@ public class DAO extends DBContext {
                 c.setUserId(rs.getInt("userId"));
                 return c;
             }
-            
-        }catch(Exception e){
+
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return null;
@@ -171,7 +210,7 @@ public class DAO extends DBContext {
                         rs.getBoolean("isShare"));
                 listF.add(f);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
 
@@ -189,7 +228,7 @@ public class DAO extends DBContext {
                 listSSId.add(rs.getInt("studySetId"));
             }
             return listSSId;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
 
@@ -222,7 +261,7 @@ public class DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, folderId);
             st.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
@@ -233,8 +272,8 @@ public class DAO extends DBContext {
         try {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, folderId);
-            st.executeUpdate(); 
-        } catch(Exception e) {
+            st.executeUpdate();
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
@@ -255,7 +294,7 @@ public class DAO extends DBContext {
                         rs.getBoolean("isShare"));
             }
             return f;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return null;
@@ -290,7 +329,7 @@ public class DAO extends DBContext {
             st.setString(6, user.getLanguage());
             st.executeUpdate();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
@@ -305,7 +344,7 @@ public class DAO extends DBContext {
             st.setInt(1, lf.getStudySetId());
             st.setInt(2, lf.getFolderId());
             st.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
@@ -317,7 +356,7 @@ public class DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, studySetId);
             st.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
@@ -341,7 +380,7 @@ public class DAO extends DBContext {
             st.setBoolean(4, folder.isIsShare());
             st.executeUpdate();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
@@ -355,7 +394,7 @@ public class DAO extends DBContext {
             if (rs.next()) {
                 return rs.getInt("studySetId");
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return idx;
@@ -369,7 +408,7 @@ public class DAO extends DBContext {
             ps.setString(1, email);
             ps.execute();
             check = true;
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return check;
@@ -394,7 +433,7 @@ public class DAO extends DBContext {
             st.setInt(4, set.getUserId());
             st.executeUpdate();
 
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
@@ -412,7 +451,7 @@ public class DAO extends DBContext {
             st.setString(2, c.getDefinition());
             st.setInt(3, c.getStudySetId());
             st.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
@@ -439,7 +478,7 @@ public class DAO extends DBContext {
                 set.setUserId(rs.getInt("userId"));
                 listS.add(set);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return listS;
@@ -467,7 +506,7 @@ public class DAO extends DBContext {
                 set.setUserId(rs.getInt("userID"));
                 return set;
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return null;
@@ -493,7 +532,7 @@ public class DAO extends DBContext {
                 c.setStudySetId(rs.getInt("studySetId"));
                 listC.add(c);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
 
@@ -518,7 +557,7 @@ public class DAO extends DBContext {
             st.setInt(1, studySetId);
             st.setInt(2, folderId);
             st.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
@@ -533,7 +572,7 @@ public class DAO extends DBContext {
             st.setInt(1, studySetId);
             st.setInt(2, folderId);
             st.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
@@ -545,7 +584,7 @@ public class DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, id);
             st.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
@@ -557,7 +596,7 @@ public class DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             st.setInt(1, studySetId);
             st.executeUpdate();
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
@@ -611,12 +650,12 @@ public class DAO extends DBContext {
                         rs.getInt("userId"));
                 listS.add(set);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return listS;
     }
-    
+
     public ArrayList<Folder> getTopFiveFolder(int userId) {
         ArrayList<Folder> listFd = new ArrayList<>();
         String sql = "select top 5 * from Folder where userId = ? order by folderId desc ";
@@ -633,7 +672,7 @@ public class DAO extends DBContext {
                         rs.getBoolean("isShare"));
                 listFd.add(f);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return listFd;
@@ -655,7 +694,7 @@ public class DAO extends DBContext {
                 set.setUserId(rs.getInt("userId"));
                 listS.add(set);
             }
-        } catch (Exception e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return listS;
