@@ -23,8 +23,8 @@ import utility.Utilities;
  *
  * @author LENOVO
  */
-@WebServlet(name="FlashCards", urlPatterns={"/flashCards"})
-public class FlashCards extends HttpServlet {
+@WebServlet(name="study", urlPatterns={"/study"})
+public class Study extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -41,10 +41,10 @@ public class FlashCards extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet FlashCards</title>");  
+            out.println("<title>Servlet study</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet FlashCards at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet study at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,27 +61,18 @@ public class FlashCards extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        String id_raw = request.getParameter("id");
-        int id = Integer.parseInt(id_raw);
+        int studySetId = Integer.parseInt(request.getParameter("id"));
         DAO d = new DAO();
-        StudySet set = d.getStudySetById(id);
-        User author = d.getUserByUserId(set.getUserId());
+        StudySet set = d.getStudySetById(studySetId);
         User user = (User)request.getSession().getAttribute("user");
-        ArrayList<Card> listC = d.getAllCardInSet(id);
+        ArrayList<Card> listC = d.getAllCardInSet(studySetId);
+        ArrayList<Integer> listId = d.getListStudiedCardId(studySetId, user.getId());
         Utilities u = new Utilities();
-        boolean isShare = true;
-        if(!set.isIsShare() && set.getUserId() != user.getId()) {
-            isShare = false;
-        }
-        ArrayList<Integer> listId = d.getListStudiedCardId(set.getId(), user.getId());
-        
-        
-        request.setAttribute("isShare", isShare);
         request.setAttribute("u", u);
         request.setAttribute("set", set);
         request.setAttribute("listC", listC);
-        request.setAttribute("author", author);
-        request.getRequestDispatcher("flashCards.jsp").forward(request, response);
+        request.setAttribute("currentNumCard", listId.size());
+        request.getRequestDispatcher("study.jsp").forward(request, response);
     } 
 
     /** 
@@ -94,6 +85,7 @@ public class FlashCards extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /** 

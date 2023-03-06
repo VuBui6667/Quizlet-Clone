@@ -18,6 +18,14 @@
         <c:if test="${isShare}">
         <div class="container-body">
             <div class="title-study-set">${set.getTitle()}</div>
+            <div class="study-preview">
+                <div class="preview-item">
+                    <a href="study?id=${set.getId()}">Thẻ ghi nhớ</a>
+                </div>
+                <div class="preview-item">Học</div>
+                <div class="preview-item">Kiểm tra</div>
+                <div class="preview-item">Ghép thẻ</div>
+            </div>
             <div class="container-slide">
                 <c:forEach items="${listC}" var="c">
                     <div class="slide">
@@ -36,7 +44,7 @@
                                 </div>
                                 <div class="back">
                                     <div class="container-info">
-                                        <div>Thuật ngữ</div>
+                                        <div>Định nghĩa</div>
                                         <div class="num-card">${u.getNumberCard(listC, c)} / ${listC.size()}</div>
                                         <i class="fa-solid fa-star"></i>
                                     </div>
@@ -49,7 +57,8 @@
                             <div class="btn-next" onclick="goNext(${u.getNumberCard(listC, c)}, ${listC.size()})" ><i class="fa-solid fa-angle-right"></i></div>
                         </div>
                     </div>
-                </c:forEach>         
+                </c:forEach>    
+                <div id="list-size">${listC.size()}</div>
             </div>
             <div class="container-cards">
                 <div class="container-info">
@@ -132,15 +141,22 @@
                 card.style.transform = "";
             });
         };
-        const goNext = (i, n) => {
-            if (i !== n) {
+        
+        
+        var listSize = document.getElementById("list-size");
+        var size = parseInt(listSize.innerHTML);
+        
+        const goNext = () => {
+            if (count < size - 1) {
                 count++;
                 slideImage();
             }
         };
 
         const goPrev = () => {
-            count--;
+            if(count > 0) {
+                count--;
+            }
             slideImage();
         };
 
@@ -158,6 +174,19 @@
             if (e.target.matches("#myModalDel")) {
                 modalDel.style.display = "none";
             }
-        }
+        };
+        
+        window.onkeydown = function(e) {
+            if(e.keyCode === 39) {
+                goNext();
+            }
+            if(e.keyCode === 37) {
+                goPrev();
+            }
+            if(e.keyCode === 32) {
+                e.preventDefault();
+                handleFlipCard(count);
+            }
+        };
     </script>
 </html>
