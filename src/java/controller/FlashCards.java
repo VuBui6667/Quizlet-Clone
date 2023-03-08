@@ -75,12 +75,13 @@ public class FlashCards extends HttpServlet {
         }
         ArrayList<Integer> listId = d.getListStudiedCardId(set.getId(), user.getId());
         
-        
         request.setAttribute("isShare", isShare);
         request.setAttribute("u", u);
         request.setAttribute("set", set);
         request.setAttribute("listC", listC);
         request.setAttribute("author", author);
+        request.setAttribute("user", user);
+        request.setAttribute("currentNumCard", listId.size());
         request.getRequestDispatcher("flashCards.jsp").forward(request, response);
     } 
 

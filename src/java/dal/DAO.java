@@ -37,6 +37,19 @@ public class DAO extends DBContext {
         }
     }
 
+    public void resetStudiedCard(int userId, int studySetId) {
+        String sql = "DELETE FROM [dbo].[FlashCards]\n"
+                + "      WHERE userId=? and studySetId=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, userId);
+            st.setInt(2, studySetId);
+            st.executeUpdate();
+        } catch(SQLException e) {
+            System.out.println(e);
+        }
+    }
+
     public ArrayList<Integer> getListStudiedCardId(int studySetId, int userId) {
         String sql = "SELECT [userId]\n"
                 + "      ,[cardId]\n"
@@ -48,10 +61,10 @@ public class DAO extends DBContext {
             st.setInt(1, studySetId);
             st.setInt(2, userId);
             ResultSet rs = st.executeQuery();
-            while(rs.next()) {
+            while (rs.next()) {
                 listId.add(rs.getInt("cardId"));
             }
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
         return listId;
