@@ -12,17 +12,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import model.User;
-import model.Class;
 
 /**
  *
  * @author vieta
  */
-@WebServlet(name = "CreateClass", urlPatterns = {"/class"})
-public class CreateClass extends HttpServlet {
+@WebServlet(name = "ControllerClassSet", urlPatterns = {"/controllerClassSet"})
+public class ControllerClassSet extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,10 +37,10 @@ public class CreateClass extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CreateClass</title>");
+            out.println("<title>Servlet ControllerClassSet</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CreateClass at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ControllerClassSet at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -62,14 +58,17 @@ public class CreateClass extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        int studySetId = Integer.parseInt(request.getParameter("studySetId"));
+        int classId = Integer.parseInt(request.getParameter("classId"));
+        String method = request.getParameter("method");
         DAO d = new DAO();
-        HttpSession ses = request.getSession();
-        User user = (User) ses.getAttribute("user");
-        ArrayList<Class> listC = d.getAllClass();
-        ses.setAttribute("listC", listC);
-        ses.setAttribute("d", d);
-        
-        request.getRequestDispatcher("class.jsp").forward(request, response);
+        System.out.println("studysetId: " + studySetId);
+        if (method.equals("delete")) {
+            d.deleteStudySetInClass(classId, studySetId);
+        } else if (method.equals("add")) {
+            d.addStudySetInClass(classId, studySetId);
+        }
+        response.sendRedirect("classSet?id=" + classId);
     }
 
     /**
@@ -83,23 +82,7 @@ public class CreateClass extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-//            String name = request.getParameter("className");
-        String className = request.getParameter("classname");
-        String details = request.getParameter("detailsclass");
-        String schoolName = request.getParameter("schoolname");
-        Boolean isControllStudySet = Boolean.parseBoolean(request.getParameter("adddel"));
-        Boolean isControllMember = Boolean.parseBoolean(request.getParameter("addpeople"));
-        HttpSession ses = request.getSession();
-        User user = (User) ses.getAttribute("user");
-        Class c = new Class(1, className, details, isControllMember, "", isControllStudySet, schoolName, user.getId());
-        DAO dao = new DAO();
-        request.setAttribute("schoolname", schoolName);
-        request.setAttribute("classname", className);
-        request.setAttribute("c", c);
-        dao.createClass(c);
-        doGet(request, response);
-
+        processRequest(request, response);
     }
 
     /**
