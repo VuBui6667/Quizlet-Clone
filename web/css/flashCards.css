@@ -14,6 +14,7 @@ body {
     min-height: calc(100vh - 65px) !important;
     padding: 50px 200px;
     width: 70vw;
+    display: none;
 }
 
 .title-study-set {
@@ -359,5 +360,97 @@ a {
 }
 
 #list-size {
+    display: none;
+}
+
+.container-progress {
+    width: 50vw;
+}
+
+#progress-study {
+    height: 3px;
+    background-color: #a8b1ff;
+    width: 0;
+    margin-top: 50px;
+    margin-bottom: -30px;
+}
+
+#current-numCard {
+    display: none;
+}
+
+.complete-header {
+    display: flex;
+}
+
+.title-complete {
+    color: white;
+    font-size: 36px;
+    margin-right: 20px;
+}
+
+.continue-title {
+    color: #939bb4;
+    line-height: 1.4;
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.continue-container {
+    display: flex;
+    justify-content: space-between;
+}
+
+.continue-item {
+    background-color: #2e3856;
+    border: 2px solid #13141b;
+    border-radius: 8px;
+    box-shadow: 0 0.25rem 1rem #30354514;
+    padding: 1rem;
+    width: 44%;
+}
+
+.continue-item:hover {
+    cursor: pointer;
+    border-color: #939bb4;
+}
+
+.continue-item p:nth-child(1) {
+    color: #a8b1ff;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.continue-item p:nth-child(2) {
+    color: white;
+}
+
+.navigate {
+    display: flex;
+    color: white;
+    justify-content: space-between;
+    margin-top: 25px;
+    font-weight: 600;
+}
+
+.fa-left-long {
+    margin-right: 10px;
+}
+
+.fa-right-long {
+    margin-left: 10px;
+}
+
+.navigate div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navigate div:hover {
+    cursor: pointer;
+}
+
+#container-complete {
     display: none;
 }
