@@ -13,18 +13,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import model.Card;
-import model.StudySet;
-import model.User;
-import utility.Utilities;
 
 /**
  *
  * @author LENOVO
  */
-@WebServlet(name="study", urlPatterns={"/study"})
-public class Study extends HttpServlet {
+@WebServlet(name="ResetStudiedCard", urlPatterns={"/resetStudiedCard"})
+public class ResetStudiedCard extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -41,10 +36,10 @@ public class Study extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet study</title>");  
+            out.println("<title>Servlet ResetStudiedCard</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet study at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ResetStudiedCard at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,19 +56,12 @@ public class Study extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        int studySetId = Integer.parseInt(request.getParameter("id"));
+        int userId = Integer.parseInt(request.getParameter("userId"));
+        int studySetId = Integer.parseInt(request.getParameter("studySetId"));
+        String mode = request.getParameter("mode");
         DAO d = new DAO();
-        StudySet set = d.getStudySetById(studySetId);
-        User user = (User)request.getSession().getAttribute("user");
-        ArrayList<Card> listC = d.getAllCardInSet(studySetId);
-        ArrayList<Integer> listId = d.getListStudiedCardId(studySetId, user.getId());
-        Utilities u = new Utilities();
-        request.setAttribute("u", u);
-        request.setAttribute("set", set);
-        request.setAttribute("listC", listC);
-        request.setAttribute("user", user);
-        request.setAttribute("currentNumCard", listId.size());
-        request.getRequestDispatcher("study.jsp").forward(request, response);
+        d.resetStudiedCard(userId, studySetId);
+        response.sendRedirect(mode + "?id=" + studySetId);
     } 
 
     /** 
