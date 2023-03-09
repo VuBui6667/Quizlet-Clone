@@ -411,3 +411,34 @@ body {
 .under{
     border-bottom: 2px solid #a8b1ff;
 }
+
+
+.class-na,.school-na,.details-cl{
+    height: 30px;
+    width: 100%;
+    border-radius:8px;
+    border:0px ;
+    font-size: 20px;
+    background-color:#0a092d;
+    color: #f6f7fb;
+    margin-bottom: 20px;
+    padding: 15px 0px;
+    
+}
+
+.create-button-cl{
+    background-color: #586380;
+    font-size: 14px;
+    color: white;
+    margin-top: 50px;
+    padding: 8px 16px;
+    border-radius: 6px;
+    border:0px ;
+}
+
+.create-button-cl:hover{
+    background: #282e3e;
+    border-radius: 12px;
+    color: white !important;
+    cursor: pointer;
+}

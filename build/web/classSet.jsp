@@ -107,7 +107,10 @@
                             </div>
                         </div>
                         <div class="filter">
-                            <p>search</p>
+                            <form action="search">
+                                        <input type="search" name="search" class="search-input" placeholder="Lọc"/>
+                                        <input type="submit" hidden />
+                                    </form>
                         </div>
 
                     </div>
