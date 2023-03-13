@@ -71,6 +71,7 @@ public class Study extends HttpServlet {
         request.setAttribute("u", u);
         request.setAttribute("set", set);
         request.setAttribute("listC", listC);
+        request.setAttribute("user", user);
         request.setAttribute("currentNumCard", listId.size());
         request.getRequestDispatcher("study.jsp").forward(request, response);
     } 

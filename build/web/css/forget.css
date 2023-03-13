@@ -78,7 +78,8 @@ p{
 }
 
 .input-form {
-    border-style: hidden;
+    outline: none;
+    border: none;
     border-bottom: 2px solid black;
     margin-top: 7px;
     padding: 12px 0;
@@ -91,6 +92,7 @@ p{
 }
 
 .input-form:focus{
+    padding: 12px 0;
     outline: none;
     border: none;
     border-bottom: 4px solid #ffcd1f;

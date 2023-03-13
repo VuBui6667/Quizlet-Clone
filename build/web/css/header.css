@@ -411,3 +411,11 @@ body {
 .under{
     border-bottom: 2px solid #a8b1ff;
 }
+.before-login1{
+    text-align: center;
+}
+
+.before-login2{
+    text-align: center;
+    padding: 10px 0;
+}

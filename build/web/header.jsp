@@ -39,7 +39,9 @@
                                 <span class="dropdown-item-lib" id="items3">Lớp học</span>
                             </c:if>
                             <c:if test="${user==null}" >
-                                <a href="login.jsp">Đăng nhập để xem thư viện của bạn.</a>
+                                <div class="before-login1">
+                                    <a href="login.jsp">Đăng nhập để xem thư viện của bạn.</a>
+                                </div>
                             </c:if>
                         </div>
                     </div>
@@ -60,7 +62,7 @@
                                     </c:forEach>
                                 </div>
                                 <div class="get-all">
-                                    <a href="url">Xem tất cả học phần </a>
+                                    <a href="folder">Xem tất cả học phần </a>
                                 </div>
                             </div>
                             <div class="item-lib" id="folder-container">
@@ -83,7 +85,9 @@
                             </div>
                         </c:if>
                         <c:if test="${user==null}" >
-                            Nếu chưa có tài khoản. Xin mời đến mục <a href="register.jsp">Đăng kí </a>
+                            <div class="before-login2">
+                                Nếu chưa có tài khoản. Xin mời đến mục <a href="register.jsp">Đăng kí </a>
+                            </div>
                         </c:if>
 
                     </div>
@@ -119,7 +123,8 @@
                                             <input  class="classname" type="text" name="classname" placeholder="Nhập tên lớp (khóa học, giáo viên, năm nay, phần vv)"></br>
                                             <input class="details" type="text" name="detailsclass" placeholder="Nhập mô tả(tùy chọn)">
                                             <input class="accept" type="checkbox" name="adddel" value="True"/>cho phép các thành viên trong lớp thêm và bỏ học phần</br> </br> 
-                                            <input class="accept" type="checkbox" name="addpeople" value="True"/>cho phép các thành viên trong lớp mời thành viên mới
+                                            <input class="accept" type="checkbox" name="addpeople" value="True"/>cho phép các thành viên trong lớp mời thành viên mới </br>
+                                            <input  class="schoolname" type="text" name="schoolname" placeholder="Nhập tên trường của bạn"></br>
 
                                             <div class="button-folder">
                                                 <input type="submit" value="Tạo lớp" class="create-button"/>
@@ -163,93 +168,93 @@
                                     </div>
                                 </div>
                                 </div>
-    </body>
-    <script src="https://kit.fontawesome.com/85116df733.js"></script>
-    <script>
-        var folderContainer = document.getElementById("folder-container");
-        var studySetContainer = document.getElementById("studySet-container");
-        var under2 = document.getElementById("items2");
-        var under = document.getElementById("items");
+                                </body>
+                                <script src="https://kit.fontawesome.com/85116df733.js"></script>
+                                <script>
+                                                var folderContainer = document.getElementById("folder-container");
+                                                var studySetContainer = document.getElementById("studySet-container");
+                                                var under2 = document.getElementById("items2");
+                                                var under = document.getElementById("items");
 
-        function handleOpenFolder() {
-            folderContainer.style.display = "block";
-            studySetContainer.style.display = "none";
-            under2.classList.toggle("under");
-            under.classList.remove("under");
-        }
-        function handleOpenStudySet() {
-            folderContainer.style.display = "none";
-            studySetContainer.style.display = "block";
-            under.classList.toggle("under");
-            under2.classList.remove("under");
-        }
+                                                function handleOpenFolder() {
+                                                    folderContainer.style.display = "block";
+                                                    studySetContainer.style.display = "none";
+                                                    under2.classList.toggle("under");
+                                                    under.classList.remove("under");
+                                                }
+                                                function handleOpenStudySet() {
+                                                    folderContainer.style.display = "none";
+                                                    studySetContainer.style.display = "block";
+                                                    under.classList.toggle("under");
+                                                    under2.classList.remove("under");
+                                                }
 
-        var modal = document.getElementById("myModal");
-        var modal1 = document.getElementById("myModal1");
-
-
-        function handleOpenDropdown() {
-            var element = document.getElementById("content");
-            element.classList.toggle("show");
-        }
-        function handleOpenDropdownLib() {
-            var contentLib = document.getElementsByClassName("dropdown-content-lib")[0];
-            var contentLibb = document.getElementsByClassName("dropdown-content-libb")[0];
-            if (contentLib.style.display === "") {
-                contentLib.style.display = "block";
-            } else {
-                contentLib.style.display = "";
-            }
-            if (contentLibb.style.display === "") {
-                contentLibb.style.display = "block";
-            } else {
-                contentLibb.style.display = "";
-            }
-
-        }
-
-        window.onclick = function (e) {
-            var element = document.getElementById("content");
-            if (!e.target.matches("#dropdown-btn") && element.classList.contains("show")) {
-                element.classList.remove("show");
-            }
-            if (e.target.matches("#myModal")) {
-                modal.style.display = "none";
-            }
-            if (e.target.matches("#myModal1")) {
-                modal1.style.display = "none";
-            }
-            var elementLib = document.getElementById("content-lib");
-            if (!e.target.matches("#dropdown-btn-lib") && elementLib.style.display === "block" && !e.target.matches(".dropdown-item-lib")) {
-                elementLib.style.display = "";
-            }
-            var elementLibb = document.getElementById("content-libb");
-            if (!e.target.matches("#dropdown-btn-lib") && elementLibb.style.display === "block" && !e.target.matches(".dropdown-item-lib")) {
-                elementLibb.style.display = "";
-            }
-        };
-
-        function handleOpenSetting() {
-            var element = document.getElementById("content2");
-            element.classList.toggle("show");
-        }
-
-        function handleOpenModal() {
-            modal.style.display = "block";
-        }
-        function handleOpenModal1() {
-            modal1.style.display = "block";
-        }
+                                                var modal = document.getElementById("myModal");
+                                                var modal1 = document.getElementById("myModal1");
 
 
-        function handleCloseModal() {
-            modal.style.display = "none";
+                                                function handleOpenDropdown() {
+                                                    var element = document.getElementById("content");
+                                                    element.classList.toggle("show");
+                                                }
+                                                function handleOpenDropdownLib() {
+                                                    var contentLib = document.getElementsByClassName("dropdown-content-lib")[0];
+                                                    var contentLibb = document.getElementsByClassName("dropdown-content-libb")[0];
+                                                    if (contentLib.style.display === "") {
+                                                        contentLib.style.display = "block";
+                                                    } else {
+                                                        contentLib.style.display = "";
+                                                    }
+                                                    if (contentLibb.style.display === "") {
+                                                        contentLibb.style.display = "block";
+                                                    } else {
+                                                        contentLibb.style.display = "";
+                                                    }
 
-        }
-        function handleCloseModal1() {
-            modal1.style.display = "none";
+                                                }
 
-        }
+                                                window.onclick = function (e) {
+                                                    var element = document.getElementById("content");
+                                                    if (!e.target.matches("#dropdown-btn") && element.classList.contains("show")) {
+                                                        element.classList.remove("show");
+                                                    }
+                                                    if (e.target.matches("#myModal")) {
+                                                        modal.style.display = "none";
+                                                    }
+                                                    if (e.target.matches("#myModal1")) {
+                                                        modal1.style.display = "none";
+                                                    }
+                                                    var elementLib = document.getElementById("content-lib");
+                                                    if (!e.target.matches("#dropdown-btn-lib") && elementLib.style.display === "block" && !e.target.matches(".dropdown-item-lib")) {
+                                                        elementLib.style.display = "";
+                                                    }
+                                                    var elementLibb = document.getElementById("content-libb");
+                                                    if (!e.target.matches("#dropdown-btn-lib") && elementLibb.style.display === "block" && !e.target.matches(".dropdown-item-lib")) {
+                                                        elementLibb.style.display = "";
+                                                    }
+                                                };
 
-    </script>
-</html>
+                                                function handleOpenSetting() {
+                                                    var element = document.getElementById("content2");
+                                                    element.classList.toggle("show");
+                                                }
+
+                                                function handleOpenModal() {
+                                                    modal.style.display = "block";
+                                                }
+                                                function handleOpenModal1() {
+                                                    modal1.style.display = "block";
+                                                }
+
+
+                                                function handleCloseModal() {
+                                                    modal.style.display = "none";
+
+                                                }
+                                                function handleCloseModal1() {
+                                                    modal1.style.display = "none";
+
+                                                }
+
+                                </script>
+                                </html>
