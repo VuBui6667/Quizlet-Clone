@@ -39,7 +39,7 @@
                             <div class="modal-content1">
                                 <span class="close" onClick="handleCloseModal2()">×</span>
                                 <div class="header-studySet">
-                                    THÊM HỌC PHẦN
+                                    Thêm học phần
                                 </div>
                                 <div class="create-studySet">
                                     <a href="createSet?classId=${f.getId()}" class="button-studySet">+ TẠO HỌC PHẦN MỚI</a>
@@ -73,10 +73,40 @@
                         </div>
                     </div>
                     <div class="add-member method-item">
-                        <i class="fa-solid fa-user-plus"></i>
+                        <i class="fa-solid fa-user-plus" ></i>
                     </div>
-                    <div class="add-class method-item">
-                        <i class="fa-regular fa-folder"></i>
+                    <div class="add-class method-item" onClick="handleOpenModal3()">
+                        <i class="fa-regular fa-folder" ></i>
+                    </div>
+
+                    <div id="myModal3" class="modal3">
+                        <div class="modal-content3">
+                            <span class="close" onClick="handleCloseModal3()">×</span>
+                            <div class="header-studySet">
+                                Thêm thư mục
+                            </div>
+                            <div class="create-studySet">
+                                <a href="createSet?classId=${f.getId()}" class="button-studySet">+ TẠO THƯ MỤC MỚI</a>
+                            </div>
+                            <div class="content-container">
+                                <c:forEach items="${listFS}" var="f">
+                                    <span > 
+                                        <div class="item-study-set1">
+                                            <div class="title-study-set1">
+                                                ${f.getTitle()}
+                                                <c:set var="checkAdded" scope="request" value="${d.isAddedFolderInClass(classId,f.getId())}" />
+                                                <c:if test="${checkAdded}">
+                                                    <i class="fa-solid fa-minus" onclick="sendMethod1(${f.getId()}, ${classId}, 'delete')"></i>
+                                                </c:if>
+                                                <c:if test="${!checkAdded}">
+                                                    <i class="fa-solid fa-plus add-icon" onclick="sendMethod1(${f.getId()}, ${classId}, 'add')"></i>
+                                                </c:if>
+                                            </div>
+                                        </div>
+                                    </span>
+                                </c:forEach>
+                            </div>   
+                        </div>
                     </div>
 
                     <div class="edit-class method-item">
@@ -108,9 +138,9 @@
                         </div>
                         <div class="filter">
                             <form action="search">
-                                        <input type="search" name="search" class="search-input" placeholder="Lọc"/>
-                                        <input type="submit" hidden />
-                                    </form>
+                                <input type="search" name="search" class="search-input" placeholder="Lọc"/>
+                                <input type="submit" hidden />
+                            </form>
                         </div>
 
                     </div>
@@ -133,6 +163,19 @@
                                     </div>
                                 </div>
                                 <div class="title-studySet">${ss.getTitle()}</div>
+                            </div>
+                        </c:forEach>
+                        <c:forEach items="${listFAdded}" var="f">
+                            <div class="item-study-set" onclick ="handleSelectFolder(${f.getId()})" >
+                                <div class="size">${f.getNumberStudySet()}</div>
+                                <div>
+                                    <div class="desc-studySet">
+                                        <div>
+                                            <i class="fa-regular fa-folder"></i>
+                                        </div>
+                                        <div class="title-studySet">${f.getTitle()}</div>
+                                    </div>
+                                </div>
                             </div>
                         </c:forEach>
                     </div>
@@ -170,7 +213,7 @@
     <script>
         var modal = document.getElementById("myModal");
         var modal2 = document.getElementById("myModal2");
-
+        var modal3 = document.getElementById("myModal3");
 
         function handleOpenDropdown() {
             var element = document.getElementById("content");
@@ -187,6 +230,9 @@
             }
             if (e.target.matches("#myModal2")) {
                 modal2.style.display = "none";
+            }
+            if (e.target.matches("#myModal3")) {
+                modal3.style.display = "none";
             }
         };
 
@@ -211,13 +257,29 @@
             modal2.style.display = "none";
         }
 
+        function handleOpenModal3() {
+            modal3.style.display = "block";
+        }
+        function handleCloseModal3() {
+            modal3.style.display = "none";
+        }
+
+
         function handleSelectStudy(studySetId) {
             window.location.href = "flashCards?id=" + studySetId;
+        }
+        function handleSelectFolder(folderId) {
+            window.location.href = "folderSet?id=" + folderId;
         }
 
         function sendMethod(studySetId, classId, method) {
             console.log(studySetId);
             window.location.href = "http://localhost:8080/projectquizlet/controllerClassSet?studySetId=" + studySetId + "&classId=" + classId + "&method=" + method;
+        }
+
+
+        function sendMethod1(folderId, classId, method) {
+            window.location.href = "http://localhost:8080/projectquizlet/controllerClassSet?folderId=" + folderId + "&classId=" + classId + "&method=" + method;
         }
 
         var dropdownController = document.getElementById("dropdown-controller");
@@ -236,14 +298,11 @@
             modalDel.style.display = "none";
         }
 
-        window.onclick = function (e) {
-            if (e.target.matches("#myModalDel")) {
-                modalDel.style.display = "none";
-            }
-            if (!e.target.matches(".fa-ellipsis") && dropdownController.classList.contains("show")) {
-                dropdownController.classList.remove("show");
-            }
-        };
+//        window.onclick = function (e) {
+//            if (!e.target.matches(".fa-ellipsis") && dropdownController.classList.contains("show")) {
+//                dropdownController.classList.remove("show");
+//            }
+//        };
 
     </script>
 </html>

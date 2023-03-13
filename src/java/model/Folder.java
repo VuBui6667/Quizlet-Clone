@@ -4,11 +4,15 @@
  */
 package model;
 
+import dal.DAO;
+import java.util.ArrayList;
+
 /**
  *
  * @author LENOVO
  */
 public class Folder {
+
     private int id;
     private String title;
     private String desc;
@@ -33,7 +37,7 @@ public class Folder {
     public void setIsShare(boolean isShare) {
         this.isShare = isShare;
     }
-    
+
     public Folder(int id, String title, String desc, int userId, boolean isShare) {
         this.id = id;
         this.title = title;
@@ -65,6 +69,11 @@ public class Folder {
     public void setDesc(String desc) {
         this.desc = desc;
     }
-    
-    
+
+    public int getNumberStudySet() {
+        DAO d = new DAO();
+        ArrayList<Integer> listS = d.getStudySetIdByFolderId(id);
+        return listS.size();
+    }
+
 }

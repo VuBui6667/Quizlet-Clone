@@ -4,6 +4,7 @@
  */
 package dal;
 
+import controller.FolderSet;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,6 +14,7 @@ import model.Folder;
 import model.ListFolder;
 import model.StudySet;
 import model.User;
+import model.Class;
 
 /**
  *
@@ -45,7 +47,7 @@ public class DAO extends DBContext {
             st.setInt(1, userId);
             st.setInt(2, studySetId);
             st.executeUpdate();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
@@ -206,7 +208,7 @@ public class DAO extends DBContext {
         }
         return null;
     }
-    
+
     public boolean isAddedInClass(int classId, int studySetId) {
         ArrayList<Integer> listSSId = getStudySetIdByClassId(classId);
         for (Integer n : listSSId) {
@@ -217,9 +219,36 @@ public class DAO extends DBContext {
         return false;
     }
     
-    
-    
-     public ArrayList<Integer> getStudySetIdByClassId(int classId) {
+     public boolean isAddedFolderInClass(int classId, int folderId) {
+        ArrayList<Folder> listF = getListFolderByClassId(classId);
+        for (Folder f : listF) {
+            if (f.getId() == folderId) {
+                return true;
+            }
+        }
+        return false;
+    }
+     
+     public ArrayList<Folder> getListFolderByClassId(int classId) {
+        ArrayList<Folder> listF = new ArrayList<>();
+        String sql = "select folderId from [ListClass] where classId =? ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, classId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                listF.add(getFolderByFolderId(rs.getInt("folderId")));
+            }
+            return listF;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return null;
+    }
+     
+
+    public ArrayList<Integer> getStudySetIdByClassId(int classId) {
         ArrayList<Integer> listSSId = new ArrayList<>();
         String sql = "select studySetId from [ListStudySet] where classId =? ";
         try {
@@ -277,7 +306,8 @@ public class DAO extends DBContext {
 
         return null;
     }
-     public ArrayList<StudySet> getListStudySetByClassId(int classId) {
+
+    public ArrayList<StudySet> getListStudySetByClassId(int classId) {
         ArrayList<Integer> listSSId = getStudySetIdByClassId(classId);
         ArrayList<StudySet> listSS = new ArrayList<>();
         for (Integer n : listSSId) {
@@ -600,7 +630,22 @@ public class DAO extends DBContext {
         return null;
     }
     
-     public void deleteStudySetInClass(int classId, int studySetId) {
+    public void deleteFolderInClass(int classId, int folderId) {
+        String sql = "DELETE FROM [dbo].[ListClass]\n"
+                + "      WHERE folderId=? and classId=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, folderId);
+            st.setInt(2, classId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    
+    
+
+    public void deleteStudySetInClass(int classId, int studySetId) {
         String sql = "DELETE FROM [dbo].[ListStudySet]\n"
                 + "      WHERE studySetId=? and classId=?";
         try {
@@ -612,8 +657,20 @@ public class DAO extends DBContext {
             System.out.println(e);
         }
     }
-     
-     
+    public void addFolderInClass(int classId,int folderId){
+         String sql = "INSERT INTO [dbo].[ListClass]\n"
+                + "           ([folderId]\n"
+                + "           ,[classId])\n"
+                + "     VALUES (?, ?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, folderId);
+            st.setInt(2, classId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
     public void addStudySetInClass(int classId, int studySetId) {
         String sql = "INSERT INTO [dbo].[ListStudySet]\n"
                 + "           ([studySetId]\n"
@@ -713,6 +770,28 @@ public class DAO extends DBContext {
         } catch (SQLException e) {
             System.out.println(e);
         }
+    }
+
+    public ArrayList<Folder> getAllFolder() {
+        ArrayList<Folder> listFS = new ArrayList<>();
+        String sql = "Select * from Folder";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Folder set = new Folder(
+                        rs.getInt("folderId"),
+                        rs.getString("title"),
+                        rs.getString("description"),
+                        rs.getInt("userId"),
+                        rs.getBoolean("isShare"));
+                        listFS.add(set);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+
+        }
+        return listFS;
     }
 
     public ArrayList<StudySet> getAllStudySet() {

@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import model.StudySet;
 import model.User;
 import model.Class;
+import model.Folder;
 
 /**
  *
@@ -68,14 +69,18 @@ public class ClassSet extends HttpServlet {
         User user = (User) ses.getAttribute("user");
         int id = Integer.parseInt(request.getParameter("id"));
         ArrayList<StudySet> listSS = d.getListStudySetByClassId(id);
+        ArrayList<Folder> listFAdded = d.getListFolderByClassId(id);
         Class c = d.getClassByClassId(id);
         request.setAttribute("c", c);
         request.setAttribute("classId", id);
         request.setAttribute("listSS", listSS);
         request.setAttribute("d", d);
         request.setAttribute("user", user);
+        request.setAttribute("listFAdded", listFAdded);
          ArrayList<StudySet> listS = d.getAllStudySet();
         ses.setAttribute("listS", listS);
+        ArrayList<Folder> listFS = d.getAllFolder();
+        ses.setAttribute("listFS", listFS);
         request.getRequestDispatcher("classSet.jsp").forward(request, response);
      
     }
