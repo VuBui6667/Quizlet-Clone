@@ -119,7 +119,7 @@ public class filter implements Filter {
 //        if (user == null) {
 //            if (!url.contains("login") && !url.contains("register")
 //                    && !url.contains("search") && !url.contains("homeLogin")
-//                    && !url.contains("flashCards")) {
+//                    && !url.contains("flashCards") && !url.contains("forget") ) {
 //                res.sendRedirect("login.jsp");
 //            }
 //        }

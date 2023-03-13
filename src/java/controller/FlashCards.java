@@ -73,7 +73,7 @@ public class FlashCards extends HttpServlet {
         if(!set.isIsShare() && set.getUserId() != user.getId()) {
             isShare = false;
         }
-        ArrayList<Integer> listId = d.getListStudiedCardId(set.getId(), user.getId());
+//        ArrayList<Integer> listId = d.getListStudiedCardId(set.getId(), user.getId());
         
         
         request.setAttribute("isShare", isShare);

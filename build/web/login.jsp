@@ -29,6 +29,7 @@
                         <div class="text-form">TÊN NGƯỜI DÙNG</div> 
                         <input type="password" name="pass" placeholder="Nhập mật khẩu" class="input-form"/>
                         <div class="text-form">MẬT KHẨU</div> 
+                        <a href="forget.jsp" class="ques-forgot">Bạn quên rồi à ?</a>
                         <input type="submit" value="Đăng nhập" class="login-button"/>
                     </form>
                 </div>

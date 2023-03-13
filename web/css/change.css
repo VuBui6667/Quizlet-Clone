@@ -1,0 +1,60 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Mar 6, 2023, 8:39:56 PM
+    Author     : asus
+*/
+body {
+    margin: 0;
+    padding: 0;
+}
+
+.change-body{
+    width: 45%;
+    margin: 100px auto;
+}
+
+.change-form{
+    margin: 10px 30px;
+}
+
+.form-change-pass {
+    border-style: hidden;
+    border-bottom: 2px solid black;
+    margin-top: 7px;
+    padding: 12px 0;
+    font-size: 16px;
+    color: #121d28;
+    word-break: break-word;
+    white-space: pre-wrap;
+    width: 96%;
+    opacity: 0.3;
+}
+
+.form-change-pass:focus{
+    outline: none;
+    border: none;
+    border-bottom: 4px solid #ffcd1f
+}
+
+.btn-change-pass {
+    letter-spacing: .0625rem;
+    padding: 1.5rem 5rem;
+    background-color: #3ccfcf;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    display: inline-block;
+    font: inherit;
+    color: white;
+    margin-top: 60px;
+}
+
+.text-center{
+    margin-right: 2rem;
+    font-size: 28px;
+    font-weight: 900;
+    margin-bottom: 30px;
+}
