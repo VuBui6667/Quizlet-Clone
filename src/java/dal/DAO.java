@@ -19,6 +19,54 @@ import model.User;
  * @author LENOVO
  */
 public class DAO extends DBContext {
+    public User checkUser(String email) {
+        
+        String sql = "select * from [User] where gmail =? ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return new User(rs.getString("name"), rs.getString("password"), rs.getString("gmail"),
+                        rs.getBoolean("isActive"), rs.getString("avatar"), rs.getInt("userId"), rs.getString("language"));
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    public int getIdByEmail(String email) {
+
+        String sql = "select userId from [User] where gmail =? ";
+        try {
+
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, email);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("userId");
+            }
+        } catch (Exception e) {
+        }
+        return -1;
+    }
+    
+    public void updatePass(String password, int user_id) {
+        try {
+            String sql = "UPDATE [User]\n"
+                    + "SET\n"
+                    + "\n"
+                    + "password = ?\n"
+                    + "\n"
+                    + "WHERE userId = ?";
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, password);
+            st.setInt(2, user_id);
+            st.executeUpdate();
+        } catch (Exception e) {
+        }
+    }
 
     public void addStudiedCard(int userId, int cardId, int studySetId) {
         String sql = "INSERT INTO [dbo].[FlashCards]\n"
