@@ -12,12 +12,12 @@ import java.util.ArrayList;
  * @author LENOVO
  */
 public class StudySet {
+
     private int id;
     private String title;
     private String description;
     private boolean isShare;
     private int userId;
-
 
     public StudySet() {
     }
@@ -27,10 +27,8 @@ public class StudySet {
         this.title = title;
         this.description = description;
         this.isShare = isShare;
-        this.userId = userId;  }
-
-
-    
+        this.userId = userId;
+    }
 
     public int getId() {
         return id;
@@ -64,7 +62,6 @@ public class StudySet {
         this.isShare = isShare;
     }
 
-
     public int getUserId() {
         return userId;
     }
@@ -72,13 +69,13 @@ public class StudySet {
     public void setUserId(int userId) {
         this.userId = userId;
     }
-    
+
     public int getNumberCard() {
         DAO d = new DAO();
         ArrayList<Card> listC = d.getAllCardInSet(id);
         return listC.size();
     }
-    
+
     public String getAuthor() {
         DAO d = new DAO();
         User user = d.getUserByUserId(userId);
