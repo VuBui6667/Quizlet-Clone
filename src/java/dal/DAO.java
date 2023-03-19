@@ -13,6 +13,7 @@ import model.Folder;
 import model.ListFolder;
 import model.StudySet;
 import model.User;
+import model.Class;
 
 /**
  *
@@ -215,6 +216,32 @@ public class DAO extends DBContext {
                 );
             }
             return c;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    public ArrayList<model.Class> getClassByUserId(int id) {
+        ArrayList<model.Class> listC = new ArrayList<>();
+        String sql = "select * from Class where userId = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, id);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                model.Class c = new model.Class();
+                c.setId(rs.getInt("classId"));
+                c.setName(rs.getString("className"));
+                c.setDesc(rs.getString("description"));
+                c.setIsInvite(rs.getBoolean("isInvite"));
+                c.setInviteCode(rs.getString("inviteCode"));
+                c.setIsEdit(rs.getBoolean("isEdit"));
+                c.setSchoolName(rs.getString("schoolName"));
+                c.setUserId(rs.getInt("userId"));
+                listC.add(c);
+            }
+
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -807,18 +834,43 @@ public class DAO extends DBContext {
             st.setInt(1, userId);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                Folder f = new Folder(
-                        rs.getInt("folderId"),
-                        rs.getString("title"),
-                        rs.getString("description"),
-                        rs.getInt("userId"),
-                        rs.getBoolean("isShare"));
+                Folder f = new Folder();
+                f.setId(rs.getInt("folderId"));
+                f.setTitle(rs.getString("title"));
+                f.setDesc(rs.getString("description"));
+                f.setUserId(rs.getInt("userId"));
+                f.setIsShare(rs.getBoolean("isShare"));
                 listFd.add(f);
             }
         } catch (SQLException e) {
             System.out.println(e);
         }
         return listFd;
+    }
+
+    public ArrayList<Class> getTopFiveClass(int userId) {
+        ArrayList<Class> listCl = new ArrayList<>();
+        String sql = "select top 5 * from Class where userId = ? order by classId desc ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, userId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Class cl = new Class();
+                cl.setId(rs.getInt("classId"));
+                cl.setName(rs.getString("className"));
+                cl.setDesc(rs.getString("description"));
+                cl.setIsInvite(rs.getBoolean("isInvite"));
+                cl.setInviteCode(rs.getString("inviteCode"));
+                cl.setIsEdit(rs.getBoolean("isEdit"));
+                cl.setSchoolName(rs.getString("schoolName"));
+                cl.setUserId(rs.getInt("userId"));
+                listCl.add(cl);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listCl;
     }
 
     public ArrayList<StudySet> getFiveStudySet(int userId) {

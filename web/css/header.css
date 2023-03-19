@@ -375,6 +375,10 @@ body {
     display: none;
 }
 
+#class-container{
+    display: none;
+}
+
 .get-all{
     padding: 8px 30px;
     border-top: 0.1px solid #606060;

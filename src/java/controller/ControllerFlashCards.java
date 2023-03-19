@@ -12,19 +12,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.ArrayList;
-import model.Card;
-import model.Folder;
-import model.StudySet;
-import model.User;
-import utility.Utilities;
 
 /**
  *
- * @author LENOVO
+ * @author asus
  */
-@WebServlet(name = "FlashCards", urlPatterns = {"/flashCards"})
-public class FlashCards extends HttpServlet {
+@WebServlet(name = "ControllerFlashCards", urlPatterns = {"/controllerFlashCards"})
+public class ControllerFlashCards extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -43,10 +37,10 @@ public class FlashCards extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet FlashCards</title>");
+            out.println("<title>Servlet ControllerFlashCards</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet FlashCards at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ControllerFlashCards at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -64,35 +58,17 @@ public class FlashCards extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String id_raw = request.getParameter("id");
-        int id = Integer.parseInt(id_raw);
+        int studySetId = Integer.parseInt(request.getParameter("studySetId"));
+        int folderId = Integer.parseInt(request.getParameter("folderId"));
+        String method = request.getParameter("method");
         DAO d = new DAO();
-        StudySet set = d.getStudySetById(id);
-        User author = d.getUserByUserId(set.getUserId());
-        User user = (User) request.getSession().getAttribute("user");
-        ArrayList<Card> listC = d.getAllCardInSet(id);
-        Utilities u = new Utilities();
-        boolean isShare = true;
-        if (!set.isIsShare() && set.getUserId() != user.getId()) {
-            isShare = false;
+        System.out.println("studysetId: " + studySetId);
+        if (method.equals("delete")) {
+            d.deleteStudySetInFolder(folderId, studySetId);
+        } else if (method.equals("add")) {
+            d.addStudySetInFolder(folderId, studySetId);
         }
-        if (user != null) {
-            ArrayList<Integer> listId = d.getListStudiedCardId(set.getId(), user.getId());
-            ArrayList<Folder> listFl = d.getAllFolderByUserId(user.getId());
-            request.setAttribute("listFl", listFl);
-            ArrayList<model.Class> listClass = d.getClassByUserId(user.getId());
-            request.setAttribute("listClass", listClass);
-        }
-
-        request.setAttribute("isShare", isShare);
-        request.setAttribute("id", id);
-        request.setAttribute("u", u);
-        request.setAttribute("set", set);
-        request.setAttribute("listC", listC);
-        request.setAttribute("author", author);
-        request.setAttribute("user", user);
-//        request.setAttribute("currentNumCard", listId.size());
-        request.getRequestDispatcher("flashCards.jsp").forward(request, response);
+        response.sendRedirect("flashCards?id=" + studySetId);
     }
 
     /**
@@ -106,6 +82,7 @@ public class FlashCards extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        processRequest(request, response);
     }
 
     /**
