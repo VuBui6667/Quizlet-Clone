@@ -17,11 +17,13 @@ import java.util.ArrayList;
 import model.StudySet;
 import model.User;
 import model.Class;
+import model.Folder;
 
 /**
  *
  * @author vieta
- */@WebServlet(name="ClassSet", urlPatterns={"/classSet"})
+ */
+@WebServlet(name = "ClassSet", urlPatterns = {"/classSet"})
 
 public class ClassSet extends HttpServlet {
 
@@ -68,16 +70,20 @@ public class ClassSet extends HttpServlet {
         User user = (User) ses.getAttribute("user");
         int id = Integer.parseInt(request.getParameter("id"));
         ArrayList<StudySet> listSS = d.getListStudySetByClassId(id);
+        ArrayList<Folder> listFAdded = d.getListFolderByClassId(id);
         Class c = d.getClassByClassId(id);
         request.setAttribute("c", c);
         request.setAttribute("classId", id);
         request.setAttribute("listSS", listSS);
         request.setAttribute("d", d);
         request.setAttribute("user", user);
-         ArrayList<StudySet> listS = d.getAllStudySet();
+        request.setAttribute("listFAdded", listFAdded);
+        ArrayList<StudySet> listS = d.getAllStudySet();
         ses.setAttribute("listS", listS);
+        ArrayList<Folder> listFS = d.getAllFolder();
+        ses.setAttribute("listFS", listFS);
         request.getRequestDispatcher("classSet.jsp").forward(request, response);
-     
+
     }
 
     /**
@@ -91,11 +97,11 @@ public class ClassSet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        int classId = Integer.parseInt(request.getParameter("classId"));
-//        DAO d = new DAO();
-//        d.removeListClass(classId);
-//        d.deleteClassByClassId(classId);
-//        response.sendRedirect("class");
+        int classId = Integer.parseInt(request.getParameter("classId"));
+        DAO d = new DAO();
+        d.removeListClass(classId);
+        d.deleteClassByClassId(classId);
+        response.sendRedirect("class");
     }
 
     @Override
