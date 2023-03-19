@@ -13,7 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/header.css" />
+        <link rel="stylesheet" href="css/header.css"/>
     </head>
     <body>
         <% User user = (User)session.getAttribute("user"); %>
@@ -154,6 +154,7 @@
                                                 <a class="dropdown-item">Cài đặt</a>
                                                 <a class="dropdown-item">Chế độ tối</a>
                                                 <div class="border-line"></div>
+                                                <a href="changePass.jsp" class="dropdown-item">Đổi mật khẩu</a>
                                                 <a href="logout" class="dropdown-item">Đăng xuất</a>
                                             </div>
                                         </c:if>

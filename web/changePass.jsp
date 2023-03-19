@@ -16,6 +16,7 @@
                 <h2 class="text-center">Reset password</h2>  
                 <form action="change" method = "post" class="change-form mt-4">
                     <p style="color: red">${requestScope.error}</p>
+                    <p style="color: red">${requestScope.invalidpass}</p>
                     <input type="password" class="form-change-pass" name ="pass" required/>
                     <p>MẬT KHẨU MỚI </p>
                     <input type="password" class="form-change-pass" name="repass" required/>
@@ -24,7 +25,20 @@
                 </form>
             </div>
         </c:if>
-                <%@include file="footer.jsp" %>
+            <div class="change-body">
+                <h2 class="text-center">Reset password</h2>  
+                <form action="change" method = "post" class="change-form mt-4">
+                    <p style="color: red">${requestScope.error}</p>
+                    <p style="color: red">${requestScope.invalidpass}</p>
+                    <input type="password" class="form-change-pass" name ="pass" required/>
+                    <p>MẬT KHẨU MỚI </p>
+                    <input type="password" class="form-change-pass" name="repass" required/>
+                    <p>XÁC NHẬN MẬT KHẨU MỚI</p>
+                    <button type = "submit" class="btn-change-pass">LƯU MẬT KHẨU</button>
+                </form>
+            </div>
+
+        <%@include file="footer.jsp" %>
 
     </body>
 
