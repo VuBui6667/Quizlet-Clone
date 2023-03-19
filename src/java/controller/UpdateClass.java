@@ -5,6 +5,7 @@
 package controller;
 
 import dal.DAO;
+import model.Class;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,13 +13,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import model.User;
 
 /**
  *
  * @author vieta
  */
-@WebServlet(name = "ControllerClassSet", urlPatterns = {"/controllerClassSet"})
-public class ControllerClassSet extends HttpServlet {
+@WebServlet(name = "UpdateClass", urlPatterns = {"/updateClass"})
+public class UpdateClass extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +40,10 @@ public class ControllerClassSet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ControllerClassSet</title>");
+            out.println("<title>Servlet UpdateClass</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ControllerClassSet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet UpdateClass at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,36 +61,18 @@ public class ControllerClassSet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int studySetId = -1;
-        try {
-             studySetId = Integer.parseInt(request.getParameter("studySetId"));
-        } catch(Exception e) {
-            System.out.println(e);
-        }
-        int folderId = -1;
-        try {
-            folderId = Integer.parseInt(request.getParameter("folderId"));
-        } catch(Exception e) {
-            System.out.println(e);
-        }
-        System.out.println("folderId: " + folderId);
-        int classId = Integer.parseInt(request.getParameter("classId"));
-        String method = request.getParameter("method");
+        String id_raw = request.getParameter("id");
+        int id;
         DAO d = new DAO();
-        if (folderId == -1) {
-            if (method.equals("delete")) {
-                d.deleteStudySetInClass(classId, studySetId);
-            } else if (method.equals("add")) {
-                d.addStudySetInClass(classId, studySetId);
-            }
-        } else {
-            if(method.equals("delete")) {
-                d.deleteFolderInClass(classId, folderId);
-            } else if(method.equals("add")) {
-                d.addFolderInClass(classId, folderId);
-            }
+        try {
+            id = Integer.parseInt(id_raw);
+            Class c = d.getClassByClassId(id);
+            request.setAttribute("c", c);
+            request.getRequestDispatcher("ClassSet.jsp").forward(request, response);
+        } catch (Exception e) {
+
         }
-        response.sendRedirect("classSet?id=" + classId);
+
     }
 
     /**
@@ -101,14 +86,27 @@ public class ControllerClassSet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String id_raw = request.getParameter("classId");
+        String className = request.getParameter("classname1");
+        String details = request.getParameter("detailsclass1");
+        String schoolName = request.getParameter("schoolname1");
+//        Boolean isControllStudySet = Boolean.parseBoolean(request.getParameter("adddel"));
+//        Boolean isControllMember = Boolean.parseBoolean(request.getParameter("addpeople"));
+        HttpSession ses = request.getSession();
+        User user = (User) ses.getAttribute("user");
+        DAO d = new DAO();
+        try {
+            int id = Integer.parseInt(id_raw);
+            Class c = new Class(id, className, details, true, "", true, schoolName, user.getId());
+            d.updateClass(c);
+            System.out.println("test");
+            response.sendRedirect("classSet?id=" + id);
+        } catch (NumberFormatException e) {
+            System.out.println(e);
+        }
+
     }
 
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
     @Override
     public String getServletInfo() {
         return "Short description";

@@ -842,6 +842,170 @@ public class DAO extends DBContext {
         }
         return listS;
     }
+    
+    public ArrayList<Folder> getListFolderByClassId(int classId) {
+        ArrayList<Folder> listF = new ArrayList<>();
+        String sql = "select folderId from [ListClass] where classId =? ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, classId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                listF.add(getFolderByFolderId(rs.getInt("folderId")));
+            }
+            return listF;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return null;
+    }
+    
+    public ArrayList<Folder> getAllFolder() {
+        ArrayList<Folder> listFS = new ArrayList<>();
+        String sql = "Select * from Folder";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Folder set = new Folder(
+                        rs.getInt("folderId"),
+                        rs.getString("title"),
+                        rs.getString("description"),
+                        rs.getInt("userId"),
+                        rs.getBoolean("isShare"));
+                listFS.add(set);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+
+        }
+        return listFS;
+    }
+    
+    public void removeListClass(int classId) {
+        String sql = "DELETE FROM [dbo].[ListClass]\n"
+                + "      WHERE classId = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, classId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    
+    public void deleteClassByClassId(int classId) {
+        String sql = "DELETE FROM [dbo].[Class]\n"
+                + "      WHERE classId = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, classId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    
+    public void deleteFolderInClass(int classId, int folderId) {
+        String sql = "DELETE FROM [dbo].[ListClass]\n"
+                + "      WHERE folderId=? and classId=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, folderId);
+            st.setInt(2, classId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    
+    public void addFolderInClass(int classId, int folderId) {
+        String sql = "INSERT INTO [dbo].[ListClass]\n"
+                + "           ([folderId]\n"
+                + "           ,[classId])\n"
+                + "     VALUES (?, ?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, folderId);
+            st.setInt(2, classId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    
+    public Integer getUserIdByNameOrEmail(String name) {
+        String sql = "SELECT [userId]\n"
+                + "From [dbo].[User] \n"
+                + "Where name=? or gmail=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, name);
+            st.setString(2, name);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return rs.getInt("userId");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    public void addMember(int userId, int classId) {
+        System.out.println("classID: " + classId);
+        String sql = "INSERT INTO [dbo].[ListMember]\n"
+                + "           ([classId]\n"
+                + "           ,[userId])\n"
+                + "     VALUES\n"
+                + "           (?\n"
+                + "           ,?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, classId);
+            st.setInt(2, userId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    
+    public void updateClass(model.Class cl) {
+        String sql = "UPDATE [dbo].[Class]\n"
+                + "   SET [className] = ?\n"
+                + "      ,[description] = ?\n"
+                //                + "      ,[isInvite] = ?\n"
+                //                + "      ,[inviteCode] = ?\n"
+                //                + "      ,[isEdit] = ?\n"
+                + "      ,[schoolName] = ?\n"
+                //                + "      ,[userId] = ?\n"
+                + " WHERE classId=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, cl.getName());
+            st.setString(2, cl.getDesc());
+//            st.setBoolean(3, cl.isIsInvite());
+//            st.setString(4, cl.getInviteCode());
+//            st.setBoolean(5, cl.isIsEdit());
+            st.setString(3, cl.getSchoolName());
+//            st.setInt(7, cl.getUserId());
+            st.setInt(4, cl.getId());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    
+    public boolean isAddedFolderInClass(int classId, int folderId) {
+        ArrayList<Folder> listF = getListFolderByClassId(classId);
+        for (Folder f : listF) {
+            if (f.getId() == folderId) {
+                return true;
+            }
+        }
+        return false;
+    }
 
     public static void main(String[] args) {
     }

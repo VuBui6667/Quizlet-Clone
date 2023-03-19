@@ -4,6 +4,9 @@
  */
 package model;
 
+import dal.DAO;
+import java.util.ArrayList;
+
 /**
  *
  * @author LENOVO
@@ -66,5 +69,9 @@ public class Folder {
         this.desc = desc;
     }
     
-    
+    public int getNumberStudySet() {
+        DAO d = new DAO();
+        ArrayList<Integer> listS = d.getStudySetIdByFolderId(id);
+        return listS.size();
+    }
 }

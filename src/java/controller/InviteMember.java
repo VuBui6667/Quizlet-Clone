@@ -12,13 +12,16 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import model.ListMember;
+import model.User;
 
 /**
  *
  * @author vieta
  */
-@WebServlet(name = "ControllerClassSet", urlPatterns = {"/controllerClassSet"})
-public class ControllerClassSet extends HttpServlet {
+@WebServlet(name = "InviteMember", urlPatterns = {"/inviteMember"})
+public class InviteMember extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -37,10 +40,10 @@ public class ControllerClassSet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ControllerClassSet</title>");
+            out.println("<title>Servlet InviteMember</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ControllerClassSet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet InviteMember at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -58,36 +61,7 @@ public class ControllerClassSet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int studySetId = -1;
-        try {
-             studySetId = Integer.parseInt(request.getParameter("studySetId"));
-        } catch(Exception e) {
-            System.out.println(e);
-        }
-        int folderId = -1;
-        try {
-            folderId = Integer.parseInt(request.getParameter("folderId"));
-        } catch(Exception e) {
-            System.out.println(e);
-        }
-        System.out.println("folderId: " + folderId);
-        int classId = Integer.parseInt(request.getParameter("classId"));
-        String method = request.getParameter("method");
-        DAO d = new DAO();
-        if (folderId == -1) {
-            if (method.equals("delete")) {
-                d.deleteStudySetInClass(classId, studySetId);
-            } else if (method.equals("add")) {
-                d.addStudySetInClass(classId, studySetId);
-            }
-        } else {
-            if(method.equals("delete")) {
-                d.deleteFolderInClass(classId, folderId);
-            } else if(method.equals("add")) {
-                d.addFolderInClass(classId, folderId);
-            }
-        }
-        response.sendRedirect("classSet?id=" + classId);
+        processRequest(request, response);
     }
 
     /**
@@ -101,7 +75,19 @@ public class ControllerClassSet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        int id_raw = Integer.parseInt(request.getParameter("classId"));
+         String Name = request.getParameter("addmem");
+         HttpSession ses = request.getSession();
+        DAO d = new DAO();
+        int UId = d.getUserIdByNameOrEmail(Name);
+        try{
+              d.addMember(UId, id_raw);
+               response.sendRedirect("classSet?id=" + id_raw);
+        }catch(Exception e){
+            
+        }
+        
+
     }
 
     /**
