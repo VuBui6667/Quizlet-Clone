@@ -19,8 +19,9 @@ import model.User;
  * @author LENOVO
  */
 public class DAO extends DBContext {
+
     public User checkUser(String email) {
-        
+
         String sql = "select * from [User] where gmail =? ";
         try {
             PreparedStatement st = connection.prepareStatement(sql);
@@ -35,7 +36,7 @@ public class DAO extends DBContext {
         }
         return null;
     }
-    
+
     public int getIdByEmail(String email) {
 
         String sql = "select userId from [User] where gmail =? ";
@@ -51,7 +52,7 @@ public class DAO extends DBContext {
         }
         return -1;
     }
-    
+
     public void updatePass(String password, int user_id) {
         try {
             String sql = "UPDATE [User]\n"
@@ -93,7 +94,7 @@ public class DAO extends DBContext {
             st.setInt(1, userId);
             st.setInt(2, studySetId);
             st.executeUpdate();
-        } catch(SQLException e) {
+        } catch (SQLException e) {
             System.out.println(e);
         }
     }
@@ -254,7 +255,7 @@ public class DAO extends DBContext {
         }
         return null;
     }
-    
+
     public boolean isAddedInClass(int classId, int studySetId) {
         ArrayList<Integer> listSSId = getStudySetIdByClassId(classId);
         for (Integer n : listSSId) {
@@ -264,10 +265,8 @@ public class DAO extends DBContext {
         }
         return false;
     }
-    
-    
-    
-     public ArrayList<Integer> getStudySetIdByClassId(int classId) {
+
+    public ArrayList<Integer> getStudySetIdByClassId(int classId) {
         ArrayList<Integer> listSSId = new ArrayList<>();
         String sql = "select studySetId from [ListStudySet] where classId =? ";
         try {
@@ -325,7 +324,8 @@ public class DAO extends DBContext {
 
         return null;
     }
-     public ArrayList<StudySet> getListStudySetByClassId(int classId) {
+
+    public ArrayList<StudySet> getListStudySetByClassId(int classId) {
         ArrayList<Integer> listSSId = getStudySetIdByClassId(classId);
         ArrayList<StudySet> listSS = new ArrayList<>();
         for (Integer n : listSSId) {
@@ -481,6 +481,22 @@ public class DAO extends DBContext {
 
         } catch (SQLException e) {
             System.out.println(e);
+        }
+    }
+
+    public void updateFolder(String title,String desc,int folderId) {
+
+        try {
+            String sql = "UPDATE [dbo].[Folder]\n"
+                    + "   SET [title] = ?,\n"
+                    + "      [description] = ?\n"
+                    + " WHERE folderId = ?";
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, title);
+            st.setString(2, desc);
+            st.setInt(3, folderId);
+            st.executeUpdate();
+        } catch (Exception e) {
         }
     }
 
@@ -647,8 +663,8 @@ public class DAO extends DBContext {
         }
         return null;
     }
-    
-     public void deleteStudySetInClass(int classId, int studySetId) {
+
+    public void deleteStudySetInClass(int classId, int studySetId) {
         String sql = "DELETE FROM [dbo].[ListStudySet]\n"
                 + "      WHERE studySetId=? and classId=?";
         try {
@@ -660,8 +676,7 @@ public class DAO extends DBContext {
             System.out.println(e);
         }
     }
-     
-     
+
     public void addStudySetInClass(int classId, int studySetId) {
         String sql = "INSERT INTO [dbo].[ListStudySet]\n"
                 + "           ([studySetId]\n"

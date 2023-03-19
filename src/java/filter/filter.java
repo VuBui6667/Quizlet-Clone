@@ -116,13 +116,13 @@ public class filter implements Filter {
         user = (User) ses.getAttribute("user");
         String url = req.getServletPath();
 
-//        if (user == null) {
-//            if (!url.contains("login") && !url.contains("register")
-//                    && !url.contains("search") && !url.contains("homeLogin")
-//                    && !url.contains("flashCards") && !url.contains("forget") ) {
-//                res.sendRedirect("login.jsp");
-//            }
-//        }
+        if (user == null) {
+            if (!url.contains("login") && !url.contains("register")
+                    && !url.contains("search") && !url.contains("homeLogin")
+                    && !url.contains("flashCards") && !url.contains("forget") && !url.contains("change") ) {
+                res.sendRedirect("login.jsp");
+            }
+        }
         
 //        if (user == null) {
 //            if (!url.contains("login") && !url.contains("register")

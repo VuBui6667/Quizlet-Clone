@@ -3,9 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/CheckCode/projectswp/src/java/dal/DAO.java</file>
-            <file>file:/D:/CheckCode/projectswp/src/java/controller/SendEmail.java</file>
-            <file>file:/D:/CheckCode/projectswp/src/java/controller/VerifyCode.java</file>
+            <file>file:/D:/testgit/projectswp/web/css/header.css</file>
+            <file>file:/D:/testgit/projectswp/src/java/controller/UpdateFolder.java</file>
+            <file>file:/D:/testgit/projectswp/web/flashCards.jsp</file>
+            <file>file:/D:/testgit/projectswp/web/WEB-INF/web.xml</file>
+            <file>file:/D:/testgit/projectswp/web/folderSet.jsp</file>
+            <file>file:/D:/testgit/projectswp/src/java/dal/DAO.java</file>
+            <file>file:/D:/testgit/projectswp/web/css/folderSet.css</file>
+            <file>file:/D:/testgit/projectswp/web/update.jsp</file>
+            <file>file:/D:/testgit/projectswp/web/header.jsp</file>
+            <file>file:/D:/testgit/projectswp/src/java/controller/Update.java</file>
+            <file>file:/D:/testgit/projectswp/src/java/controller/FolderSet.java</file>
         </group>
     </open-files>
 </project-private>
