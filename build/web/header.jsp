@@ -36,7 +36,7 @@
                                 <span class="dropdown-item-lib" id="items" onclick="handleOpenStudySet()">Học phần</span>
                                 <span class="dropdown-item-lib" id="items1">Lời giải chuyên gia</span>
                                 <span class="dropdown-item-lib" id="items2" onclick="handleOpenFolder()">Thư mục</span>
-                                <span class="dropdown-item-lib" id="items3">Lớp học</span>
+                                <span class="dropdown-item-lib" id="items3" onclick="handleOpenClass()">Lớp học</span>
                             </c:if>
                             <c:if test="${user==null}" >
                                 <div class="before-login1">
@@ -81,6 +81,24 @@
                                 </div>
                                 <div class="get-all">
                                     <a href="folder">Xem tất cả thư mục</a>
+                                </div>
+                            </div>
+                            <div class="item-lib" id="class-container">
+                                <div class="item-set">
+                                    <c:forEach items="${listClass}" var="cl">
+                                        <a href="classSet?id=${cl.getId()}">
+                                            <div class="study-set-item-lib">
+                                                <div class="study-set-title-lib">${cl.getName()}</div>
+                                                <div class="user-info-lib">
+                                                    <div class="user-avatar-lib">${nameC.charAt(0)}</div>
+                                                    <div class="user-avatar-name">${nameC}</div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </c:forEach> 
+                                </div>
+                                <div class="get-all">
+                                    <a href="class">Xem tất cả lớp học</a>
                                 </div>
                             </div>
                         </c:if>
@@ -173,20 +191,34 @@
                                 <script>
                                                 var folderContainer = document.getElementById("folder-container");
                                                 var studySetContainer = document.getElementById("studySet-container");
+                                                var classContainer = document.getElementById("class-container");
                                                 var under2 = document.getElementById("items2");
                                                 var under = document.getElementById("items");
+                                                var under3 = document.getElementById("items3");
 
                                                 function handleOpenFolder() {
                                                     folderContainer.style.display = "block";
                                                     studySetContainer.style.display = "none";
+                                                    classContainer.style.display = "none";
                                                     under2.classList.toggle("under");
                                                     under.classList.remove("under");
+                                                    under3.classList.remove("under");
                                                 }
                                                 function handleOpenStudySet() {
                                                     folderContainer.style.display = "none";
+                                                    classContainer.style.display = "none";
                                                     studySetContainer.style.display = "block";
                                                     under.classList.toggle("under");
                                                     under2.classList.remove("under");
+                                                    under3.classList.remove("under");
+                                                }
+                                                function handleOpenClass() {
+                                                    folderContainer.style.display = "none";
+                                                    studySetContainer.style.display = "none";
+                                                    classContainer.style.display = "block";
+                                                    under3.classList.toggle("under");
+                                                    under2.classList.remove("under");
+                                                    under.classList.remove("under");
                                                 }
 
                                                 var modal = document.getElementById("myModal");

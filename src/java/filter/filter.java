@@ -115,15 +115,17 @@ public class filter implements Filter {
         User user;
         user = (User) ses.getAttribute("user");
         String url = req.getServletPath();
+        if (user == null) {
+            res.sendRedirect("login.jsp");
+        }
 
 //        if (user == null) {
 //            if (!url.contains("login") && !url.contains("register")
 //                    && !url.contains("search") && !url.contains("homeLogin")
-//                    && !url.contains("flashCards") && !url.contains("forget") ) {
+//                    && !url.contains("flashCards") && !url.contains("forget") && !url.contains("change") ) {
 //                res.sendRedirect("login.jsp");
 //            }
 //        }
-        
 //        if (user == null) {
 //            if (!url.contains("login") && !url.contains("register")
 //                    && !url.contains("search") && !url.contains("home")
@@ -141,7 +143,6 @@ public class filter implements Filter {
 //                }
 //            }
 //        }
-
         Throwable problem = null;
         try {
             chain.doFilter(request, response);
