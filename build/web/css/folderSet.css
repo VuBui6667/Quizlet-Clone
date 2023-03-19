@@ -1,0 +1,408 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Feb 13, 2023, 10:23:53 PM
+    Author     : ASUS
+*/
+
+body {
+    background-color: #0a092d;
+}
+
+.folderSet-section {
+    color: white;
+    font-size: 18px;
+    margin: 30px 10vw;
+}
+
+.control-folderSet {
+    display: flex;
+    justify-content: space-between;
+}
+
+.method-folderSet {
+    display: flex;
+}
+
+.method-item {
+    border: 1px solid white;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+}
+
+.method-item:hover {
+    background-color: #2e3856;
+    cursor: pointer;
+}
+
+.folderSet-info {
+    display: flex;
+}
+
+.folderSet-info p:last-child {
+    margin-left: 30px;
+}
+
+.fa-folder {
+    font-size: 50px;
+    color: #c3c7d5;
+    margin-right: 26px;
+}
+
+.folder-author {
+    display: flex;
+    margin: 0 10vw;
+}
+
+.folder-author p {
+    font-size: 24px;
+    font-weight: 700;
+    color: white;
+}
+
+.folder-desc {
+    color: #F6F7FB;
+    font-size: 16px;
+    margin: 0 10vw;
+    margin-top: -10px;
+    margin-bottom: 86px;
+}
+
+.item-study-set {
+    width: 22vw;
+    min-width: 250px;
+    height: 100px;
+    background-color: #2e3856;
+    padding: 20px;
+    color: white;
+    border-radius: 6px;
+    margin-bottom: 30px;
+    cursor: pointer;
+    border-bottom: 4px solid #2e3856;
+}
+
+.container-studySet {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    margin: 30px 10vw;
+}
+
+.item-study-set:hover {
+    border-bottom: 4px solid #fff;
+}
+
+.title-study-set {
+    font-size: 22px;
+    font-weight: 600;
+}
+
+.amount-card {
+    color: #939bb4;
+    font-weight: 600;
+    margin: 10px 0;
+}
+
+.author-study-set {
+    font-weight: 600;
+    margin-top: 30px;
+}
+
+.container-dropdown {
+    position: relative;
+}
+
+.dropdown-content {
+    background: #0a092d !important;
+    width: 120px;
+    position: absolute;
+    top: 30px;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #000;
+    border-radius: 12px;
+    display: none;
+    z-index: 99;
+}
+
+.dropdown-content:last-child {
+    right: 50px !important;
+    top: 50px;
+}
+
+.dropdown-item {
+    color: #ccc !important;
+    font-weight: 600;
+    padding: 10px;
+}
+
+.dropdown-item:hover {
+    background: #282e3e;
+    border-radius: 12px;
+    color: white !important;
+}
+
+.show {
+    display: flex;
+}
+
+.user-avatar {
+    background-color: #423ed8;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 16px;
+    font-weight: 600;
+    margin-right: 20px;
+    text-transform: uppercase;
+}
+
+
+.modal1{
+    display: none; /* Ẩn Mặc Định */
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px; /* Vị trí của modal */
+    left: 0;
+    top: -70px;
+    width: 100%;
+    height: 100vh;
+    overflow: auto; /* thiết lập scroll khi cần thiết */
+    background: rgba(10, 9, 45, 0.7);
+}
+
+.modal-content1 {
+    background-color: #F6F7FB;
+    margin: auto;
+    border: 1px solid #888;
+    width: 35%;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.12),
+        0 2px 2px rgba(0,0,0,0.12),
+        0 4px 4px rgba(0,0,0,0.12),
+        0 8px 8px rgba(0,0,0,0.12),
+        0 16px 16px rgba(0,0,0,0.12);
+    color: black;
+}
+
+.close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    padding:9px;
+    border-radius: 5px;
+}
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+
+
+
+
+
+.button-studySet{
+    text-decoration: none;
+    align-items: center;
+    color: black;
+    border-bottom: 5px solid #3ccfcf;
+}
+
+.create-studySet{
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    padding:24px;
+    margin-top: 20px;
+}
+
+.combo-box1{
+    margin: 32px 10px;
+    padding:10px 10px 10px 16px;
+    color: #3ccfcf;
+    border-color: white;
+    border-radius: 5px;
+    background-color: white;
+    font-size: .875rem;
+}
+.option{
+    color: black;
+}
+.header-studySet{
+    margin: 0px;
+    background-color: #282e3e;
+    color:white;
+    padding: 32px;
+    font-size: 30px;
+}
+.item-study-set1{
+    background-color: white;
+    padding: 20px;  
+    color: black;
+    border-radius: 6px;
+    margin-bottom: 30px;
+    cursor: pointer;
+    margin-left: 22px;
+}
+
+.fa-minus, .add-icon {
+    float: right; 
+    border-radius: 5px;
+    padding: 10px 20px;
+    background-color: #ffc107;
+}
+
+.fa-folder-minus {
+    float: right;
+    color: #ccc;
+    font-size: 14px;
+    position: relative;
+}
+
+.fa-folder-minus:hover {
+    color: white;
+    cursor: pointer;
+}
+
+.folderSet-controller {
+    background-color: #ffc107;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.input-send {
+/*    display: none;*/
+}
+
+.title-study-set1 {
+   font-size: 22px;
+   font-weight: 600;
+}
+
+.content-container {
+    height: 340px;
+    overflow-y: scroll;
+    margin-bottom: 30px;
+    -ms-overflow-style: none; 
+}
+
+.content-container::-webkit-scrollbar {
+    display: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.edit-folderSet {
+    position: relative;
+}
+
+.dropdown-controller {
+    background: #0a092d !important;
+    width: 180px;
+    position: absolute;
+    top: 50px;
+    right: 5px;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #000;
+    border-radius: 12px;
+    z-index: 99;
+    padding-bottom: 7px;
+    display: none;
+}
+
+.modalDel {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px; /* Vị trí của modal */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: auto; /* thiết lập scroll khi cần thiết */
+    background: rgba(10, 9, 45, 0.7);
+}
+
+.modalDel-content {
+    margin: auto;
+    border: none !important;
+    width: 50%;
+    border-radius: 14px;
+    color: white;
+    background-color: #2e3856 !important;
+}
+
+.container-controll {
+    display: flex;
+    border-top: 1px solid #ccc;
+    justify-content: end;
+    padding: 20px;
+}
+
+.btn-cancel {
+    padding: 8px 16px;
+    border: 1px solid #d9dde8;
+    border-radius: 8px;
+    background: #0a092d;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btn-cancel:hover {
+    opacity: .8;
+}
+
+.btn-del {
+    background: #b00020;
+    padding: 8px 16px;
+    font-size: 16px;
+    font-weight: 600;
+    border-radius: 8px;
+    margin-left: 20px;
+    cursor: pointer;
+}
+
+.modal-container {
+    padding: 20px;
+}
+
+.modal-container h1 {
+    font-weight: 600;
+}
+
+.modal-container h2 {
+    font-weight: 700;
+}
+
+.modal-container h4 {
+    font-weight: 400;
+    font-size: 18px;
+}
+
+.modal-container p {
+    font-weight: 700;
+}
+
+.input-send {
+    display: none;
+}

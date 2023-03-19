@@ -1,0 +1,151 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/CascadeStyleSheet.css to edit this template
+*/
+/* 
+    Created on : Feb 13, 2023, 2:37:59 PM
+    Author     : ASUS
+*/
+
+.folder-section {
+    margin: 30px 10vw;
+}
+
+body {
+    background-color: #0a092d;
+}
+
+.user-info {
+        display: flex;
+    font-size: 24px;
+    color: white;
+
+}
+
+.author {
+    font-weight: 700;
+    letter-spacing: 0.01cm;
+    line-height: 1.3;   
+}
+
+.author-mail{
+    font-size: 18px;
+    color: #939bb4;
+    font-weight: 600;
+    margin: 5px 0;
+    letter-spacing: 0;
+}
+
+.user-avatar-folder{
+     background-color: #423ed8;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 26px;
+    font-weight: 600;
+    margin-right: 20px;
+    text-transform: uppercase;
+}
+
+.container-home {
+    background-color: #0a092d;
+    min-height: calc(100vh - 65px) !important;
+}
+
+a {
+    text-decoration: none !important;
+}
+
+.content-container {
+    margin-top: 16px;
+}
+
+.folder-container {
+    margin-top: 36px;
+}
+
+.title-container-folder {
+    color: #939BB4;
+    font-size: 15px;
+    font-weight: 600;
+    line-height: 1.5;
+    margin-right: 20px;
+    
+}
+
+.item-folder {
+    width: 100%;
+    height: 36px;
+    background-color: #2e3856;
+    padding: 20px;  
+    color: white;
+    border-radius: 6px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    border-bottom: 4px solid #2e3856;
+    display: flex;
+}
+
+.item-folder:hover {
+    border-bottom: 4px solid #fff;
+}
+
+.title-folder {
+   font-size: 22px;
+   font-weight: 600;
+   margin-top: 22px;
+   margin-left: 15px;
+}
+
+.folder {
+    width: 25px;
+    height: 15px;
+    display: inline-block;
+    position: relative;
+    background-color: #708090;
+    border-radius: 0 3px 3px 3px;
+    /*box-shadow: 4px 4px 7px rgba(0, 0, 0, 0.59);*/
+    margin-bottom: -8px;
+    margin-top: 28px;
+  }
+
+.folder:before {
+    content: '';
+    width: 50%;
+    height: 0.2em;
+    border-radius: 0 20px 0 0;
+    background-color: #708090;
+    position: absolute;
+    top: -0.2em;
+    left: 0px;
+  }
+
+.amount-card {
+    color: #939bb4;
+    font-weight: 600;
+    margin: 10px 0;
+}
+
+.author-study-set {
+    font-weight: 600;
+}
+
+.cate-folder{
+    padding-bottom: 10px;
+    border-bottom: 1px solid #939BB4;
+    margin-bottom: 50px;
+}
+
+.btn-folder{
+    padding: 12px 22px;
+    color: #f6f7fb;
+    background-color: #0a092d;
+    font-size: 14px;
+    border: 1px solid white;
+    border-radius: 5px;
+    }
+
+

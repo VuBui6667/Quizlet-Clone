@@ -1,0 +1,180 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : Dec 12, 2022, 3:52:15 AM
+    Author     : LENOVO
+*/
+
+.container-create {
+    background-color: #0a092d;
+    height: fit-content !important;
+    padding: 120px 120px;
+}
+
+.header-create {
+    margin-top: -40px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 80px;
+}
+
+.create {
+    font-weight: 600;
+    font-size: 22px;
+}
+
+.btn-create {
+    background-color: #423ed8;
+    padding: 10px 20px;
+    border-radius: 6px;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+}
+
+.input-set {
+    width: 40vw;
+    outline: none;
+    border: none;
+    background-color: #0a092d;
+    border-bottom: 3px solid #f6f7fb;
+    font-size: 20px;
+    margin-top: 10px;
+    color: white;
+}
+
+.input-set:focus {
+    border-bottom: 3px solid #ffcd1f;
+}
+
+.title-input {
+    color: #c3c7d5;
+    font-weight: 600;
+    padding: 8px 0;
+    font-size: 14px;
+}
+
+.container-card {
+    background-color: #2e3856;
+    width: 100%;
+    margin-top: 20px;
+    border-radius: 8px;
+}
+
+.card-body {
+    display: flex;
+    justify-content: space-between;
+}
+
+.card-title, .card-desc {
+    width: 100%;
+    padding: 20px;
+}
+
+.input-card {
+    width: 100%;
+    outline: none;
+    border: none;
+    background-color: #2e3856;
+    border-bottom: 3px solid #f6f7fb;
+    font-size: 20px;
+    margin-top: 10px;
+    color: white;
+}
+
+.input-card:focus {
+    border-bottom: 3px solid #ffcd1f;
+}
+
+.card-header {
+    padding: 10px 20px;
+    border-bottom: 2px solid #000;
+}
+
+.container-add {
+    background-color: #2e3856;
+    width: calc(100% - 40px) !important;
+    margin-top: 20px;
+    border-radius: 8px;
+    height: 80px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    padding: 20px;
+}
+
+.title-add {
+    color: white;
+    font-weight: 700;
+    font-size: 16px;
+    padding-bottom: 5px;
+    border: none;
+    border-bottom: 4px solid #3ccfcf;
+    background-color: #2e3856 !important;
+}
+
+.container-add:hover > .title-add{
+    border-bottom: 4px solid #ffcd1f;
+}
+
+.number-card { 
+    font-weight: 700;
+    font-size: 22px;
+}
+
+.add-footer {
+    background-color: #423ed8;
+    padding: 20px 35px;
+    border-radius: 10px;
+    font-size: 18px;
+    font-weight: 600;
+    color: white;
+    cursor: pointer;
+    float: right;
+    margin: 20px 0;
+    opacity: 0.9;
+}
+
+.add-footer:hover {
+    opacity: 1;
+}
+
+.error-add {
+    text-align: center;
+    color: #ff725b;
+    text-transform: uppercase;
+    border: 2px solid #ff725b;
+    padding: 12px 0;
+    margin: 12px 0;
+    width: 60%;
+    margin: 0 auto;
+}
+
+.container-share {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.share-btn {
+    width: 20px;
+    height: 20px;
+}
+
+.share-text {
+    color: white;
+    margin: 20px 5px;
+}
+
+.share-text:hover {
+    opacity: 0.8;
+}
+
+input[type='checkbox']:checked {
+  background-color: #423ed8 !important;
+}
