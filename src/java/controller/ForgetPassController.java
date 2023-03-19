@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -82,13 +83,16 @@ public class ForgetPassController extends HttpServlet {
         HttpSession ses = request.getSession();
         System.out.println("changeCode: " + code);
         ses.setAttribute("changeCode", code);
-        if (a != null){
+        Cookie cookie = new Cookie("cookieName", "cookieValue");
+        cookie.setMaxAge(3600); // 1 giờ
+        response.addCookie(cookie);
+        if (a != null) {
             SendEmail se = new SendEmail();
-            se.sendEmailPass(a.getId(), email, code);
+            se.sendEmailPass(a.getId(), email, "http://localhost:8080/projectquizlet/change?userId=" + a.getId() + "&changeId=" + code);
             request.getSession().setAttribute("email", a);
             request.getSession().setAttribute("mail", a.getEmail());
             request.getRequestDispatcher("checkMail.jsp").forward(request, response);
-        }else{
+        } else {
             request.setAttribute("error", "Email not found");
             request.getRequestDispatcher("forget.jsp").forward(request, response);
         }

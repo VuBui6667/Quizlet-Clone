@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -66,10 +67,19 @@ public class ChangePass extends HttpServlet {
         String changeIdRaw = request.getParameter("changeId");
         System.out.println("changeId:" + changeId);
         System.out.println("changeIdRaw: " + changeIdRaw);
-        boolean check = changeId.equals(changeIdRaw);
-        request.setAttribute("checkVerifyLink", check);
+        Cookie[] cookies = request.getCookies();
+        if (cookies != null) {
+            for (Cookie cookie : cookies) {
+                if (cookie.getName().equals("changeCode")) {
+                    String cookieValue = cookie.getValue();
+                    boolean check = cookieValue.equals(changeIdRaw);
+                    request.setAttribute("checkVerifyLink", check);
+                }
+            }
+        }
         ses.setAttribute("user", (User) ses.getAttribute("user"));
         request.getRequestDispatcher("changePass.jsp").forward(request, response);
+
     }
 
     /**
