@@ -41,6 +41,10 @@
         <url-pattern>/update</url-pattern>
         <url-pattern>/updateFolder</url-pattern>
         <url-pattern>/updateCLass</url-pattern>
+        <url-pattern>/learn</url-pattern>
+        <url-pattern>/test</url-pattern>
+        <url-pattern>/addLearnedCard</url-pattern>
+        <url-pattern>/inviteMember</url-pattern>
     </filter-mapping>
     <welcome-file-list>
         <welcome-file>homeLogin.jsp</welcome-file>
