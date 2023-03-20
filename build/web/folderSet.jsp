@@ -23,6 +23,7 @@
                     <p>${listSS.size()} học phần</p>
                     <p>${d.getUserByUserId(f.getUserId()).getName()}</p>                   
                 </div>
+
                 <div class="method-folderSet">
                     <div class="add-studySet method-item">
                         <i class="fa-solid fa-plus" onClick="handleOpenModal2()"></i>
@@ -63,16 +64,53 @@
                             </div>
                         </div>
                     </div>
-                    <div class="share-folderSet method-item">
-                        <i class="fa-solid fa-arrow-up-from-bracket"></i>
+
+                    <div class="share-folderSet method-item"  >
+                        <i class="fa-solid fa-arrow-up-from-bracket" onclick="handleOpenModalShare()"></i>
                     </div>
                     <div class="edit-folderSet method-item">
                         <i class="fa-solid fa-ellipsis" onclick="handleOpenDropdown()"></i>
                         <div id="dropdown-controller" class="dropdown-controller">
-                            <a href="createSet" class="dropdown-item">Sửa</a>
+                            <button id="myBtn" class="dropdown-item" onclick="handleOpenModalEdit()">Sửa</button>
                             <button id="myBtn" class="dropdown-item" onclick="handleOpenModalDel()">Xóa</a> 
                         </div>
+                        <div id="myModalEdit" class="modal">
+                            <div class="modal-content">
+                                <span class="close" onClick="handleCloseModalEdit()">×</span>
+                                <h1 style="color: black">Sửa thư mục</h1>
+                                <form action="updateFolder" method="post">
+                                    <input class="folderId" value="${f.getId()}" name="folderId" /></br>
+                                    <input class="title" type="text" name="title" placeholder="Nhập tiêu đề"></br>
+                                    <input class="details" type="text" name="desc" placeholder="Nhập mô tả(tùy chọn)">
+                                    <div class="button-folder">
+                                        <input type="submit" value="Lưu" class="create-button"/>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                        <div id="myModalShare" class="modal">
+                            <div class="modal-content-share">
+                                <span class="close" onClick="handleCloseModalShare()">×</span>
+                                <div class="share-container">
+                                    <div class="title-share">Chia sẻ thư mục này</div>
+                                </div>
+
+                                <div class="share-body">
+                                    <form action="share" method="post">
+                                        <input class="folderId" value="${f.getId()}" name="folderId" /></br>
+                                        <input class="email" type="text" name="title" placeholder="Chia sẻ liên kết qua email">
+                                        <input type="submit" value="Gửi email" class="shared-button"/>
+                                    </form>
+
+                                    <div class="links">
+                                        <input disabled type="text" value="http://localhost:8080/projectquizlet/folderSet?id=${f.getId()}"  id="myInput">
+                                        <button onclick="myFunction()">Chép liên kết</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+
                     <div id="myModalDel" class="modalDel">
                         <div class="modalDel-content">
                             <div class="modal-container">
@@ -88,7 +126,7 @@
                                     <input name="folderId" value="${folderId}" class="input-send"/>
                                     <button type="submit" class="btn-del">
                                         Xóa thư mục
-                                    </div>
+                                        </div>
                                 </form>
                             </div>
                         </div>
@@ -100,26 +138,37 @@
                 <i class="fa-regular fa-folder"></i>
                 <p>${f.getTitle()}</p>
             </div>
-
             <p class="folder-desc">${f.getDesc()}</p>
-            <div class="container-studySet">
-                <c:forEach items="${listSS}" var="ss">
-                    <div class="item-study-set" onclick="handleSelectStudy(${ss.getId()})">
-                        <div class="title-study-set">${ss.getTitle()}
-                            <i class="fa-solid fa-folder-minus" onclick="sendMethod(${ss.getId()}, ${folderId}, 'delete')"></i>
+            <c:if test="${listSS.size() != 0}">
+                <div class="container-studySet">
+                    <c:forEach items="${listSS}" var="ss">
+                        <div class="item-study-set" onclick="handleSelectStudy(${ss.getId()})">
+                            <div class="title-study-set">${ss.getTitle()}
+                                <i class="fa-solid fa-folder-minus" onclick="sendMethod(${ss.getId()}, ${folderId}, 'delete')"></i>
+                            </div>
+                            <div class="amount-card">${ss.getNumberCard()} thuật ngữ</div>
+                            <div class="author-study-set">
+                                By ${d.getUserByUserId(ss.getUserId()).getName()}
+                            </div>
                         </div>
-                        <div class="amount-card">${ss.getNumberCard()} thuật ngữ</div>
-                        <div class="author-study-set">
-                            By ${d.getUserByUserId(ss.getUserId()).getName()}
-                        </div>
-                    </div>
-                </c:forEach>
-            </div>
+                    </c:forEach>
+                </div>
+            </c:if>
+            <c:if test="${listSS.size() == 0}">
+                <div class="empty-folder">
+                    <h3>Thư mục này chưa có học phần</h3>
+                    <p>Sắp xếp học phần cho bạn và học sinh của bạn.</p>
+                    <button onClick="handleOpenModal2()">Thêm Học Phần</button>
+                </div>
+            </c:if>
         </div>
+
     </body>
     <script>
         var modal = document.getElementById("myModal");
         var modal2 = document.getElementById("myModal2");
+        var modalEdit = document.getElementById("myModalEdit");
+        var modalShare = document.getElementById("myModalShare");
 
 
         function handleOpenDropdown() {
@@ -127,10 +176,20 @@
             element.classList.toggle("show");
         }
 
+        function myFunction() {
+            var copyText = document.getElementById("myInput");
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); // For mobile devices
+            navigator.clipboard.writeText(copyText.value);
+        }
+
         window.onclick = function (e) {
             var element = document.getElementById("content");
             if (!e.target.matches("#dropdown-btn") && element.classList.contains("show")) {
                 element.classList.remove("show");
+            }
+            if (!e.target.matches(".fa-ellipsis") && dropdownController.classList.contains("show")) {
+                dropdownController.classList.remove("show");
             }
             if (e.target.matches("#myModal")) {
                 modal.style.display = "none";
@@ -138,6 +197,16 @@
             if (e.target.matches("#myModal2")) {
                 modal2.style.display = "none";
             }
+            if (e.target.matches("#myModalEdit")) {
+                modalEdit.style.display = "none";
+            }
+            if (e.target.matches("#myModalShare")) {
+                modalShare.style.display = "none";
+            }
+            if (e.target.matches("#myModalDel")) {
+                modalDel.style.display = "none";
+            }
+
         };
 
         function handleOpenSetting() {
@@ -147,6 +216,20 @@
 
         function handleOpenModal() {
             modal.style.display = "block";
+        }
+
+        function handleOpenModalEdit() {
+            modalEdit.style.display = "block";
+        }
+        function handleOpenModalShare() {
+            modalShare.style.display = "block";
+        }
+        function handleCloseModalShare() {
+            modalShare.style.display = "none";
+        }
+
+        function handleCloseModalEdit() {
+            modalEdit.style.display = "none";
         }
 
         function handleCloseModal() {
@@ -168,15 +251,15 @@
         function sendMethod(studySetId, folderId, method) {
             window.location.href = "http://localhost:8080/projectquizlet/controllerFolderSet?studySetId=" + studySetId + "&folderId=" + folderId + "&method=" + method;
         }
-        
+
         var dropdownController = document.getElementById("dropdown-controller");
 
         function handleOpenDropdown() {
             dropdownController.classList.toggle("show");
         }
-        
+
         var modalDel = document.getElementById("myModalDel");
-        
+
         function handleOpenModalDel() {
             modalDel.style.display = "block";
         }
@@ -185,14 +268,14 @@
             modalDel.style.display = "none";
         }
 
-        window.onclick = function (e) {
-            if (e.target.matches("#myModalDel")) {
-                modalDel.style.display = "none";
-            }
-            if(!e.target.matches(".fa-ellipsis") && dropdownController.classList.contains("show")) {
-                dropdownController.classList.remove("show");
-            }
-        };
+//        window.onclick = function (e) {
+//            if (e.target.matches("#myModalDel")) {
+//                modalDel.style.display = "none";
+//            }
+//            if(!e.target.matches(".fa-ellipsis") && dropdownController.classList.contains("show")) {
+//                dropdownController.classList.remove("show");
+//            }
+//        };
 
     </script>
 </html>

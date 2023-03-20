@@ -229,6 +229,7 @@ body {
     color: black;
     margin-bottom: 20px;
     padding: 10px 0px;
+    padding-left: 10px;
 }
 
 .details{
@@ -374,6 +375,10 @@ body {
     display: none;
 }
 
+#class-container{
+    display: none;
+}
+
 .get-all{
     padding: 8px 30px;
     border-top: 0.1px solid #606060;
@@ -410,4 +415,12 @@ body {
 
 .under{
     border-bottom: 2px solid #a8b1ff;
+}
+.before-login1{
+    text-align: center;
+}
+
+.before-login2{
+    text-align: center;
+    padding: 10px 0;
 }

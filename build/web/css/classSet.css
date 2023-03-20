@@ -17,17 +17,23 @@ body {
 }
 
 .control-classSet {
-        display: flex;
-        font-size: 24px;
-        color: white;
-        display: flex;
-        justify-content: space-between;
+    display: flex;
+    font-size: 24px;
+    color: white;
+    display: flex;
+    justify-content: space-between;
 }
 
 .method-classSet {
     display: flex;
 }
 
+.edit-folderSet{
+    position: relative;
+}
+.show{
+    display:flex;
+}
 .method-item {
     border: 1px solid white;
     border-radius: 50%;
@@ -143,7 +149,7 @@ body {
 }
 .item-study-set1{
     background-color: white;
-    padding: 20px;  
+    padding: 20px;
     color: black;
     border-radius: 6px;
     margin-bottom: 30px;
@@ -151,7 +157,7 @@ body {
     margin-left: 22px;
 }
 .fa-minus, .add-icon {
-    float: right; 
+    float: right;
     border-radius: 5px;
     padding: 10px 20px;
     background-color: #ffc107;
@@ -178,19 +184,19 @@ body {
 }
 
 .input-send {
-/*    display: none;*/
+    display: none;
 }
 
 .title-study-set1 {
-   font-size: 22px;
-   font-weight: 600;
+    font-size: 22px;
+    font-weight: 600;
 }
 
 .content-container {
     height: 340px;
     overflow-y: scroll;
     margin-bottom: 30px;
-    -ms-overflow-style: none; 
+    -ms-overflow-style: none;
 }
 
 .content-container::-webkit-scrollbar {
@@ -293,7 +299,7 @@ a{
     margin-bottom: 50px;
 }
 .button,.taskbar{
-     display: flex;
+    display: flex;
 
 }
 .descrip{
@@ -301,7 +307,7 @@ a{
     justify-content: space-between;
 }
 .task-bar,.arrange{
-     display:flex;
+    display:flex;
     justify-content: space-between;
 }
 
@@ -309,7 +315,7 @@ a{
     margin-top: 9px;
     font-size: 14px;
 }
-  .btn-folder{
+.btn-folder{
     padding: 10px 20px;
     color: #f6f7fb;
     background-color: #0a092d;
@@ -317,10 +323,10 @@ a{
     border: 1px solid white;
     border-radius: 5px;
     margin-left: 60px;
-    }
-.filter{
-    padding-left: 600px;
 }
+/*.filter{
+    padding-left: 500px;
+}*/
 
 
 
@@ -373,4 +379,208 @@ a{
 .items-mini1 p{
     margin-top: 0px;
     padding: 0 10px;
+}
+.modal3{
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px; /* Vị trí của modal */
+    left: 0;
+    top: -70px;
+    width: 100%;
+    height: 100vh;
+    overflow: auto; /* thiết lập scroll khi cần thiết */
+    background: rgba(10, 9, 45, 0.7);
+
+}
+
+.modal-content3 {
+    background-color: #F6F7FB;
+    margin: auto;
+    border: 1px solid #888;
+    width: 35%;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.12),
+        0 2px 2px rgba(0,0,0,0.12),
+        0 4px 4px rgba(0,0,0,0.12),
+        0 8px 8px rgba(0,0,0,0.12),
+        0 16px 16px rgba(0,0,0,0.12);
+    color: black;
+}
+
+
+.dropdown-controller {
+    background: #0a092d !important;
+    width: 120px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #000;
+    border-radius: 12px;
+    z-index: 99;
+    padding-bottom: 7px;
+    display: none;
+}
+
+.dropdown-content {
+    background: #0a092d !important;
+    width: 120px;
+    position: absolute;
+    top: 30px;
+    left: 0;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #000;
+    border-radius: 12px;
+    display: none;
+    z-index: 99;
+}
+
+.dropdown-content:last-child {
+    right: 50px !important;
+    top: 50px;
+}
+
+.dropdown-item {
+    color: #ccc !important;
+    font-weight: 600;
+    padding: 10px;
+}
+
+.dropdown-item:hover {
+    background: #282e3e;
+    border-radius: 12px;
+    color: white !important;
+}
+
+.modalDel {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    padding-top: 100px; /* Vị trí của modal */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100vh;
+    overflow: auto; /* thiết lập scroll khi cần thiết */
+    background: rgba(10, 9, 45, 0.7);
+}
+
+.modalDel-content {
+    margin: auto;
+    border: none !important;
+    width: 50%;
+    border-radius: 14px;
+    color: white;
+    background-color: #2e3856 !important;
+}
+
+
+.delcontent{
+    background-color: #282e3e;
+    padding: 20px;
+}
+.delcontent1{
+    padding: 20px;
+}
+
+.input-send{
+    display: none;
+}
+.container-controll {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 30px;
+}
+
+.btn-cancel,.btn-del {
+    margin: 0px 50px;
+}
+.btn-del{
+    padding: 26px 40px;
+    background: #ff725b;
+    font-weight: bold;
+    color: white;
+    font-size: 18px;
+}
+.btn-cancel{
+    padding: 26px 90px;
+    background: #303545;
+}
+.contentdel{
+    width: 90%;
+    padding: 0px 80px;
+}
+.btn-del:hover {
+    background: #ff8e7b;
+}
+.btn-cancel:hover{
+    background: #595d6a;
+}
+
+.invite-content{
+    background-color: #282e3e;
+    padding: 5px 20px;
+}
+
+invite-cont{
+    padding: 5px 20px;
+}
+.content-invite{
+    padding-left: 20px;
+}
+.content-member{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 30px;
+}
+.addmember{
+    outline: none;
+    background-color:initial;
+    width: 100%;
+    background-color: #2e3856;
+    padding-right: 100px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-size: 25px;
+    appearance: none;
+    border-top: none;
+    border-left: none;
+    border-right: none;
+}
+.invite{
+    font-size: 20px;
+}
+.invite-button-cl{
+    padding: 20px 50px;
+    border-radius: 10px;
+}
+.button-member{
+    padding: 0px 50px;
+}
+.tag{
+    display: block;
+    height: .25rem;
+    transition: all .12s cubic-bezier(.47,0,.745,.715);
+    width: 100%;
+    box-shadow: 0 .125rem 0 0 var(--ui_color_gray_30);
+}
+
+.classId {
+    display: none;
+}
+
+.class-na, .school-na, .details-cl{
+    padding-left: 10px;
+}
+#myInput{
+    background-color: initial;
+    color: white;
+    border-color: white;
+    padding: 10px;
+}
+.btn-copy{
+    background: #4255ff;
+    color: #fff;
+    padding: 15px;
+    border-radius: 15px;
 }

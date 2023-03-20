@@ -33,7 +33,7 @@ a {
 
 .item-study-set {
     width: 300px;
-    height: 100px;
+    /*height: 100px;*/
     background-color: #2e3856;
     padding: 20px;  
     color: white;

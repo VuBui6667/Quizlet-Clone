@@ -58,15 +58,34 @@ public class ControllerClassSet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int studySetId = Integer.parseInt(request.getParameter("studySetId"));
+        int studySetId = -1;
+        try {
+             studySetId = Integer.parseInt(request.getParameter("studySetId"));
+        } catch(Exception e) {
+            System.out.println(e);
+        }
+        int folderId = -1;
+        try {
+            folderId = Integer.parseInt(request.getParameter("folderId"));
+        } catch(Exception e) {
+            System.out.println(e);
+        }
+        System.out.println("folderId: " + folderId);
         int classId = Integer.parseInt(request.getParameter("classId"));
         String method = request.getParameter("method");
         DAO d = new DAO();
-        System.out.println("studysetId: " + studySetId);
-        if (method.equals("delete")) {
-            d.deleteStudySetInClass(classId, studySetId);
-        } else if (method.equals("add")) {
-            d.addStudySetInClass(classId, studySetId);
+        if (folderId == -1) {
+            if (method.equals("delete")) {
+                d.deleteStudySetInClass(classId, studySetId);
+            } else if (method.equals("add")) {
+                d.addStudySetInClass(classId, studySetId);
+            }
+        } else {
+            if(method.equals("delete")) {
+                d.deleteFolderInClass(classId, folderId);
+            } else if(method.equals("add")) {
+                d.addFolderInClass(classId, folderId);
+            }
         }
         response.sendRedirect("classSet?id=" + classId);
     }
