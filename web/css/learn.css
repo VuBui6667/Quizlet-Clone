@@ -1,0 +1,370 @@
+/*
+Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+Click nbfs://nbhost/SystemFileSystem/Templates/ClientSide/css.css to edit this template
+*/
+/* 
+    Created on : Mar 11, 2023, 10:55:53 PM
+    Author     : LENOVO
+*/
+
+body {
+    margin: 0;
+    box-sizing: border-box;
+    background-color: #0a092d;
+}
+
+.container-study {
+    height: 100vh;
+    color: #f6f7fb;
+}
+
+.header-study {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 20px;
+    align-items: center;
+    box-shadow: 0 .25rem 3px 0 #939bb414;
+}
+
+#progress-study {
+    height: 3px;
+    background-color: #a8b1ff;
+    width: 0;
+}
+
+.controll-item {
+    font-size: 16px;
+    font-weight: 600;
+    transition: 0.2s;
+    flex: 1;
+}
+
+.controll-item:nth-child(1):hover {
+    cursor: pointer;
+    color: #7b89c9;
+}
+
+.controll-item:nth-child(2) {
+    text-align: center;
+}
+
+.title-flashCard {
+    transition: 0.3s;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.title-flashCard:hover {
+    color: #939BB4;
+}
+
+.controll-item:nth-child(3) {
+    display: flex;
+    justify-content: end;
+}
+
+.controll-item:nth-child(3) div:nth-child(1) {
+    border: 1px solid #d9dde8;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+.controll-item:nth-child(3) div:nth-child(1):hover {
+    cursor: pointer;
+    background-color: #282e3e;
+}
+
+.controll-item:nth-child(3) div:nth-child(2) {
+    border: 1px solid #d9dde8;
+    width: 40px;
+    height: 40px;
+    border-radius: 6px;    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+    margin-left: 14px;
+    transition: 0.2s;
+}
+
+.controll-item:nth-child(3) div:nth-child(2):hover {
+    cursor: pointer;
+    background-color: #2e3856;
+}
+
+.container-slide {
+    width: 55vw;
+    height: 600px;
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    margin: 20px auto;
+}
+
+.slide {
+    position: absolute;
+    perspective: 1000px;
+    transform-style: preserve-3d;
+    width: 100%;
+    height: 100%;
+    transition: all 0.4s ease-in-out;
+    background-color: #2e3856;
+    color: white;
+}
+
+.card-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    transform-style: preserve-3d;
+    transition: all 0.5s ease;
+}
+
+.type-card {
+    color: #646f90;
+    font-size: 16px;
+    font-weight: 600;
+    margin-bottom: 36px;
+    margin-left: 40px;
+    margin-top: 40px;
+    display: flex;
+}
+
+.try-again {
+    background-color: #d0570052;
+    color: #ffe8d8;
+    padding: 2px 8px;
+    border-radius: 8px;
+    margin-left: 20px;
+    font-size: 12px;
+    font-weight: 500;
+    display: none;
+}
+
+.content-card {
+    font-size: 24px;
+    margin-left: 40px;
+    margin-bottom: 100px;
+}
+
+.container-answer {
+    height: 150px;
+    width: 100%;
+}
+
+.contain-answer {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: 1fr 1fr;
+    width: 90%;
+    margin: 0 auto;
+}
+
+.title-type {
+    margin-bottom: 20px;
+    margin-left: 40px;
+    font-size: 20px;
+    font-weight: 500;
+}   
+
+.answer-item {
+    color: #edeff4;
+    border: 2px solid #646f90;
+    padding: 18px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.wrong-answer {
+    border: 2px solid #c34632;
+    transition: 0.5s;
+}
+
+.right-answer {
+    border: 2px solid #c8ecdb;
+    background-color: #19804f;
+    transition: 0.5s;
+}
+
+.other-answer {
+    border: 2px solid #282e3e;
+    opacity: .5;
+}
+
+
+.btn-prev, .btn-next {
+    padding: 15px 20px;
+    text-align: center;
+    width: 20vw;
+    border: 1px solid #646f90;
+    border-radius: 12px;
+    margin: 30px;
+    cursor: pointer;
+}
+
+.btn-prev:hover, .btn-next:hover {
+    border-color: #939bb4;
+}
+
+.card-footer {
+    display: flex;
+    margin-top: -40px;
+}
+
+.continue-question {
+    position: absolute;
+    right: 8%;
+    top: 50%;
+    background-color: #4255ff;
+    font-weight: 600;
+    border-radius: 8px;
+    font-size: 18px;
+    padding: 18px 20px;
+    display: none;
+    transition: 0.5s;
+}
+
+.continue-question:hover {
+    background-color: #423ed8;
+    cursor: pointer;
+}
+
+#studySetId {
+    display: none;
+}
+
+.container-complete {
+    display: none;
+}
+
+.header-complete {
+    background-color: #282e3e;
+    padding: 48px 20vw;
+}
+
+.title-complete {
+    color: #939bb4;
+    line-height: 1.25;
+}
+
+.progress-title {
+    color: #646f90;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+#progress-bar {
+    width: 100%;
+    background-color: #fff;
+    border: 2px solid #fff;
+    border-radius: 20px;
+    height: 14px;
+}
+
+#progress-control {
+    background-color: #65c999;
+    height: 14px;
+    border-radius: 20px;    
+}
+
+.contain-complete {
+    padding: 0 20vw;
+    padding-bottom: 48px;
+}
+
+.contain-title {
+    margin: 24px 0;
+    color: #646f90;
+    font-weight: 600;
+    font-size: 18px;
+}
+ 
+.card-item {
+    display: flex;
+    color: white;
+    font-size: 18px;
+    width: 100%;
+    min-height: 40px;
+    background-color: #2e3856;
+    border-radius: 8px;
+    padding: 15px 10px;
+    margin-bottom: 14px;
+}
+
+.card-title {
+    padding: 5px;
+    width: 40%;
+    border-right: 2px solid #646f90;
+}
+
+.card-desc {
+    width: 60%;
+    padding: 5px 20px;
+}
+
+#learn-size, #mastered-size, #allCard-size {
+    display: none;
+}
+
+.container-done {
+    width: 100vw;
+    padding-top: 6rem;
+    display: none;
+}
+
+.container-done h1 {
+    text-align: center;
+    margin-bottom: 16px;
+}
+
+.container-done p {
+    text-align: center;
+}
+
+.container-img {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 64px;
+}
+
+.container-btn {
+    display: flex;
+    justify-content: center;
+    padding: 64px 16px;
+}
+
+.btn-test {
+    background-color: #0a092d;
+    color: #f6f7fb;
+    border: 1px solid #d9dde8;
+    border-radius: 8px;
+    padding: 12px 24px;
+    margin-right: 16px;
+    width: 14rem;
+    text-align: center;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.btn-test:hover {
+    background-color: #282e3e;
+    cursor: pointer;
+}
+
+.btn-reset {
+    background-color: #423ed8;
+    color: #fff;
+    padding: 12px 24px;
+    border-radius: 8px;
+    width: 16rem;
+    text-align: center;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.num-card {
+    display: none;
+}
