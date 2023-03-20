@@ -132,7 +132,7 @@ public class SendEmailShare {
             MimeMessage message = new MimeMessage(session);
             message.setFrom(new InternetAddress(user));
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
-            message.setSubject(u.getName() + " muốn chia sẻ tài liệu học Quizlet với bạn?");
+            message.setSubject(u.getName() + " muốn chia sẻ tài liệu học Quizlet với bạn?","UTF-8");
             String share = "<table role=\"presentation\" width=\"100%\" align=\"center\" cellspacing=\"0\" cellpadding=\"0\" border=\"0\" style=\"color:#455357;font-family:'Hurme Geometric Sans 2','Trebuchet MS',Arial,sans-serif;min-width:100%\" bgcolor=\"#f0f0f0\"><tbody><tr><td align=\"center\" style=\"font-family:'Hurme Geometric Sans 2','Trebuchet MS',Arial,sans-serif\">\n"
                     + "\n"
                     + "<table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" class=\"m_4444567503209527307em_full_wrap\" bgcolor=\"#F0F0F0\" style=\"table-layout:fixed\">\n"

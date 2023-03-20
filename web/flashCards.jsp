@@ -26,8 +26,12 @@
                     <div class="preview-item">
                         <a href="study?id=${set.getId()}">Thẻ ghi nhớ</a>
                     </div>
-                    <div class="preview-item">Học</div>
-                    <div class="preview-item">Kiểm tra</div>
+                    <div class="preview-item">
+                        <a href="learn?id=${set.getId()}">Học</a>
+                    </div>
+                    <div class="preview-item">
+                        <a href="test?id=${set.getId()}">Kiểm tra</a>
+                    </div>
                     <div class="preview-item">Ghép thẻ</div>
                 </div>
                 <div class="container-progress">
@@ -74,9 +78,9 @@
                         </div>
                         <p class="continue-title">Bước tiếp theo</p>
                         <div class="continue-container">
-                            <div class="continue-item">
+                            <div class="continue-item" onclick="handleLearn(${set.getId()})">
                                 <p>Học các thuật ngữ này</p>
-                                <p>Trả lời các câu hỏi về 2 thuật ngữ này để xây dựng kiến thức.</p>
+                                <p>Trả lời các câu hỏi về ${listC.size()} thuật ngữ này để xây dựng kiến thức.</p>
                             </div>
                             <div class="continue-item" onclick="handleReset(${user.getId()}, ${set.getId()})">
                                 <p>Đặt lại thẻ ghi</p>
@@ -100,10 +104,64 @@
                             </div> 
                         </div>
                         <div class="contain-controller" style="${user.getId() != requestScope.author.getId() ? "display: none" : ""}">
-                            <div class="item-controller"><i class="fa-solid fa-plus"></i></div>
+                            <div class="item-controller"><i class="fa-solid fa-plus" onclick="handleOpenModalAdd()"></i></div>
                             <div class="item-controller"><i class="fa-regular fa-share-from-square"></i></div>
                             <div class="item-controller"><a href="update?id=${set.getId()}"><i class="fa-solid fa-pencil"></i></a></div>
                             <div class="item-controller" onclick="handleOpenModalDel()"><i class="fa-regular fa-trash-can"></i></div>
+                        </div>
+                    </div>
+                    <div id="myModalAdd" class="modalAdd">
+                        <div class="modal-content1">
+                            <span class="close" onClick="handleCloseModalAdd()">×</span>
+                            <div class="header-studySet">
+                                Thêm vào lớp học hoặc thư mục 
+                            </div>
+                            <div class="add-new">
+                                <span class="add-item" id="item1" onclick="handleOpenAddClass()">Thêm vào lớp học </span>
+                                <span class="add-item" id="item2" onclick="handleOpenAddFolder()">Thêm vào thư mục</span>
+                            </div>
+                            <div class="create-studySet">
+                                <a href="createSet?classId=${f.getId()}" class="new-class" id="nclass">+ Tạo một lớp mới</a>
+                                <a href="createSet?folderId=${f.getId()}" class="new-folder" id="nfolder">+ Tạo thư mục mới</a>
+                            </div>
+                            <div class="content-container">
+                                <div class="list-class" id="class-add">
+                                    <c:forEach items="${listClass}" var="c">
+                                        <span > 
+                                            <div class="item-study-set1">
+                                                <div class="title-study-set1">
+                                                    ${c.getName()}
+                                                    <c:set var="checkAdded" scope="request" value="${d.isAddedInClass(c.getId(),id)}" />
+                                                    <c:if test="${checkAdded}">
+                                                        <i class="fa-solid fa-minus" onclick="sendMethod2(${id}, ${c.getId()}, 'delete')"></i>
+                                                    </c:if>
+                                                    <c:if test="${!checkAdded}">
+                                                        <i class="fa-solid fa-plus add-icon" onclick="sendMethod2(${id}, ${c.getId()}, 'add')"></i>
+                                                    </c:if>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </c:forEach>
+                                </div>
+                                <div class="list-class" id="folder-add">
+                                    <c:forEach items="${listFl}" var="s">
+                                        <span > 
+                                            <div class="item-study-set1">
+                                                <div class="title-study-set1">
+                                                    ${s.getTitle()} 
+                                                    <c:set var="checkAdded" scope="request" value="${d.isAddedInFolder(s.getId(),id)}" />
+                                                    <c:if test="${checkAdded}">
+                                                        <i class="fa-solid fa-minus" onclick="sendMethod(${id}, ${s.getId()}, 'delete')"></i>
+                                                    </c:if>
+                                                    <c:if test="${!checkAdded}">
+                                                        <i class="fa-solid fa-plus add-icon" onclick="sendMethod(${id}, ${s.getId()}, 'add')"></i>
+                                                    </c:if>
+                                                </div>
+                                            </div>
+                                        </span>
+                                    </c:forEach>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div id="myModalDel" class="modalDel">
@@ -124,12 +182,50 @@
                         </div>
                     </div>
                     <div class="number-card">Thuật ngữ trong phần này (${listC.size()})</div>
-                    <c:forEach items="${listC}" var="c">
-                        <div class="card-item">
-                            <div class="card-title">${c.getTerm()}</div>
-                            <div class="card-desc">${c.getDefinition()}</div>
+                    <c:if test="${listCSL.size() > 0}">
+                        <div class="still-learning">
+                            Đang học (${listCSL.size()})
+                            <p>Bạn đã bắt đầu học những thuật ngữ này. Tiếp tục phát huy nhé!</p>
                         </div>
-                    </c:forEach>
+                        <c:forEach items="${listCSL}" var="a">
+                            <div class="card-item">
+                                <div class="card-title">${a.getTerm()}</div>
+                                <div class="card-desc">${a.getDefinition()}</div>
+                            </div>
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="${listCM.size() > 0}">
+                        <div class="mastered">
+                            Thành thạo (${listCM.size()})
+                            <p>Bạn đã trả lời đúng các thuật ngữ này!</p>
+                        </div>
+                        <c:forEach items="${listCM}" var="cm">
+                            <div class="card-item">
+                                <div class="card-title">${cm.getTerm()}</div>
+                                <div class="card-desc">${cm.getDefinition()}</div>
+                            </div>
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="${listUL.size() > 0}">
+                        <div class="not-studied">
+                            Chưa học (${listUL.size()})
+                            <p>Bạn chưa học các thuật ngữ này!</p>
+                        </div>
+                        <c:forEach items="${listUL}" var="x">
+                            <div class="card-item">
+                                <div class="card-title">${x.getTerm()}</div>
+                                <div class="card-desc">${x.getDefinition()}</div>
+                            </div>
+                        </c:forEach>        
+                    </c:if>
+                    <c:if test="${listCSL.size() == 0 && listCM.size() == 0}">
+                        <c:forEach items="${listC}" var="c">
+                            <div class="card-item">
+                                <div class="card-title">${c.getTerm()}</div>
+                                <div class="card-desc">${c.getDefinition()}</div>
+                            </div>
+                        </c:forEach>
+                    </c:if>
                 </div>
             </div>  
         </c:if>
@@ -142,14 +238,51 @@
         <div id="current-numCard">${currentNumCard}</div>
     </body>
     <script>
+        var modalAdd = document.getElementById("myModalAdd");
 
+        function handleOpenModalAdd() {
+            modalAdd.style.display = "block";
+            folderAdd.style.display = "none";
+            classAdd.style.display = "block";
+
+        }
+
+        function handleCloseModalAdd() {
+            modalAdd.style.display = "none";
+
+        }
+
+        var underAdd2 = document.getElementById("item2");
+        var underAdd1 = document.getElementById("item1");
+        var folderAdd = document.getElementById("folder-add");
+        var classAdd = document.getElementById("class-add");
+        var newClass = document.getElementById("nclass");
+        var newFolder = document.getElementById("nfolder");
+        function handleOpenAddFolder() {
+            folderAdd.style.display = "block";
+            classAdd.style.display = "none";
+            newFolder.style.display = "block";
+            newClass.style.display = "none";
+            underAdd2.classList.toggle("under");
+            underAdd1.classList.remove("under");
+        }
+
+        function handleOpenAddClass() {
+            folderAdd.style.display = "none";
+            classAdd.style.display = "block";
+            newFolder.style.display = "none";
+            newClass.style.display = "block";
+            underAdd1.classList.toggle("under");
+            underAdd2.classList.remove("under");
+        }
         var load = document.getElementsByClassName("container-body")[0];
         let containerSlide = document.getElementById("contain-slide");
         let containerComplete = document.getElementById("container-complete");
 
+
         setTimeout(function () {
             slideImage();
-            if(count - size === 0) {
+            if (count - size === 0) {
                 containerComplete.style.display = "block";
             }
         }, 0);
@@ -157,7 +290,6 @@
         setTimeout(function () {
             load.style.display = "block";
         }, 400);
-
 
         function handleFlipCard(i) {
             var cards = document.querySelectorAll(".card-container");
@@ -170,6 +302,10 @@
 
         function handleDelete(id) {
             window.location.href = "http://localhost:8080/projectquizlet/delete?id=" + id;
+        }
+        
+        function handleLearn(studySetId) {
+            window.location.href = "http://localhost:8080/projectquizlet/learn?id=" + studySetId;
         }
 
         const currentNumCard = document.getElementById("current-numCard").innerHTML;
@@ -200,7 +336,12 @@
                 containerComplete.style.display = "none";
             }
         };
-
+        function sendMethod(studySetId, folderId, method) {
+            window.location.href = "http://localhost:8080/projectquizlet/controllerFlashCards?studySetId=" + studySetId + "&folderId=" + folderId + "&method=" + method;
+        }
+        function sendMethod2(studySetId, classId, method) {
+            window.location.href = "http://localhost:8080/projectquizlet/controllerFlashCardsInClass?studySetId=" + studySetId + "&classId=" + classId + "&method2=" + method;
+        }
 
         var listSize = document.getElementById("list-size");
         var size = parseInt(listSize.innerHTML);
@@ -217,7 +358,7 @@
                 count--;
             }
             slideImage();
-            if(containerComplete.style.display === "block") {
+            if (containerComplete.style.display === "block") {
                 containerComplete.style.display = "none";
             }
         };
@@ -250,9 +391,9 @@
                 handleFlipCard(count);
             }
         };
-        
+
         function handleReset(userId, studySetId) {
-             window.location.href = "http://localhost:8080/projectquizlet/resetStudiedCard?userId=" + userId + "&studySetId=" + studySetId + "&mode=flashCards";
+            window.location.href = "http://localhost:8080/projectquizlet/resetStudiedCard?userId=" + userId + "&studySetId=" + studySetId + "&mode=flashCards";
         }
     </script>
 </html>

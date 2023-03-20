@@ -9,19 +9,16 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
-import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import model.User;
 
 /**
  *
  * @author asus
  */
-@WebServlet(name = "ForgetPassController", urlPatterns = {"/forget"})
-public class ForgetPassController extends HttpServlet {
+@WebServlet(name = "ControllerFlashCardsInClass", urlPatterns = {"/controllerFlashCardsInClass"})
+public class ControllerFlashCardsInClass extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +37,10 @@ public class ForgetPassController extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ForgetPassController</title>");
+            out.println("<title>Servlet ControllerFlashCardsInClass</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ForgetPassController at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet ControllerFlashCardsInClass at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,7 +58,17 @@ public class ForgetPassController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        request.getRequestDispatcher("forget.jsp").forward(request, response);
+        int studySetId = Integer.parseInt(request.getParameter("studySetId"));
+        int classId = Integer.parseInt(request.getParameter("classId"));
+        String method2 = request.getParameter("method2");
+        DAO d = new DAO();
+        System.out.println("studysetId: " + studySetId);
+        if (method2.equals("delete")) {
+            d.deleteStudySetInClass(classId, studySetId);
+        } else if (method2.equals("add")) {
+            d.addStudySetInClass(classId, studySetId);
+        }
+        response.sendRedirect("flashCards?id=" + studySetId);
     }
 
     /**
@@ -75,27 +82,7 @@ public class ForgetPassController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String email = request.getParameter("email");
-        DAO s = new DAO();
-        User a = s.checkUser(email);
-        SendEmail sm = new SendEmail();
-        String code = sm.getRandom();
-        HttpSession ses = request.getSession();
-        System.out.println("changeCode: " + code);
-        ses.setAttribute("changeCode", code);
-        Cookie cookie = new Cookie("cookieName", "cookieValue");
-        cookie.setMaxAge(3600); // 1 giờ
-        response.addCookie(cookie);
-        if (a != null) {
-            SendEmail se = new SendEmail();
-            se.sendEmailPass(a.getId(), email, "http://localhost:8080/projectquizlet/change?userId=" + a.getId() + "&changeId=" + code);
-            request.getSession().setAttribute("email", a);
-            request.getSession().setAttribute("mail", a.getEmail());
-            request.getRequestDispatcher("checkMail.jsp").forward(request, response);
-        } else {
-            request.setAttribute("error", "Email not found");
-            request.getRequestDispatcher("forget.jsp").forward(request, response);
-        }
+        processRequest(request, response);
     }
 
     /**
