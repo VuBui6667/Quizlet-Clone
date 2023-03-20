@@ -89,6 +89,7 @@
                                     <div class="content-invite">
                                         <div>
                                             <input class="addmember" type="text" name="addmem" placeholder="Nhập tên người dùng hoặc email">
+                                            <input class="classId" value="${c.getId()}" name="classId" />
                                             <span class="tag"></span>
                                         </div>
                                         <span class="invite">Mời thành viên</span>
@@ -202,74 +203,113 @@
                                     <div class="contai-home">
                                         <div class="class-contai">
                                             <div class="cate-class">
-                                                <a href="" class="title-container-class">Các học phần</a>
-                                                <a href="" class="title-container-class">Thành Viên</a>
+                                                <span class="title-container-class" id="items1" onclick="handleOpenStudySetFolder()">Các học phần</span>
+                                                <span class="title-container-class" id="items2" onclick="handleOpenMember()">Thành viên</span>
                                             </div>
                                         </div>
                                     </div>
 
-
                                     <div class=descrip id="description">
-                                        <div class = "main">
-                                            <div class="task-bar">
-                                                <div class="arrange">
-                                                    <div> 
-                                                        <h6>SẮP XẾP</h6>
-                                                    </div>
-                                                    <div>
-                                                        <button  class="btn-folder">Gần đây &nbsp;&nbsp;<i class="fa-solid fa-chevron-down"></i></button>
-                                                    </div>
-                                                </div>
-                                                <div class="filter">
-                                                    <form action="search">
-                                                        <input type="search" name="search" class="search-input" placeholder="Lọc"/>
-                                                        <input type="submit" hidden />
-                                                    </form>
-                                                </div>
-
-                                            </div>
-
-
-
-                                            <div class="container-studySet">
-                                                <c:forEach items="${listSS}" var="ss">
-                                                    <div class="item-study-set" onclick="handleSelectStudy(${ss.getId()})">
-                                                        <div>
-                                                            <div class="amount-card">${ss.getNumberCard()} thuật ngữ</div>
-                                                            <p class="bar">|</p>
-                                                            <div class="author-study-set">
-                                                                <span class="user-avatar-sub"><%= user.getName().charAt(0)%></span>
-                                                                By ${d.getUserByUserId(ss.getUserId()).getName()}
-                                                            </div>
-                                                            <p class="bar">|</p>
-                                                            <div class="desc-studySet">
-                                                                ${ss.getDescription()}
-                                                            </div>
-                                                        </div>
-                                                        <div class="title-studySet">${ss.getTitle()}</div>
-                                                    </div>
-                                                </c:forEach>
-                                                <c:forEach items="${listFAdded}" var="f">
-                                                    <div class="item-study-set" onclick ="handleSelectFolder(${f.getId()})" >
-                                                        <div class="size">${f.getNumberStudySet()}</div>
-                                                        <div>
-                                                            <div class="desc-studySet">
+                                        <div id="content-libb1" class="dropdown-content-libb1">
+                                            <div class="item-lib" id="studySet-container1">
+                                                <div class = "main">
+                                                    <div class="container-studySet">
+                                                        <c:forEach items="${listSS}" var="ss">
+                                                            <div class="item-study-set" onclick="handleSelectStudy(${ss.getId()})">
                                                                 <div>
-                                                                    <i class="fa-regular fa-folder"></i>
+                                                                    <div class="amount-card">${ss.getNumberCard()} thuật ngữ</div>
+                                                                    <p class="bar">|</p>
+                                                                    <div class="author-study-set">
+                                                                        <span class="user-avatar-sub"><%= user.getName().charAt(0)%></span>
+                                                                        By ${d.getUserByUserId(ss.getUserId()).getName()}
+                                                                    </div>
+                                                                    <p class="bar">|</p>
+                                                                    <div class="desc-studySet">
+                                                                        ${ss.getDescription()}
+                                                                    </div>
                                                                 </div>
-                                                                <div class="title-studySet">${f.getTitle()}</div>
+                                                                <div class="title-studySet">${ss.getTitle()}</div>
+                                                            </div>
+                                                        </c:forEach>
+                                                        <c:forEach items="${listFAdded}" var="f">
+                                                            <div class="item-study-set" onclick ="handleSelectFolder(${f.getId()})" >
+                                                                <div class="size">${f.getNumberStudySet()}</div>
+                                                                <div>
+                                                                    <div class="desc-studySet">
+                                                                        <div>
+                                                                            <i class="fa-regular fa-folder"></i>
+                                                                        </div>
+                                                                        <div class="title-studySet">${f.getTitle()}</div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </c:forEach>
+
+                                                    </div>
+                                                    <c:if test="${listFAdded.size() == 0 && listSS.size()==0 }">
+                                                        <div class="empty-folder">
+                                                            <h3>Lớp học này chưa có học phần nào</h3>
+                                                            <p>Thêm một học phần hiện có hoặc tạo học phần mới để chia sẻ.</p>
+                                                            <button onClick="handleOpenModal2()">Thêm Học Phần</button>
+                                                        </div>
+                                                    </c:if>
+                                                </div>
+
+                                                <div class = "main2">
+                                                    <div class="container-studySet">
+
+                                                        <c:if test="${listMem.size()==0}">
+                                                            <div class="empty-folder" style="padding-left: 150px;">
+                                                                <h3>Chia sẻ liên kết này với các bạn cùng lớp của bạn</h3>
+                                                                <p>Bất kỳ ai có URL đều có thể đăng ký và tự động tham gia lớp của bạn</p>
+                                                                <div class="link1">
+                                                                    <input  type="text" value="http://localhost:8080/projectquizlet/addMemberInClass?id=${c.getId()}" id="myInput" disabled></br>
+                                                                    </br> <button onclick="myFunction()" class="btn-copy1">Chép liên kết</button>
+                                                                </div>
+                                                            </div>
+                                                        </c:if>
+                                                        <div class="item-study-set">
+                                                            <div class="author-study-set2">
+                                                                <span class="user-avatar-sub2"><%= user.getName().charAt(0)%></span>
+                                                                <div class="name-au">
+                                                                    <span  style="color: #939bb4;"> Quản trị viên lớp học </span>  
+                                                                    <div>
+                                                                        ${d.getUserByUserId(c.getUserId()).getName()}
+                                                                    </div>
+                                                               
+                                                                </div>
+
+
                                                             </div>
                                                         </div>
+
+                                                        <c:forEach items="${listMem}" var="m">
+                                                            <div class="item-study-set">
+                                                                <div class="author-study-set2">
+                                                                    <span class="user-avatar-sub2"><%= user.getName().charAt(0)%></span>
+                                                                    ${m.getName()}
+                                                                </div>
+                                                            </div>
+                                                        </c:forEach>
                                                     </div>
-                                                </c:forEach>
+
+
+                                                </div>
                                             </div>
+
+                                            <div class="item-lib" id="member-container1">
+
+                                            </div>
+
                                         </div>
+
+
 
 
                                         <div class="pagedetail">
                                             <div class="link">
                                                 <p>Liên kết mời</p>
-                                                <input  type="text" value="http://localhost:8080/projectquizlet/classSet?id=${c.getId()}" id="myInput" disabled>
+                                                <input  type="text" value="http://localhost:8080/projectquizlet/addMemberInClass?id= + ${c.getId()}" id="myInput" disabled>
                                                 <button onclick="myFunction()" class="btn-copy">Sao chép</button>
                                             </div>
                                             <p>Chi tiết lớp học</p>
@@ -284,7 +324,7 @@
                                                 </div>
                                                 <div class ="items-mini1">
                                                     <i class="fa-regular fa-user"></i>
-                                                    <p>1 people</p>
+                                                    <p>${listMem.size()} thành viên</p>
                                                 </div>
                                                 <div class ="items-mini1">
                                                     <i class="fa-solid fa-circle-info"></i>
@@ -306,6 +346,20 @@
                                         var modal4 = document.getElementById("myModal4");
                                         var modal5 = document.getElementById("myModal5");
 
+                                        var modalShow1 = document.getElementsByClassName("main")[0];
+                                        var modalShow2 = document.getElementsByClassName("main2")[0];
+
+
+
+                                        function handleOpenStudySetFolder() {
+                                            modalShow1.style.display = "block";
+                                            modalShow2.style.display = "none";
+                                        }
+
+                                        function handleOpenMember() {
+                                            modalShow1.style.display = "none";
+                                            modalShow2.style.display = "block";
+                                        }
 
 
                                         function handleOpenDropdown() {

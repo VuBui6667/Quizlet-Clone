@@ -70,6 +70,42 @@ public class SendEmailShare {
         return check;
     }
 
+    public void sendEmailInviteClass(String to, User u, String href) {
+        final String user = "hungbmhe161538@fpt.edu.vn";//change accordingly
+        final String password = "anhbm1311hung";//change accordingly
+        //Get the session object
+        String host = "smtp.gmail.com";
+        Properties prop = new Properties();
+        prop.put("mail.smtp.auth", true);
+        prop.put("mail.smtp.starttls.enable", "true");
+        prop.put("mail.smtp.host", host);
+        prop.put("mail.smtp.port", 587);
+        prop.put("mail.smtp.ssl.trust", host);
+        prop.setProperty("mail.smtp.ssl.protocols", "TLSv1.2");
+        Session session = Session.getDefaultInstance(prop,
+                new javax.mail.Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(user, password);
+            }
+        });
+
+        //Compose the message
+        try {
+            MimeMessage message = new MimeMessage(session);
+            message.setFrom(new InternetAddress(user));
+            message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+            message.setSubject("Lời mời tham gia lớp trên quizlet","UTF-8");
+            String share = "<table width=\"598\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\" style=\"width:598px\" class=\"m_8100147788066177956em_wrapper\"><tbody><tr><td valign=\"top\" align=\"center\" class=\"m_8100147788066177956em_aside10\" style=\"padding-left:45px;padding-right:45px\"><table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\" style=\"padding-bottom:25px\"><tbody><tr><td valign=\"top\" align=\"center\"><table width=\"100%\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\" style=\"padding-top:42px;padding-bottom:35px\"><tbody><tr><td valign=\"top\" align=\"left\"><a href=\"https://links-share.quizlet.com/ls/click?upn=lWfVo-2BdHFKQCHnahn-2FofOAlmXF22VCcrNoNYG2BwfXY-3DlZ7k_yG8cC4-2BxL8WsG4bK-2Ffo6klhJzJQ4ndyjhUt8g8BMBEykgE70MyicFpWuXPAzzwGjZY3yfHrX3-2FlsPULuuA5K79b1Qv-2BvuOXL38n2Kgdzv1Ud4v5wyk4JMU76BhZgcP3TjVtyMv-2F-2Bug6kprMJigMNaxT-2BptJNna-2BqG7FsCMK2Oy9rk-2BwM0uYbyBpk0cs84tMYybFsNl5iVCzB5BOM9i-2Bwin7TgmWi6oZtASoxlvGS1-2FTSqatkXceWqRElhfaGZ6Z7UW5KFOofBrisQvMncIu3C0GF2PFqc81cejMz5xm3XZSTELIsrhM-2Bai-2F8DvrmCACU-2BTN93AowjKK1qpdkuOvDqvUIy0-2FjUXR0AlPOL0NwYGfZBUIU4E4jwnr1VOuS6CIr\" style=\"text-decoration:none\" target=\"_blank\" data-saferedirecturl=\"https://www.google.com/url?q=https://links-share.quizlet.com/ls/click?upn%3DlWfVo-2BdHFKQCHnahn-2FofOAlmXF22VCcrNoNYG2BwfXY-3DlZ7k_yG8cC4-2BxL8WsG4bK-2Ffo6klhJzJQ4ndyjhUt8g8BMBEykgE70MyicFpWuXPAzzwGjZY3yfHrX3-2FlsPULuuA5K79b1Qv-2BvuOXL38n2Kgdzv1Ud4v5wyk4JMU76BhZgcP3TjVtyMv-2F-2Bug6kprMJigMNaxT-2BptJNna-2BqG7FsCMK2Oy9rk-2BwM0uYbyBpk0cs84tMYybFsNl5iVCzB5BOM9i-2Bwin7TgmWi6oZtASoxlvGS1-2FTSqatkXceWqRElhfaGZ6Z7UW5KFOofBrisQvMncIu3C0GF2PFqc81cejMz5xm3XZSTELIsrhM-2Bai-2F8DvrmCACU-2BTN93AowjKK1qpdkuOvDqvUIy0-2FjUXR0AlPOL0NwYGfZBUIU4E4jwnr1VOuS6CIr&amp;source=gmail&amp;ust=1679347689962000&amp;usg=AOvVaw1nw--kOzZik7RwRLpU4op6\"><img src=\"https://ci6.googleusercontent.com/proxy/VUBSJBCifFZIRqA5MN4VWsRaz4ggXdy14s-ShkY_2Cfb9OvD1O19sNHxVb3uMP9_LYV490Z-FQWxALP6Lacv1XMN-uP4vNtGC2gtUlGkqVJoBIN0JtnnFkSKsSkRbRksGreB8euWiEA=s0-d-e1-ft#https://assets.quizlet.com/a/j/dist/app/i/logo/2021/logo-twilight.3a81a0a8731485a.png\" width=\"93\" alt=\"Quizlet\" border=\"0\" style=\"display:block;max-width:93px;font-family:Arial,sans-serif;font-size:17px;line-height:20px;color:#000000;font-weight:bold\" class=\"CToWUd\" data-bit=\"iit\"></a></td></tr></tbody></table></td></tr><tr><td><span></span><span></span></td></tr><tr><td valign=\"top\" align=\"left\" style=\"font-family:Arial,sans-serif;font-size:16px;line-height:22px;color:#303545;padding-top:22px\">Xin chào,<br>\n"
+                    + "<br>\n"
+                    + "Một người dùng Quizlet," +u.getName()+", đã mời bạn tham gia một lớp học. Nếu bạn chưa quen dùng ứng dụng này, thì Quizlet là dịch vụ học tập trực tuyến biến việc học trở nên vui thú và hiệu quả hơn nhờ các thẻ ghi nhớ, các hoạt động, trò chơi và nhiều tính năng khác. Chấp nhận lời mời tham gia lớp học và truy cập ngay để học các nội dung.</td></tr></tbody></table></td></tr><tr><td valign=\"top\" align=\"center\" class=\"m_8100147788066177956em_padding\" style=\"padding-top:25px;padding-bottom:25px\"><table align=\"center\" cellspacing=\"0\" cellpadding=\"0\" class=\"m_8100147788066177956em_tab\" bgcolor=\"#4255ff\"><tbody><tr><td class=\"m_8100147788066177956em_button\" valign=\"middle\" align=\"center\" height=\"58\" style=\"font-family:Arial,sans-serif;font-size:16px;color:#ffffff;font-weight:bold\"><a href="+href+" style=\"padding:10px 25px;text-decoration:none;color:#ffffff;display:block\" target=\"_blank\" data-saferedirecturl=\"https://www.google.com/url?q=https://links-share.quizlet.com/ls/click?upn%3DlWfVo-2BdHFKQCHnahn-2FofOFT32b7ywOPUaDU4tltTo7eCCwu0fu3BsIowYxduNmkQ2-2FBCiOa70XfcxK-2FMGgK6Ep-2BPAJfuFAGfwq5X6TLkQYg-3DyBgV_yG8cC4-2BxL8WsG4bK-2Ffo6klhJzJQ4ndyjhUt8g8BMBEykgE70MyicFpWuXPAzzwGjZY3yfHrX3-2FlsPULuuA5K79b1Qv-2BvuOXL38n2Kgdzv1Ud4v5wyk4JMU76BhZgcP3TjVtyMv-2F-2Bug6kprMJigMNaxT-2BptJNna-2BqG7FsCMK2Oy8slKHwCq-2B6KaqU1x0pMT-2FHSuVTyy4gSyswEdTV-2FHYTCXJmnUkwyfQz6zeCi6bSpxJAFUZsMas4DRLBST5dzU-2Frpl7SKSuMvCHeyh3ChUGvSs3xnjbKflk3vwBBeyOQO6JoGlx-2Fb-2FTBp83CcQ3tLKo8qgSABkCXZYjGx2LWai2HiAY5lv-2BxxdtTR1ZxleYbwApeBuFPegN4mEpK2GElnMyE&amp;source=gmail&amp;ust=1679347689963000&amp;usg=AOvVaw1-kVXBQ-2xAtvuSW6iz6re\">Chấp nhận lời mời</a></td></tr></tbody></table></td></tr><tr><td valign=\"top\" align=\"center\" style=\"padding:10px\"><table width=\"578\" border=\"0\" cellspacing=\"0\" cellpadding=\"0\" align=\"center\" class=\"m_8100147788066177956em_wrapper\"><tbody><tr><td valign=\"top\" align=\"center\" style=\"font-family:Arial,sans-serif;font-size:14px;line-height:22px;color:#303545\"><span>Cảm ơn bạn!</span>&nbsp;<span style=\"color:#4255ff;font-family:'Trebuchet MS',Arial,sans-serif\">Đội ngũ <img src=\"https://ci6.googleusercontent.com/proxy/VUBSJBCifFZIRqA5MN4VWsRaz4ggXdy14s-ShkY_2Cfb9OvD1O19sNHxVb3uMP9_LYV490Z-FQWxALP6Lacv1XMN-uP4vNtGC2gtUlGkqVJoBIN0JtnnFkSKsSkRbRksGreB8euWiEA=s0-d-e1-ft#https://assets.quizlet.com/a/j/dist/app/i/logo/2021/logo-twilight.3a81a0a8731485a.png\" width=\"50\" alt=\"Quizlet\" class=\"CToWUd\" data-bit=\"iit\"></span></td></tr><tr><td height=\"47\" class=\"m_8100147788066177956em_h20\">&nbsp;</td></tr></tbody></table></td></tr></tbody></table>";
+            message.setContent(share, "text/html;charset=UTF-8");
+            Transport.send(message);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
     public void sendEmailShare(String to, User u, Folder f, String href) {
 
         final String user = "hungbmhe161538@fpt.edu.vn";//change accordingly
@@ -150,7 +186,7 @@ public class SendEmailShare {
                     + "\n"
                     + "\n"
                     + "<br><br>\n"
-                    + "Tin tốt đây! " +u.getName() + " muốn chia sẻ tài liệu học Quizlet của họ với bạn. Quizlet giúp bạn tự tin chuẩn bị cho bài kiểm tra, sát hạch hoặc bài tập tiếp theo của mình nhờ tính năng thẻ ghi nhớ, trò chơi và các chế độ học khác.\n"
+                    + "Tin tốt đây! " + u.getName() + " muốn chia sẻ tài liệu học Quizlet của họ với bạn. Quizlet giúp bạn tự tin chuẩn bị cho bài kiểm tra, sát hạch hoặc bài tập tiếp theo của mình nhờ tính năng thẻ ghi nhớ, trò chơi và các chế độ học khác.\n"
                     + "<br><br>\n"
                     + "\n"
                     + "\n"
