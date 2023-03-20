@@ -71,6 +71,7 @@ public class ClassSet extends HttpServlet {
         int id = Integer.parseInt(request.getParameter("id"));
         ArrayList<StudySet> listSS = d.getListStudySetByClassId(id);
         ArrayList<Folder> listFAdded = d.getListFolderByClassId(id);
+        ArrayList<User> listMem = d.getListMemberByClassId(id);
         Class c = d.getClassByClassId(id);
         request.setAttribute("c", c);
         request.setAttribute("classId", id);
@@ -78,6 +79,7 @@ public class ClassSet extends HttpServlet {
         request.setAttribute("d", d);
         request.setAttribute("user", user);
         request.setAttribute("listFAdded", listFAdded);
+        request.setAttribute("listMem", listMem);
         ArrayList<StudySet> listS = d.getAllStudySet();
         ses.setAttribute("listS", listS);
         ArrayList<Folder> listFS = d.getAllFolder();

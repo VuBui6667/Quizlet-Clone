@@ -35,8 +35,7 @@
             <div class="container-home">
                 <div class="class-container">
                     <div class="cate-class">
-                        <a href="folder.jsp" class="title-container-class">Thành tựu</a>
-                        <a href="folder.jsp" class="title-container-class">Học phần</a>
+                        <a href="home.jsp" class="title-container-class">Học phần</a>
                         <a href="folder.jsp" class="title-container-class">Lời giải chuyên gia</a>
                         <a href="folder.jsp" class="title-container-class">Thư Mục</a>
                         <a href="class.jsp" class="title-container-class">Lớp học</a>
