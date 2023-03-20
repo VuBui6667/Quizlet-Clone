@@ -89,6 +89,7 @@ public class FolderSet extends HttpServlet {
     throws ServletException, IOException {
       int folderId = Integer.parseInt(request.getParameter("folderId"));
       DAO d = new DAO();
+      d.deleteFolderInListClass(folderId);
       d.removeListFolder(folderId);
       d.deleteFolderByFolderId(folderId);
       response.sendRedirect("folder");

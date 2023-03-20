@@ -84,7 +84,12 @@ public class ClassSet extends HttpServlet {
         ses.setAttribute("listS", listS);
         ArrayList<Folder> listFS = d.getAllFolder();
         ses.setAttribute("listFS", listFS);
+        
+        int userId = user.getId();
+        request.setAttribute("userId", userId);
         request.getRequestDispatcher("classSet.jsp").forward(request, response);
+        
+
 
     }
 
@@ -101,6 +106,8 @@ public class ClassSet extends HttpServlet {
             throws ServletException, IOException {
         int classId = Integer.parseInt(request.getParameter("classId"));
         DAO d = new DAO();
+        d.removeListMember(classId);
+        d.removeListStudySet(classId);
         d.removeListClass(classId);
         d.deleteClassByClassId(classId);
         response.sendRedirect("class");
