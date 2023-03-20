@@ -32,6 +32,7 @@
 
                     </div>
                 </div>
+                        <c:if test="${userId == c.getUserId()}">
                 <div class="method-classSet">
                     <div class="add-studySet method-item">
                         <i class="fa-solid fa-plus" onClick="handleOpenModal2()"></i>
@@ -155,11 +156,11 @@
                                             <h1 style="color: white">Sửa lớp</h1>
                                             <p>Sắp xếp tài liệu học của bạn và chia sẻ chúng với bạn học của bạn.</p>
                                             <form action="updateClass" method="post">
-                                                <input  class="class-na" type="text" name="classname1" placeholder="Nhập tên lớp (khóa học, giáo viên, năm nay, phần vv)"></br>
-                                                <input class="details-cl" type="text" name="detailsclass1" placeholder="Nhập mô tả(tùy chọn)">
+                                                <input  class="class-na" type="text" name="classname1" value="${c.getName()}" placeholder="Nhập tên lớp (khóa học, giáo viên, năm nay, phần vv)"></br>
+                                                <input class="details-cl" type="text" name="detailsclass1" value="${c.getDesc()}" placeholder="Nhập mô tả(tùy chọn)">
                                                 <!--<input class="accept" type="checkbox" name="adddel" value="True"/>cho phép các thành viên trong lớp thêm và bỏ học phần</br> </br>--> 
                                                 <!--<input class="accept" type="checkbox" name="addpeople" value="True"/>cho phép các thành viên trong lớp mời thành viên mới </br>-->
-                                                <input  class="school-na" type="text" name="schoolname1" placeholder="Nhập tên trường của bạn"></br>
+                                                <input  class="school-na" type="text" name="schoolname1" value="${c.getSchoolName()}" placeholder="Nhập tên trường của bạn"></br>
                                                 <input class="classId" value="${c.getId()}" name="classId" />
                                                 <div class="button-folder">
                                                     <input type="submit" value="Sửa lớp" class="create-button-cl"/>
@@ -198,6 +199,7 @@
                                     </div>
 
                                     </div>
+                                                        </c:if>
                                     </div>
 
                                     <div class="contai-home">
@@ -309,7 +311,7 @@
                                         <div class="pagedetail">
                                             <div class="link">
                                                 <p>Liên kết mời</p>
-                                                <input  type="text" value="http://localhost:8080/projectquizlet/addMemberInClass?id= + ${c.getId()}" id="myInput" disabled>
+                                                <input  type="text" value="http://localhost:8080/projectquizlet/addMemberInClass?id=${c.getId()}" id="myInput" disabled>
                                                 <button onclick="myFunction()" class="btn-copy">Sao chép</button>
                                             </div>
                                             <p>Chi tiết lớp học</p>

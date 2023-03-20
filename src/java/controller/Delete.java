@@ -63,6 +63,7 @@ public class Delete extends HttpServlet {
         String id_raw = request.getParameter("id");
         System.out.println(id_raw);
         int id = Integer.parseInt(id_raw);
+        d.deleteInListClass(id);
         d.deleteInListFolder(id);
         d.deleteAllCard(id);
         d.deleteStudySet(id);
