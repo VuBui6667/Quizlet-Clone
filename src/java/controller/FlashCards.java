@@ -82,15 +82,13 @@ public class FlashCards extends HttpServlet {
             request.setAttribute("listFl", listFl);
             ArrayList<model.Class> listClass = d.getClassByUserId(user.getId());
             request.setAttribute("listClass", listClass);
+            ArrayList<Card> listCSL = d.getCardStillLearning(id, user.getId());
+            ArrayList<Card> listUL = d.getCardUnlearning(id, user.getId());
+            ArrayList<Card> listCM = d.getCardMastered(id, user.getId());
+            request.setAttribute("listCM", listCM);
+            request.setAttribute("listCSL", listCSL);
+            request.setAttribute("listUL", listUL);
         }
-
-        ArrayList<Integer> listId = d.getListStudiedCardId(set.getId(), user.getId());
-        ArrayList<Card> listCSL = d.getCardStillLearning(id, user.getId());
-        ArrayList<Card> listUL = d.getCardUnlearning(id, user.getId());
-        ArrayList<Card> listCM = d.getCardMastered(id, user.getId());
-        request.setAttribute("listCM", listCM);
-        request.setAttribute("listCSL", listCSL);
-        request.setAttribute("listUL", listUL);
         request.setAttribute("isShare", isShare);
         request.setAttribute("id", id);
         request.setAttribute("u", u);
