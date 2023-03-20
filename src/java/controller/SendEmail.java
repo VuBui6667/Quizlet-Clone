@@ -54,6 +54,7 @@ public class SendEmail {
 
             mess.setSubject("User Email Verification");
             mess.setText("Registered successfully. Please verify your account using this code: " + code);
+//            mess.setContent("<h1 style=\"color: red\">Test</div>", "text/html");
 
             Transport.send(mess);
             check = true;

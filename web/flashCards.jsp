@@ -26,8 +26,12 @@
                     <div class="preview-item">
                         <a href="study?id=${set.getId()}">Thẻ ghi nhớ</a>
                     </div>
-                    <div class="preview-item">Học</div>
-                    <div class="preview-item">Kiểm tra</div>
+                    <div class="preview-item">
+                        <a href="learn?id=${set.getId()}">Học</a>
+                    </div>
+                    <div class="preview-item">
+                        <a href="test?id=${set.getId()}">Kiểm tra</a>
+                    </div>
                     <div class="preview-item">Ghép thẻ</div>
                 </div>
                 <div class="container-progress">
@@ -74,9 +78,9 @@
                         </div>
                         <p class="continue-title">Bước tiếp theo</p>
                         <div class="continue-container">
-                            <div class="continue-item">
+                            <div class="continue-item" onclick="handleLearn(${set.getId()})">
                                 <p>Học các thuật ngữ này</p>
-                                <p>Trả lời các câu hỏi về 2 thuật ngữ này để xây dựng kiến thức.</p>
+                                <p>Trả lời các câu hỏi về ${listC.size()} thuật ngữ này để xây dựng kiến thức.</p>
                             </div>
                             <div class="continue-item" onclick="handleReset(${user.getId()}, ${set.getId()})">
                                 <p>Đặt lại thẻ ghi</p>
@@ -178,12 +182,50 @@
                         </div>
                     </div>
                     <div class="number-card">Thuật ngữ trong phần này (${listC.size()})</div>
-                    <c:forEach items="${listC}" var="c">
-                        <div class="card-item">
-                            <div class="card-title">${c.getTerm()}</div>
-                            <div class="card-desc">${c.getDefinition()}</div>
+                    <c:if test="${listCSL.size() > 0}">
+                        <div class="still-learning">
+                            Đang học (${listCSL.size()})
+                            <p>Bạn đã bắt đầu học những thuật ngữ này. Tiếp tục phát huy nhé!</p>
                         </div>
-                    </c:forEach>
+                        <c:forEach items="${listCSL}" var="a">
+                            <div class="card-item">
+                                <div class="card-title">${a.getTerm()}</div>
+                                <div class="card-desc">${a.getDefinition()}</div>
+                            </div>
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="${listCM.size() > 0}">
+                        <div class="mastered">
+                            Thành thạo (${listCM.size()})
+                            <p>Bạn đã trả lời đúng các thuật ngữ này!</p>
+                        </div>
+                        <c:forEach items="${listCM}" var="cm">
+                            <div class="card-item">
+                                <div class="card-title">${cm.getTerm()}</div>
+                                <div class="card-desc">${cm.getDefinition()}</div>
+                            </div>
+                        </c:forEach>
+                    </c:if>
+                    <c:if test="${listUL.size() > 0}">
+                        <div class="not-studied">
+                            Chưa học (${listUL.size()})
+                            <p>Bạn chưa học các thuật ngữ này!</p>
+                        </div>
+                        <c:forEach items="${listUL}" var="x">
+                            <div class="card-item">
+                                <div class="card-title">${x.getTerm()}</div>
+                                <div class="card-desc">${x.getDefinition()}</div>
+                            </div>
+                        </c:forEach>        
+                    </c:if>
+                    <c:if test="${listCSL.size() == 0 && listCM.size() == 0}">
+                        <c:forEach items="${listC}" var="c">
+                            <div class="card-item">
+                                <div class="card-title">${c.getTerm()}</div>
+                                <div class="card-desc">${c.getDefinition()}</div>
+                            </div>
+                        </c:forEach>
+                    </c:if>
                 </div>
             </div>  
         </c:if>
@@ -260,6 +302,10 @@
 
         function handleDelete(id) {
             window.location.href = "http://localhost:8080/projectquizlet/delete?id=" + id;
+        }
+        
+        function handleLearn(studySetId) {
+            window.location.href = "http://localhost:8080/projectquizlet/learn?id=" + studySetId;
         }
 
         const currentNumCard = document.getElementById("current-numCard").innerHTML;

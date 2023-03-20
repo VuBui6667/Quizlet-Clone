@@ -7,7 +7,8 @@ package dal;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.stream.IntStream;
 import model.Card;
 import model.Folder;
 import model.ListFolder;
@@ -675,6 +676,7 @@ public class DAO extends DBContext {
                 listC.add(c);
             }
         } catch (SQLException e) {
+            System.out.println("getAllCardInSet");
             System.out.println(e);
         }
 
@@ -1057,6 +1059,229 @@ public class DAO extends DBContext {
             }
         }
         return false;
+    }
+
+    public ArrayList<Card> getUnLearnedCard(int studySetId, int userId) {
+        ArrayList<Integer> listCardLearned = getAllCardLearned(studySetId, userId);
+        ArrayList<Card> listC = getAllCardInSet(studySetId);
+        ArrayList<Card> listULC = new ArrayList<Card>();
+        int count = 0;
+        int range = listC.size() < 7 ? listC.size() : 7;
+        for (Card c : listC) {
+            if (checkCardUnLearned(c, listCardLearned) && count < range) {
+                count++;
+                listULC.add(c);
+            }
+        }
+        return listULC;
+    }
+
+    public ArrayList<Card> getAnswer(ArrayList<Card> listC, Card c) {
+        Random rand = new Random();
+        ArrayList<Card> listA = new ArrayList<>();
+        listA.add(c);
+        int size = listC.size() - 1;
+        int n = listC.size() < 4 ? listC.size() - 1 : 3;
+        for (int i = 0; i < n; i++) {
+            int randomNumber = rand.nextInt(size - 0 + 1) + 0;
+            if (checkDup(listA, listC.get(randomNumber)) != -1) {
+                n++;
+            } else {
+                listA.add(listC.get(randomNumber));
+            }
+        }
+        Collections.shuffle(listA);
+        return listA;
+    }
+
+    public int checkDup(ArrayList<Card> listA, Card c) {
+        for (Card a : listA) {
+            if (a.getId() == c.getId()) {
+                return listA.indexOf(c);
+            }
+        }
+        return -1;
+    }
+
+    public boolean checkCardUnLearned(Card c, ArrayList<Integer> listCardLearned) {
+        for (int cardId : listCardLearned) {
+            if (cardId == c.getId()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public ArrayList<Integer> getAllCardLearned(int studySetId, int userId) {
+        String sql = "select * from LearnCards where studySetId=? and userId=?";
+        ArrayList<Integer> listCId = new ArrayList<>();
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, studySetId);
+            st.setInt(2, userId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                listCId.add(rs.getInt("cardId"));
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+            System.out.println("getAllCardLearned");
+        }
+        return listCId;
+    }
+
+    public void addCardLearned(int cardId, int userId, int studySetId) {
+        String sql = "INSERT INTO [dbo].[LearnCards]\n"
+                + "           ([userId]\n"
+                + "           ,[cardId]\n"
+                + "           ,[studySetId])\n"
+                + "     VALUES(?,?,?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, userId);
+            st.setInt(2, cardId);
+            st.setInt(3, studySetId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("addCardLearned");
+            System.out.println(e);
+        }
+    }
+
+    public ArrayList<Card> addMoreCard(ArrayList<Card> listC, int cardId) {
+        System.out.println(cardId);
+        ArrayList<Card> newList = new ArrayList<>();
+        for (Card c : listC) {
+            newList.add(c);
+        }
+        for (Card c : listC) {
+            if (c.getId() == cardId) {
+                newList.add(c);
+            }
+        }
+        return newList;
+    }
+
+    public ArrayList<Card> getCardStillLearning(int studySetId, int userId) {
+        ArrayList<Integer> listLearnedCard = getAllCardLearned(studySetId, userId);
+        ArrayList<Integer> listStudiedCard = getListStudiedCardId(studySetId, userId);
+        ArrayList<Card> listCSL = new ArrayList<>();
+        for (Integer i : listStudiedCard) {
+            if (!listLearnedCard.contains(i)) {
+                listCSL.add(getCardByCardId(studySetId, i));
+            }
+        }
+        return listCSL;
+    }
+
+    public ArrayList<Card> getCardUnlearning(int studySetId, int userId) {
+        ArrayList<Card> listC = getAllCardInSet(studySetId);
+        ArrayList<Integer> listLearnedCard = getAllCardLearned(studySetId, userId);
+        ArrayList<Integer> listStudiedCard = getListStudiedCardId(studySetId, userId);
+        ArrayList<Card> listUL = new ArrayList<>();
+        ArrayList<Integer> listCId = new ArrayList<>();
+        for (Card c : listC) {
+            listCId.add(c.getId());
+        }
+        for (Integer i : listCId) {
+            if (!listLearnedCard.contains(i) && !listStudiedCard.contains(i)) {
+                listUL.add(getCardByCardId(studySetId, i));
+            }
+        }
+        return listUL;
+    }
+
+    public Card getCardByCardId(int studySetId, int cardId) {
+        ArrayList<Card> listC = getAllCardInSet(studySetId);
+        for (Card c : listC) {
+            if (c.getId() == cardId) {
+                return c;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Card> getCardMastered(int studySetId, int userId) {
+        ArrayList<Integer> listLearnedCard = getAllCardLearned(studySetId, userId);
+        ArrayList<Card> listCM = new ArrayList<>();
+        for (Integer i : listLearnedCard) {
+            listCM.add(getCardByCardId(studySetId, i));
+        }
+        return listCM;
+    }
+
+    public void deleteCardMastered(int studySetid, int userId) {
+        String sql = "DELETE FROM [dbo].[LearnCards]\n"
+                + "      WHERE studySetId = ? and userId = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, studySetid);
+            st.setInt(2, userId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public ArrayList<Card> listCardTF(int studySetId, int userId, int numCard) {
+        ArrayList<Card> listCTF = new ArrayList<>();
+        ArrayList<Card> listC = getAllCardInSet(studySetId);
+        Random rand = new Random();
+        int size = listC.size() - 1;
+        int n = numCard/2;
+        for (int i = 0; i < n; i++) {
+            int randomNumber = rand.nextInt(size - 0 + 1) + 0;
+            if (checkDup(listCTF, listC.get(randomNumber)) == -1) {
+                listCTF.add(listC.get(randomNumber));
+            } else {
+                n++;
+            }
+        }
+        return listCTF;
+    }
+    
+    public Card getRandomAns(ArrayList<Card> listC, ArrayList<Card> listA) {
+        Random rand = new Random();
+        int size = listC.size() - 1;
+        int randomNumber = rand.nextInt(size - 0 + 1) + 0;
+        if(checkDup(listA, listC.get(randomNumber)) == -1) {
+            return listC.get(randomNumber);
+        } else {
+            return getRandomAns(listC, listA);
+        }
+
+    }
+
+    public ArrayList<Card> listATF(int studySetId, int userId, int numCard) {
+        ArrayList<Card> listCTF = listCardTF(studySetId, userId, numCard);
+        ArrayList<Card> listATF = new ArrayList<>();
+        ArrayList<Card> listC = getAllCardInSet(studySetId);
+        Random rand = new Random();
+        for (Card c : listCTF) {
+            if (rand.nextBoolean()) {
+               listATF.add(c);
+            } else {
+                listATF.add(getRandomAns(listC, listATF));
+            }
+        }
+        return listATF;
+    }
+    
+    public ArrayList<Card> listCMC(int studySetId, int userId, ArrayList<Card> listCTF, int numCard) {
+        ArrayList<Card> listCMC = new ArrayList<>();
+        Random rand = new Random();
+        ArrayList<Card> listC = getAllCardInSet(studySetId);
+        int numCMC = numCard - listCTF.size();
+        int size = listC.size() - 1;
+        for(int i=0; i<numCMC; i++) {
+            int randomNumber = rand.nextInt(size - 0 + 1) + 0;
+            if(checkDup(listCTF, listC.get(randomNumber)) == -1 && checkDup(listCMC, listC.get(randomNumber)) == -1) {
+                listCMC.add(listC.get(randomNumber));
+            }  else {
+                numCMC++;
+            }
+        }
+        return listCMC;
     }
 
     public static void main(String[] args) {

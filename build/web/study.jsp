@@ -73,9 +73,9 @@
                         </div>
                         <p class="continue-title">Bước tiếp theo</p>
                         <div class="continue-container">
-                            <div class="continue-item">
+                            <div class="continue-item" onclick="handleLearn(${set.getId()})">
                                 <p>Học các thuật ngữ này</p>
-                                <p>Trả lời các câu hỏi về 2 thuật ngữ này để xây dựng kiến thức.</p>
+                                <p>Trả lời các câu hỏi về ${listC.size()} thuật ngữ này để xây dựng kiến thức.</p>
                             </div>
                             <div class="continue-item" onclick="handleReset(${user.getId()}, ${set.getId()})">
                                 <p>Đặt lại thẻ ghi</p>
@@ -211,6 +211,10 @@
         
         function handleReset(userId, studySetId) {
              window.location.href = "http://localhost:8080/projectquizlet/resetStudiedCard?userId=" + userId + "&studySetId=" + studySetId + "&mode=study";
+        }
+        
+        function handleLearn(studySetId) {
+            window.location.href = "http://localhost:8080/projectquizlet/learn?id=" + studySetId;
         }
     </script>
 </html>
