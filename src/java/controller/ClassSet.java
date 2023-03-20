@@ -67,16 +67,17 @@ public class ClassSet extends HttpServlet {
         HttpSession ses = request.getSession();
         User user = (User) ses.getAttribute("user");
         int id = Integer.parseInt(request.getParameter("id"));
-//        ArrayList<StudySet> listSS = d.getListStudySet(id);
+        ArrayList<StudySet> listSS = d.getListStudySetByClassId(id);
         Class c = d.getClassByClassId(id);
-
         request.setAttribute("c", c);
         request.setAttribute("classId", id);
-//        request.setAttribute("listSS", listSS);
+        request.setAttribute("listSS", listSS);
         request.setAttribute("d", d);
         request.setAttribute("user", user);
+         ArrayList<StudySet> listS = d.getAllStudySet();
+        ses.setAttribute("listS", listS);
         request.getRequestDispatcher("classSet.jsp").forward(request, response);
-
+     
     }
 
     /**
@@ -90,7 +91,11 @@ public class ClassSet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+//        int classId = Integer.parseInt(request.getParameter("classId"));
+//        DAO d = new DAO();
+//        d.removeListClass(classId);
+//        d.deleteClassByClassId(classId);
+//        response.sendRedirect("class");
     }
 
     @Override

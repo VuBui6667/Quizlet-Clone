@@ -2,16 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/G:/SWP/projectswp/src/java/dal/DAO.java</file>
-            <file>file:/G:/SWP/projectswp/src/java/controller/Learn.java</file>
-            <file>file:/G:/SWP/projectswp/src/java/controller/Study.java</file>
-            <file>file:/G:/SWP/projectswp/web/css/flashCards.css</file>
-            <file>file:/G:/SWP/projectswp/src/java/controller/resetLearnedCard.java</file>
-            <file>file:/G:/SWP/projectswp/web/home.jsp</file>
-            <file>file:/G:/SWP/projectswp/web/learn.jsp</file>
-            <file>file:/G:/SWP/projectswp/web/study.jsp</file>
-            <file>file:/G:/SWP/projectswp/web/flashCards.jsp</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
