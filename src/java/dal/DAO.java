@@ -265,6 +265,25 @@ public class DAO extends DBContext {
         }
         return false;
     }
+    
+       public ArrayList<Integer> getUserIdByClassId(int classId) {
+        ArrayList<Integer> listSSId = new ArrayList<>();
+        String sql = "select userId from [ListMember] where classId =? ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, classId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                listSSId.add(rs.getInt("userId"));
+            }
+            return listSSId;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return null;
+    }
+    
 
     public ArrayList<Integer> getStudySetIdByClassId(int classId) {
         ArrayList<Integer> listSSId = new ArrayList<>();
@@ -333,6 +352,17 @@ public class DAO extends DBContext {
         }
         return listSS;
     }
+    
+    
+     public ArrayList<User> getListMemberByClassId(int classId) {
+        ArrayList<Integer> listSSId = getUserIdByClassId(classId);
+        ArrayList<User> listSS = new ArrayList<>();
+        for (Integer n : listSSId) {
+            listSS.add(getUserByUserId(n));
+        }
+        return listSS;
+    }
+    
 
     public ArrayList<StudySet> getListStudySet(int folderId) {
         ArrayList<Integer> listSSId = getStudySetIdByFolderId(folderId);
@@ -598,6 +628,8 @@ public class DAO extends DBContext {
         }
         return listS;
     }
+    
+    
 
     public StudySet getStudySetById(int id) {
         ArrayList<StudySet> listS = new ArrayList<>();
@@ -842,6 +874,7 @@ public class DAO extends DBContext {
         }
         return listS;
     }
+  
     
     public ArrayList<Folder> getListFolderByClassId(int classId) {
         ArrayList<Folder> listF = new ArrayList<>();
@@ -1006,6 +1039,17 @@ public class DAO extends DBContext {
         }
         return false;
     }
+    
+    public boolean checkUserInClass(int userId, int classId) {
+        ArrayList<Integer> listU = getUserIdByClassId(classId);
+        for (Integer u : listU) {
+            if (userId == u) {
+                return false;
+            }
+        }
+        return true;
+    }
+    
 
     public static void main(String[] args) {
     }
