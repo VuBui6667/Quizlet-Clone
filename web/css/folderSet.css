@@ -251,7 +251,7 @@ body {
 }
 .item-study-set1{
     background-color: white;
-    padding: 20px;  
+    padding: 20px;
     color: black;
     border-radius: 6px;
     margin-bottom: 30px;
@@ -260,7 +260,7 @@ body {
 }
 
 .fa-minus, .add-icon {
-    float: right; 
+    float: right;
     border-radius: 5px;
     padding: 10px 20px;
     background-color: #ffc107;
@@ -287,19 +287,19 @@ body {
 }
 
 .input-send {
-/*    display: none;*/
+    /*    display: none;*/
 }
 
 .title-study-set1 {
-   font-size: 22px;
-   font-weight: 600;
+    font-size: 22px;
+    font-weight: 600;
 }
 
 .content-container {
     height: 340px;
     overflow-y: scroll;
     margin-bottom: 30px;
-    -ms-overflow-style: none; 
+    -ms-overflow-style: none;
 }
 
 .content-container::-webkit-scrollbar {
@@ -405,4 +405,99 @@ a {
 
 .input-send {
     display: none;
+}
+
+.empty-folder{
+    text-align: center;
+    color: white;
+}
+.empty-folder h3{
+    font-size: 30px;
+    font-weight: 700;
+    font-family: common-ligatures contextual;
+}
+.empty-folder button{
+    background-color: #3ccfcf;
+    font-size: 14px;
+    padding:12px 24px;
+    border-radius:0.25rem;
+    border:none;
+    cursor:pointer;
+}
+
+.folderId {
+    display: none;
+}
+.share-container{
+    background-color: #282e3e;
+    color: white;
+    padding: 32px;
+}
+.title-share{
+    font-size: 1.875rem;
+    font-weight: 700;
+}
+.share-body{
+    padding:32px;
+    position: relative
+}
+.modal-content-share{
+    background-color: #2e3856;
+    margin: auto;
+    /* border: 1px solid #888; */
+    width: 50%;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.12), 0 2px 2px rgba(0,0,0,0.12), 0 4px 4px rgba(0,0,0,0.12), 0 8px 8px rgba(0,0,0,0.12), 0 16px 16px rgba(0,0,0,0.12);
+    /* border-radius: 14px; */
+    color: white;
+}
+.share-body form{
+    display: flex;
+    padding: 0px 30px;
+}
+
+
+
+.shared-button{
+    padding: 0px 0px;
+    margin-left: 15px;
+    background-color: #4255ff;
+    border-radius: 0.5rem;
+    color: white;
+}
+
+.links {
+    margin-left: 30px;
+}
+.links input{
+    height: 30px;
+    width: 75%;
+    background-color: #0a092d;
+    border-radius: 8px;
+    border: 0px;
+    font-size: 20px;
+    color: white;
+    margin-bottom: 20px;
+    padding: 10px 0px;
+    padding-left: 10px;
+
+}
+.links button{
+    padding:10px 20px;
+    background-color: #4255ff;
+    color: white;
+    font-size: 14px;
+    border-radius: 10px;
+}
+.email{
+    height: 30px;
+    width: 100%;
+    background-color: #0a092d;
+    border-radius: 8px;
+    border: 0px;
+    font-size: 20px;
+    color: white;
+    margin-bottom: 20px;
+    padding: 10px 0px;
+    padding-left: 10px;
+
 }

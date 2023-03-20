@@ -18,6 +18,7 @@ import java.util.ArrayList;
 import model.Folder;
 import model.StudySet;
 import model.User;
+import model.Class;
 
 /**
  *
@@ -76,6 +77,9 @@ public class Home extends HttpServlet {
         ArrayList<StudySet> listSet = d.getFiveStudySet(user.getId());
         ses.setAttribute("nameS", d.getUserByUserId(user.getId()).getName());
         ses.setAttribute("listSet", listSet);
+        ArrayList<Class> listClass = d.getTopFiveClass(user.getId());
+        ses.setAttribute("nameC", d.getUserByUserId(user.getId()).getName());
+        ses.setAttribute("listClass", listClass);
         ses.setAttribute("d", d);
         ArrayList<Folder> listFd = d.getTopFiveFolder(user.getId());
         ses.setAttribute("nameF", d.getUserByUserId(user.getId()).getName());

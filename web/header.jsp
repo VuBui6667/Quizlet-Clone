@@ -13,7 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>JSP Page</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/header.css" />
+        <link rel="stylesheet" href="css/header.css"/>
     </head>
     <body>
         <% User user = (User)session.getAttribute("user"); %>
@@ -36,10 +36,12 @@
                                 <span class="dropdown-item-lib" id="items" onclick="handleOpenStudySet()">Học phần</span>
                                 <span class="dropdown-item-lib" id="items1">Lời giải chuyên gia</span>
                                 <span class="dropdown-item-lib" id="items2" onclick="handleOpenFolder()">Thư mục</span>
-                                <span class="dropdown-item-lib" id="items3">Lớp học</span>
+                                <span class="dropdown-item-lib" id="items3" onclick="handleOpenClass()">Lớp học</span>
                             </c:if>
                             <c:if test="${user==null}" >
-                                <a href="login.jsp">Đăng nhập để xem thư viện của bạn.</a>
+                                <div class="before-login1">
+                                    <a href="login.jsp">Đăng nhập để xem thư viện của bạn.</a>
+                                </div>
                             </c:if>
                         </div>
                     </div>
@@ -81,9 +83,29 @@
                                     <a href="folder">Xem tất cả thư mục</a>
                                 </div>
                             </div>
+                            <div class="item-lib" id="class-container">
+                                <div class="item-set">
+                                    <c:forEach items="${listClass}" var="cl">
+                                        <a href="classSet?id=${cl.getId()}">
+                                            <div class="study-set-item-lib">
+                                                <div class="study-set-title-lib">${cl.getName()}</div>
+                                                <div class="user-info-lib">
+                                                    <div class="user-avatar-lib">${nameC.charAt(0)}</div>
+                                                    <div class="user-avatar-name">${nameC}</div>
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </c:forEach> 
+                                </div>
+                                <div class="get-all">
+                                    <a href="class">Xem tất cả lớp học</a>
+                                </div>
+                            </div>
                         </c:if>
                         <c:if test="${user==null}" >
-                            Nếu chưa có tài khoản. Xin mời đến mục <a href="register.jsp">Đăng kí </a>
+                            <div class="before-login2">
+                                Nếu chưa có tài khoản. Xin mời đến mục <a href="register.jsp">Đăng kí </a>
+                            </div>
                         </c:if>
 
                     </div>
@@ -150,6 +172,7 @@
                                                 <a class="dropdown-item">Cài đặt</a>
                                                 <a class="dropdown-item">Chế độ tối</a>
                                                 <div class="border-line"></div>
+                                                <a href="changePass.jsp" class="dropdown-item">Đổi mật khẩu</a>
                                                 <a href="logout" class="dropdown-item">Đăng xuất</a>
                                             </div>
                                         </c:if>
@@ -167,90 +190,104 @@
                                 </body>
                                 <script src="https://kit.fontawesome.com/85116df733.js"></script>
                                 <script>
-                                                                            var folderContainer = document.getElementById("folder-container");
-                                                                            var studySetContainer = document.getElementById("studySet-container");
-                                                                            var under2 = document.getElementById("items2");
-                                                                            var under = document.getElementById("items");
+                                                var folderContainer = document.getElementById("folder-container");
+                                                var studySetContainer = document.getElementById("studySet-container");
+                                                var classContainer = document.getElementById("class-container");
+                                                var under2 = document.getElementById("items2");
+                                                var under = document.getElementById("items");
+                                                var under3 = document.getElementById("items3");
 
-                                                                            function handleOpenFolder() {
-                                                                                folderContainer.style.display = "block";
-                                                                                studySetContainer.style.display = "none";
-                                                                                under2.classList.toggle("under");
-                                                                                under.classList.remove("under");
-                                                                            }
-                                                                            function handleOpenStudySet() {
-                                                                                folderContainer.style.display = "none";
-                                                                                studySetContainer.style.display = "block";
-                                                                                under.classList.toggle("under");
-                                                                                under2.classList.remove("under");
-                                                                            }
+                                                function handleOpenFolder() {
+                                                    folderContainer.style.display = "block";
+                                                    studySetContainer.style.display = "none";
+                                                    classContainer.style.display = "none";
+                                                    under2.classList.toggle("under");
+                                                    under.classList.remove("under");
+                                                    under3.classList.remove("under");
+                                                }
+                                                function handleOpenStudySet() {
+                                                    folderContainer.style.display = "none";
+                                                    classContainer.style.display = "none";
+                                                    studySetContainer.style.display = "block";
+                                                    under.classList.toggle("under");
+                                                    under2.classList.remove("under");
+                                                    under3.classList.remove("under");
+                                                }
+                                                function handleOpenClass() {
+                                                    folderContainer.style.display = "none";
+                                                    studySetContainer.style.display = "none";
+                                                    classContainer.style.display = "block";
+                                                    under3.classList.toggle("under");
+                                                    under2.classList.remove("under");
+                                                    under.classList.remove("under");
+                                                }
 
-                                                                            var modal = document.getElementById("myModal");
-                                                                            var modal1 = document.getElementById("myModal1");
-
-
-                                                                            function handleOpenDropdown() {
-                                                                                var element = document.getElementById("content");
-                                                                                element.classList.toggle("show");
-                                                                            }
-                                                                            function handleOpenDropdownLib() {
-                                                                                var contentLib = document.getElementsByClassName("dropdown-content-lib")[0];
-                                                                                var contentLibb = document.getElementsByClassName("dropdown-content-libb")[0];
-                                                                                if (contentLib.style.display === "") {
-                                                                                    contentLib.style.display = "block";
-                                                                                } else {
-                                                                                    contentLib.style.display = "";
-                                                                                }
-                                                                                if (contentLibb.style.display === "") {
-                                                                                    contentLibb.style.display = "block";
-                                                                                } else {
-                                                                                    contentLibb.style.display = "";
-                                                                                }
-
-                                                                            }
-
-                                                                            window.onclick = function (e) {
-                                                                                var element = document.getElementById("content");
-                                                                                if (!e.target.matches("#dropdown-btn") && element.classList.contains("show")) {
-                                                                                    element.classList.remove("show");
-                                                                                }
-                                                                                if (e.target.matches("#myModal")) {
-                                                                                    modal.style.display = "none";
-                                                                                }
-                                                                                if (e.target.matches("#myModal1")) {
-                                                                                    modal1.style.display = "none";
-                                                                                }
-                                                                                var elementLib = document.getElementById("content-lib");
-                                                                                if (!e.target.matches("#dropdown-btn-lib") && elementLib.style.display === "block" && !e.target.matches(".dropdown-item-lib")) {
-                                                                                    elementLib.style.display = "";
-                                                                                }
-                                                                                var elementLibb = document.getElementById("content-libb");
-                                                                                if (!e.target.matches("#dropdown-btn-lib") && elementLibb.style.display === "block" && !e.target.matches(".dropdown-item-lib")) {
-                                                                                    elementLibb.style.display = "";
-                                                                                }
-                                                                            };
-
-                                                                            function handleOpenSetting() {
-                                                                                var element = document.getElementById("content2");
-                                                                                element.classList.toggle("show");
-                                                                            }
-
-                                                                            function handleOpenModal() {
-                                                                                modal.style.display = "block";
-                                                                            }
-                                                                            function handleOpenModal1() {
-                                                                                modal1.style.display = "block";
-                                                                            }
+                                                var modal = document.getElementById("myModal");
+                                                var modal1 = document.getElementById("myModal1");
 
 
-                                                                            function handleCloseModal() {
-                                                                                modal.style.display = "none";
+                                                function handleOpenDropdown() {
+                                                    var element = document.getElementById("content");
+                                                    element.classList.toggle("show");
+                                                }
+                                                function handleOpenDropdownLib() {
+                                                    var contentLib = document.getElementsByClassName("dropdown-content-lib")[0];
+                                                    var contentLibb = document.getElementsByClassName("dropdown-content-libb")[0];
+                                                    if (contentLib.style.display === "") {
+                                                        contentLib.style.display = "block";
+                                                    } else {
+                                                        contentLib.style.display = "";
+                                                    }
+                                                    if (contentLibb.style.display === "") {
+                                                        contentLibb.style.display = "block";
+                                                    } else {
+                                                        contentLibb.style.display = "";
+                                                    }
 
-                                                                            }
-                                                                            function handleCloseModal1() {
-                                                                                modal1.style.display = "none";
+                                                }
 
-                                                                            }
+                                                window.onclick = function (e) {
+                                                    var element = document.getElementById("content");
+                                                    if (!e.target.matches("#dropdown-btn") && element.classList.contains("show")) {
+                                                        element.classList.remove("show");
+                                                    }
+                                                    if (e.target.matches("#myModal")) {
+                                                        modal.style.display = "none";
+                                                    }
+                                                    if (e.target.matches("#myModal1")) {
+                                                        modal1.style.display = "none";
+                                                    }
+                                                    var elementLib = document.getElementById("content-lib");
+                                                    if (!e.target.matches("#dropdown-btn-lib") && elementLib.style.display === "block" && !e.target.matches(".dropdown-item-lib")) {
+                                                        elementLib.style.display = "";
+                                                    }
+                                                    var elementLibb = document.getElementById("content-libb");
+                                                    if (!e.target.matches("#dropdown-btn-lib") && elementLibb.style.display === "block" && !e.target.matches(".dropdown-item-lib")) {
+                                                        elementLibb.style.display = "";
+                                                    }
+                                                };
+
+                                                function handleOpenSetting() {
+                                                    var element = document.getElementById("content2");
+                                                    element.classList.toggle("show");
+                                                }
+
+                                                function handleOpenModal() {
+                                                    modal.style.display = "block";
+                                                }
+                                                function handleOpenModal1() {
+                                                    modal1.style.display = "block";
+                                                }
+
+
+                                                function handleCloseModal() {
+                                                    modal.style.display = "none";
+
+                                                }
+                                                function handleCloseModal1() {
+                                                    modal1.style.display = "none";
+
+                                                }
 
                                 </script>
                                 </html>

@@ -35,7 +35,7 @@ body {
 
 .title-img {
     width: 70%;
-    color: white !important; 
+    color: white !important;
     margin: 3.5%;
     font-weight: 700;
     font-size: 2.75rem;
@@ -119,28 +119,36 @@ body {
 }
 
 .close-login {
-  position: absolute;
-  right: 32px;
-  top: 32px;
-  width: 32px;
-  height: 32px;
-  opacity: 0.3;
+    position: absolute;
+    right: 32px;
+    top: 32px;
+    width: 32px;
+    height: 32px;
+    opacity: 0.3;
 }
 .close-login:hover {
-  opacity: 1;
+    opacity: 1;
 }
 .close-login:before, .close-login:after {
-  position: absolute;
-  left: 15px;
-  content: ' ';
-  height: 33px;
-  width: 2px;
-  background-color: #333;
+    position: absolute;
+    left: 15px;
+    content: ' ';
+    height: 33px;
+    width: 2px;
+    background-color: #333;
 }
 .close-login:before {
-  transform: rotate(45deg);
+    transform: rotate(45deg);
 }
 .close-login:after {
-  transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+.ques-forgot{
+    float: right;
+    text-decoration: none;
+    color: blue;
+    font-size: 18px;
+    margin-top: 10px;
 }
 
