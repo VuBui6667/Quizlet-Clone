@@ -1012,6 +1012,52 @@ public class DAO extends DBContext {
         }
     }
 
+    public void removeMemberInClassByUserId(int userId, int classId) {
+        String sql = "DELETE FROM [dbo].[ListMember]\n"
+                + "      WHERE userId =? and classId =?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, userId);
+            st.setInt(1, classId);
+
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    
+    public Integer getListMemberIdByClassIdAndUserId(int classId, int userId) {
+        String sql = "SELECT [listMemberId]\n"
+                + "From [dbo].[ListMember] \n"
+                + "Where classId=? and userId=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, classId);
+            st.setInt(2, userId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return rs.getInt("listMemberId");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    
+    public void removeMemberInClassByListMember(int listId) {
+        String sql = "DELETE FROM [dbo].[ListMember]\n"
+                + "      WHERE listMemberId =?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, listId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    
+
     public void removeListMember(int classId) {
         String sql = "DELETE FROM [dbo].[ListMember]\n"
                 + "      WHERE classId = ?";
@@ -1063,7 +1109,6 @@ public class DAO extends DBContext {
             System.out.println(e);
         }
     }
-    
 
     public ArrayList<Integer> getUserIdByListMember(int classId) {
         ArrayList<Integer> listUM = new ArrayList<>();
@@ -1082,6 +1127,23 @@ public class DAO extends DBContext {
                 return listUM;
             }
         } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public Integer getOneUserIdByClassId(int classId) {
+        String sql = "SELECT [userId]\n"
+                + "From [dbo].[ListMember] \n"
+                + "Where classId=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, classId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return rs.getInt("userId");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
         }
         return null;
     }
@@ -1390,8 +1452,6 @@ public class DAO extends DBContext {
         }
         return listCMC;
     }
-
-    
 
     public static void main(String[] args) {
     }
