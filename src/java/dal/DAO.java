@@ -733,6 +733,29 @@ public class DAO extends DBContext {
 
         return listC;
     }
+    
+//     public ArrayList<User> getUserByListMember(int classId) {
+//        ArrayList<User> listUM = new ArrayList<>();
+//        String sql = "SELECT \n"
+//                + "      [userId]\n"
+//                + "      \n"
+//                + "  FROM [dbo].[ListMember]\n"
+//                + "  Where classId =?";
+//        try {
+//
+//            PreparedStatement st = connection.prepareStatement(sql);
+//            st.setInt(1, classId);
+//            ResultSet rs = st.executeQuery();
+//             while (rs.next()) {
+//                 User u = new User();
+//                 u.setId(rs.getInt("userId"));
+//            }
+//            return listUM;
+//        } catch (Exception e) {
+//        }
+//        return null;
+//    }
+    
 
     public User getUserByUserId(int userId) {
         ArrayList<User> listU = getAllUser();
@@ -1109,6 +1132,10 @@ public class DAO extends DBContext {
             System.out.println(e);
         }
     }
+    
+   
+    
+    
 
     public ArrayList<Integer> getUserIdByListMember(int classId) {
         ArrayList<Integer> listUM = new ArrayList<>();
@@ -1131,22 +1158,22 @@ public class DAO extends DBContext {
         return null;
     }
 
-    public Integer getOneUserIdByClassId(int classId) {
-        String sql = "SELECT [userId]\n"
-                + "From [dbo].[ListMember] \n"
-                + "Where classId=?";
-        try {
-            PreparedStatement st = connection.prepareStatement(sql);
-            st.setInt(1, classId);
-            ResultSet rs = st.executeQuery();
-            while (rs.next()) {
-                return rs.getInt("userId");
-            }
-        } catch (SQLException e) {
-            System.out.println(e);
-        }
-        return null;
-    }
+//    public Integer getOneUserIdByClassId(int classId) {
+//        String sql = "SELECT [userId]\n"
+//                + "From [dbo].[ListMember] \n"
+//                + "Where classId=?";
+//        try {
+//            PreparedStatement st = connection.prepareStatement(sql);
+//            st.setInt(1, classId);
+//            ResultSet rs = st.executeQuery();
+//            while (rs.next()) {
+//                return rs.getInt("userId");
+//            }
+//        } catch (SQLException e) {
+//            System.out.println(e);
+//        }
+//        return null;
+//    }
 
     public Integer getUserIdByNameOrEmail(String name) {
         String sql = "SELECT [userId]\n"
