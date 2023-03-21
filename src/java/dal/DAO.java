@@ -282,7 +282,7 @@ public class DAO extends DBContext {
                 c.setUserId(rs.getInt("userId"));
                 listC.add(c);
             }
-
+            return listC;
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -667,8 +667,7 @@ public class DAO extends DBContext {
         return idx;
     }
     
-    
-     public int getIdFolder() {
+    public int getIdFolder() {
         int idx = 0;
         String sql = "SELECT TOP 1 * FROM Folder ORDER BY folderId DESC";
         try {
@@ -683,7 +682,20 @@ public class DAO extends DBContext {
         return idx;
     }
     
-    
+    public int getIdClass() {
+        int idx = 0;
+        String sql = "SELECT TOP 1 * FROM Class ORDER BY classId DESC";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("classId");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return idx;
+    }
 
     public boolean activeAccount(String email) {
         boolean check = false;
