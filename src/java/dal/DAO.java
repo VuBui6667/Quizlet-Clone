@@ -9,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.*;
 import java.util.stream.IntStream;
+import model.Book;
 import model.Card;
 import model.Folder;
 import model.ListFolder;
@@ -990,6 +991,28 @@ public class DAO extends DBContext {
             System.out.println(e);
         }
         return listFd;
+    }
+    public ArrayList<Book> getTopFiveBook() {
+        ArrayList<Book> listBook = new ArrayList<>();
+        String sql = "select top 5 * from Book";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Book b = new Book();
+                b.setIsbn(rs.getString("ISBN"));
+                b.setTitle(rs.getString("Title"));
+                b.setEdition(rs.getString("Edition"));
+                b.setAuthors(rs.getString("Authors"));
+                b.setImage(rs.getString("Image"));
+                b.setNumOfAnswers(rs.getString("NumOfAnswers"));
+                b.setCateId(rs.getInt("CateID"));
+                listBook.add(b);
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return listBook;
     }
 
     public ArrayList<Class> getTopFiveClass(int userId) {
