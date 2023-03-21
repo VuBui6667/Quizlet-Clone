@@ -65,6 +65,11 @@ public class CreateClass extends HttpServlet {
         DAO d = new DAO();
         HttpSession ses = request.getSession();
         User user = (User) ses.getAttribute("user");
+        int userId = user.getId();
+        ArrayList<Class> listMemCl = d.getListMemberByUserId(userId);
+        ArrayList<Class> listClass = d.getClassByUserId(userId);
+        request.setAttribute("listClass", listClass);
+         request.setAttribute("listMemCl", listMemCl);
         ArrayList<Class> listC = d.getAllClass();
         ses.setAttribute("listC", listC);
         ses.setAttribute("d", d);

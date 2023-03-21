@@ -48,11 +48,19 @@
                 </div>
                 
                 <div class="content-container">
-                        <c:forEach items="${listC}" var="c">
+                        <c:forEach items="${listClass}" var="c">
                             <a href="classSet?id=${c.getId()}">
                                 <div class="item-class" >
                                     <div class="class"></div>
                                     <div class="title-class">${c.getName()} </div>
+                                </div>
+                            </a>
+                        </c:forEach>
+                      <c:forEach items="${listMemCl}" var="m">
+                            <a href="classSet?id=${m.getId()}">
+                                <div class="item-class" >
+                                    <div class="class"></div>
+                                    <div class="title-class">${m.getName()} </div>
                                 </div>
                             </a>
                         </c:forEach>
