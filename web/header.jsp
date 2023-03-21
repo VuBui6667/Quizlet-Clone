@@ -62,7 +62,7 @@
                                     </c:forEach>
                                 </div>
                                 <div class="get-all">
-                                    <a href="folder">Xem tất cả học phần </a>
+                                    <a href="studysets">Xem tất cả học phần </a>
                                 </div>
                             </div>
                             <div class="item-lib" id="folder-container">

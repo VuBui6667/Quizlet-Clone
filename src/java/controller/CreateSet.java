@@ -16,6 +16,7 @@ import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import model.Card;
 import model.ListFolder;
+import model.ListStudySet;
 import model.StudySet;
 import model.User;
 
@@ -75,11 +76,20 @@ public class CreateSet extends HttpServlet {
         }
         request.getSession().setAttribute("listC", listC);
         try {
+
             int folderId = Integer.parseInt(request.getParameter("folderId"));
             request.getSession().setAttribute("folderId", folderId);
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println(e);
         }
+
+        try {
+            int classId = Integer.parseInt(request.getParameter("classId"));
+            request.getSession().setAttribute("classId", classId);
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
         request.setAttribute("isShare", true);
 
         request.getRequestDispatcher("createSet.jsp").forward(request, response);
@@ -101,11 +111,19 @@ public class CreateSet extends HttpServlet {
         DAO d = new DAO();
         ArrayList<Card> listC = new ArrayList<>();
         int folderId = 0;
+
         try {
-            folderId = (int)ses.getAttribute("folderId");
-        } catch(Exception e) {
+            folderId = (int) ses.getAttribute("folderId");
+        } catch (Exception e) {
             System.out.println(e);
         }
+        int classId = 0;
+        try {
+            classId = (int) ses.getAttribute("classId");
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        System.out.println(classId);
                         System.out.println("folderId"+ folderId);
 
         String[] listTitleCard = request.getParameterValues("card-title");
@@ -149,11 +167,16 @@ public class CreateSet extends HttpServlet {
                         d.addCard(c_new);
                     }
                 }
-                
+
                 if (folderId != 0) {
                     ListFolder ListF = new ListFolder(d.getIdStudySet(), folderId, 10);
                     d.createListFolder(ListF);
                     ses.setAttribute("folderId", "");
+                }
+                 if (classId != 0) {
+                      ListStudySet ListC = new ListStudySet(classId, d.getIdStudySet() , 10);
+                    d.createListClass(ListC);
+                    ses.setAttribute("classId", "");
                 }
                 response.sendRedirect("home");
             }

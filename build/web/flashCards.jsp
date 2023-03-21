@@ -110,6 +110,39 @@
                             <div class="item-controller" onclick="handleOpenModalDel()"><i class="fa-regular fa-trash-can"></i></div>
                         </div>
                     </div>
+                    <div id="myModalNewFolder" class="modal">
+                        <div class="modal-content">
+                            <span class="close" onClick="handleCloseNewFolder()">×</span>
+                            <h1 style="color: black">Tạo thư mục mới</h1>
+                            <form action="folder" method="POST">
+                                <input type="hidden" name="studySetId" value="${id}"/>
+                                <input class="title" type="text" name="title" placeholder="Nhập tiêu đề"><br/>
+                                <input class="details" type="text" name="details" placeholder="Nhập mô tả(tùy chọn)">
+                                <div class="button-folder">
+                                    <input type="submit" value="Tạo thư mục" class="create-button"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div id="myModalNewClass" class="modal">
+                        <div class="modal-content">
+                            <span class="close" onClick="handleCloseNewClass()">×</span>
+                            <h1 style="color: black">Tạo lớp mới</h1>
+                            <p>Sắp xếp tài liệu học của bạn và chia sẻ chúng với bạn học của bạn.</p>
+                            <form action="class" method="post">
+                                <input type="hidden" name="studySetId" value="${id}"/>
+                                <input  class="classname" type="text" name="classname" placeholder="Nhập tên lớp (khóa học, giáo viên, năm nay, phần vv)"></br>
+                                <input class="details" type="text" name="detailsclass" placeholder="Nhập mô tả(tùy chọn)">
+                                <input class="accept" type="checkbox" name="adddel" value="True"/>cho phép các thành viên trong lớp thêm và bỏ học phần</br> </br> 
+                                <input class="accept" type="checkbox" name="addpeople" value="True"/>cho phép các thành viên trong lớp mời thành viên mới </br>
+                                <input  class="schoolname" type="text" name="schoolname" placeholder="Nhập tên trường của bạn"></br>
+
+                                <div class="button-folder">
+                                    <input type="submit" value="Tạo lớp" class="create-button"/>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
                     <div id="myModalAdd" class="modalAdd">
                         <div class="modal-content1">
                             <span class="close" onClick="handleCloseModalAdd()">×</span>
@@ -121,9 +154,10 @@
                                 <span class="add-item" id="item2" onclick="handleOpenAddFolder()">Thêm vào thư mục</span>
                             </div>
                             <div class="create-studySet">
-                                <a href="createSet?classId=${f.getId()}" class="new-class" id="nclass">+ Tạo một lớp mới</a>
-                                <a href="createSet?folderId=${f.getId()}" class="new-folder" id="nfolder">+ Tạo thư mục mới</a>
+                                <button class="new-class" id="nclass" onClick="handleOpenNewClass()">+ Tạo một lớp mới</button>
+                                <button class="new-folder" id="nfolder" onClick="handleOpenNewFolder()">+ Tạo thư mục mới</button>
                             </div>
+
                             <div class="content-container">
                                 <div class="list-class" id="class-add">
                                     <c:forEach items="${listClass}" var="c">
@@ -239,6 +273,8 @@
     </body>
     <script>
         var modalAdd = document.getElementById("myModalAdd");
+        var modalAddNewClass = document.getElementById("myModalNewClass");
+        var modalAddNewFolder = document.getElementById("myModalNewFolder");
 
         function handleOpenModalAdd() {
             modalAdd.style.display = "block";
@@ -250,6 +286,23 @@
         function handleCloseModalAdd() {
             modalAdd.style.display = "none";
 
+        }
+        function handleCloseNewClass() {
+            modalAdd.style.display = "block";
+            modalAddNewClass.style.display = "none";
+        }
+        function handleCloseNewFolder() {
+            modalAdd.style.display = "block";
+            modalAddNewFolder.style.display = "none";
+        }
+        function handleOpenNewClass() {
+            modalAdd.style.display = "none";
+            modalAddNewClass.style.display = "block";
+        }
+
+        function handleOpenNewFolder() {
+            modalAdd.style.display = "none";
+            modalAddNewFolder.style.display = "block";
         }
 
         var underAdd2 = document.getElementById("item2");
@@ -303,7 +356,7 @@
         function handleDelete(id) {
             window.location.href = "http://localhost:8080/projectquizlet/delete?id=" + id;
         }
-        
+
         function handleLearn(studySetId) {
             window.location.href = "http://localhost:8080/projectquizlet/learn?id=" + studySetId;
         }

@@ -13,7 +13,7 @@
         <title>JSP Page</title>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
         <script src="https://kit.fontawesome.com/85116df733.js"></script>
-        <link rel="stylesheet" href="css/folderSet.css" />
+        <link rel="stylesheet" href="css/folderSet.css"/>
     </head>
     <body>
         <%@include file="header.jsp" %>

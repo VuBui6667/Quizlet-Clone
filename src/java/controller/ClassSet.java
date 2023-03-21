@@ -72,6 +72,7 @@ public class ClassSet extends HttpServlet {
         ArrayList<StudySet> listSS = d.getListStudySetByClassId(id);
         ArrayList<Folder> listFAdded = d.getListFolderByClassId(id);
         ArrayList<User> listMem = d.getListMemberByClassId(id);
+//        ArrayList<User> listUID = d.getUserByListMember(id);
         Class c = d.getClassByClassId(id);
         request.setAttribute("c", c);
         request.setAttribute("classId", id);
@@ -79,12 +80,19 @@ public class ClassSet extends HttpServlet {
         request.setAttribute("d", d);
         request.setAttribute("user", user);
         request.setAttribute("listFAdded", listFAdded);
+//        request.setAttribute("listUID", listUID);
         request.setAttribute("listMem", listMem);
         ArrayList<StudySet> listS = d.getAllStudySet();
         ses.setAttribute("listS", listS);
         ArrayList<Folder> listFS = d.getAllFolder();
         ses.setAttribute("listFS", listFS);
+        
+        
+        int userId = user.getId();
+        request.setAttribute("userId", userId);
         request.getRequestDispatcher("classSet.jsp").forward(request, response);
+        
+
 
     }
 
@@ -101,6 +109,8 @@ public class ClassSet extends HttpServlet {
             throws ServletException, IOException {
         int classId = Integer.parseInt(request.getParameter("classId"));
         DAO d = new DAO();
+        d.removeListMember(classId);
+        d.removeListStudySet(classId);
         d.removeListClass(classId);
         d.deleteClassByClassId(classId);
         response.sendRedirect("class");

@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import model.Folder;
+import model.ListClass;
 import model.User;
 
 /**
@@ -65,8 +66,10 @@ public class CreateFolder extends HttpServlet {
         DAO d = new DAO();
         HttpSession ses = request.getSession();
         User user = (User)ses.getAttribute("user");
+     
         ArrayList<Folder> listF = d.getAllFolderByUserId(user.getId());
         ses.setAttribute("listF", listF);
+        
         ses.setAttribute("d", d);
         ses.setAttribute("user", user);
        request.getRequestDispatcher("folder.jsp").forward(request, response);
@@ -83,6 +86,14 @@ public class CreateFolder extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        int classId = 0;
+        try{
+             classId = Integer.parseInt(request.getParameter("classId"));
+        }catch(Exception e){
+            System.out.println(e);
+            
+        }
+
         String title = request.getParameter("title");
         String details = request.getParameter("details");
         HttpSession ses = request.getSession();
@@ -90,7 +101,16 @@ public class CreateFolder extends HttpServlet {
         Folder f = new Folder(1, title, details, user.getId(), false);
         DAO dao = new DAO();
         dao.createFolder(f);
-        doGet(request, response);
+        
+        
+         if (classId != 0) {
+                      ListClass ListCl = new ListClass(classId, dao.getIdFolder(), 10);
+                    dao.createListFolderInClass(ListCl);
+                    response.sendRedirect("classSet?id="+classId);
+                    ses.setAttribute("classId", "");
+                }
+         doGet(request, response);
+         
     }
 
     /**
