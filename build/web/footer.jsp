@@ -107,7 +107,8 @@
                     
                     <div class="col-md-8 text-right">
                         <ul class="list-unstyled social app mb-0 pb-0 nav-right">
-                            <img src="images/coppa-seal.cdf1828279fe2a1.png" alt="alt"/>
+                             
+                            <img src="images/coppa-seal.cdf1828279fe2a1.png" alt="alt" style="margin-left: 80%"/>
                         </ul>
                     </div>
                 </div>

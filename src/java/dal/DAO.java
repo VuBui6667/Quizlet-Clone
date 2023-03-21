@@ -8,8 +8,13 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import model.Answer;
 import model.Card;
+import model.Chapter;
+import model.Exercises;
 import model.Folder;
+import model.ListBook;
+import model.Page;
 import model.StudySet;
 import model.User;
 
@@ -44,13 +49,13 @@ public class DAO extends DBContext {
             PreparedStatement st = connection.prepareStatement(sql);
             ResultSet rs = st.executeQuery();
             while (rs.next()) {
-                 Folder f = new Folder(
-                         rs.getInt("folderId"),
-                         rs.getString("title"),
-                         rs.getString("description"),
-                         rs.getInt("userId"),
-                         rs.getBoolean("isShare"));
-                 listF.add(f);
+                Folder f = new Folder(
+                        rs.getInt("folderId"),
+                        rs.getString("title"),
+                        rs.getString("description"),
+                        rs.getInt("userId"),
+                        rs.getBoolean("isShare"));
+                listF.add(f);
             }
         } catch (Exception e) {
             System.out.println(e);
@@ -375,10 +380,276 @@ public class DAO extends DBContext {
         }
         return listS;
     }
+
+    public ArrayList<ListBook> getAllBook() {
+        ArrayList<ListBook> listB = new ArrayList<>();
+        String sql = "select * from [Book]";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                ListBook b = new ListBook(rs.getString("Isbn"), rs.getString("Title"), rs.getString("Edition"),
+                        rs.getString("Authors"), rs.getString("Image"), rs.getString("NumOfAnswers"), rs.getInt("CateID"));
+                listB.add(b);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return listB;
+    }
+
+//    public ArrayList<ListBook> getAllBook(ListBook book) {
+//        ArrayList<ListBook> listB = new ArrayList<>();
+//        String sql = "SELECT [ISBN]\n"
+//                + "      ,[Title]\n"
+//                + "      ,[Edition]\n"
+//                + "      ,[Authors]\n"
+//                + "      ,[Image]\n"
+//                + "      ,[NumOfAnswers]\n"
+//                + "      ,[CateID]\n"
+//                + "  FROM [Quizlett].[dbo].[Book]\n"
+//                + "  WHERE Isbn=?";
+//        try {
+//            PreparedStatement st = connection.prepareStatement(sql);
+//            st.setString(1, book.getIsbn());
+//            ResultSet rs = st.executeQuery();
+//            while (rs.next()) {
+//                ListBook list = new ListBook();
+//                list.setIsbn(rs.getString("Isbn"));
+//                list.setTitle(rs.getString("Title"));
+//                list.setEdition(rs.getString("Edition"));
+//                list.setAuthors(rs.getString("Authors"));
+//                list.setImage(rs.getString("Image"));
+//                list.setImage(rs.getString("NumOfAnswers"));
+//                list.setImage(rs.getString("CateID"));
+//                listB.add(list);
+//            }
+//        } catch (Exception e) {
+//            System.out.println(e);
+//        }
+//        return listB;
+//    }sai
+    public ListBook getBookByIsbn(String Isbn) {
+        String sql = "select * from Book where Isbn = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, Isbn);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                ListBook m = new ListBook(rs.getString("Isbn"), rs.getString("Title"),
+                        rs.getString("Edition"), rs.getString("Authors"),
+                        rs.getString("Image"), rs.getString("NumOfAnswers"), rs.getInt("CateID"));
+                return m;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+
+    public ArrayList<Chapter> getAllChapter() {
+        ArrayList<Chapter> listC = new ArrayList<>();
+        String sql = "select * from [Chapter]";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Chapter c = new Chapter(rs.getInt("ChapterID"), rs.getString("ChapterName"), rs.getString("Isbn"));
+                listC.add(c);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return listC;
+    }
+    public ArrayList<Chapter> getAllChapterByIsbn(String Isbn) {
+        ArrayList<Chapter> listC = new ArrayList<>();
+        String sql = "select * from [Chapter] where Isbn = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setString(1, Isbn);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Chapter c = new Chapter(rs.getInt("ChapterID"), rs.getString("ChapterName"), rs.getString("Isbn"));
+                listC.add(c);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return listC;
+    }
+    public Chapter getChapterByIsbn(String Isbn) {
+        String sql = "select * from Chapter where Isbn = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setString(1, Isbn);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Chapter c = new Chapter(rs.getInt("ChapterID"), rs.getString("ChapterName"), rs.getString("Isbn"));
+                return c;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    public ArrayList<Page> getAllPageByChapterID(int chapterID) {
+        ArrayList<Page> listP = new ArrayList<>();
+        String sql = "select * from [Page] where ChapterID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, chapterID);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Page p = new Page(rs.getInt("PageID"), rs.getString("PageName"), rs.getInt("ChapterID"));
+                listP.add(p);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+
+        return listP;
+    }
+    
+    public ArrayList<Exercises> getAllExByPageID(int PageID) {
+        ArrayList<Exercises> listE = new ArrayList<>();
+        String sql = "select * from [Exercises] where PageID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, PageID);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Exercises e = new Exercises(rs.getInt("ExID"), rs.getString("ExName"),rs.getString("Answers"), rs.getInt("PageID"));
+                listE.add(e);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return listE;
+    }
+    
+    public Page getPageByChapterID(int ChapterID){
+        String sql = "select * from Page where ChapterID = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, ChapterID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Page p = new Page(rs.getInt("PageID"), rs.getString("PageName"), rs.getInt("ChapterID"));
+                return p;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    public Page getPageByPageID(int pageID){
+        String sql = "select * from Page where PageID = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, pageID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Page p = new Page(rs.getInt("PageID"), rs.getString("PageName"), rs.getInt("ChapterID"));
+                return p;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    public Exercises getExercisesByExID(int ExID){
+        String sql = "select * from Exercises where ExID = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, ExID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Exercises e = new Exercises(rs.getInt("ExID"), rs.getString("ExName"),rs.getString("Answers"), rs.getInt("PageID"));
+                return e;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    public Answer getAnswerByExID(int ExID) {
+        String sql = "select * from Answers where ExID = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, ExID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Answer a = new Answer(rs.getInt("AnswerID"),rs.getString("Answer"),rs.getInt("ExID"));
+                return a;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    public ArrayList<Answer> getAllAnswerByExID(int ExID) {
+        ArrayList<Answer> listA = new ArrayList<>();
+        String sql = "select * from Answers where ExID = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, ExID);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                Answer a = new Answer(rs.getInt("AnswerID"),rs.getString("Answer"),rs.getInt("ExID"));
+                listA.add(a);
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return listA;
+    }
+    
+    public Chapter getChapterByChapterID(int chapterID) {
+        String sql = "select * from Chapter where ChapterID = ?";
+        try {
+            PreparedStatement ps = connection.prepareStatement(sql);
+            ps.setInt(1, chapterID);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                Chapter a = new Chapter(rs.getInt("ChapterID"),rs.getString("ChapterName"),rs.getString("ISBN"));
+                return a;
+            }
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    
+//    public ListBook getListBookByIsbn(String Isbn) {
+//        ArrayList<ListBook> listB = getAllBook();
+//        for (ListBook b : listB) {
+//            if (b.getIsbn() == null ? Isbn == null : b.getIsbn().equals(Isbn)) {
+//                return b;
+//            }
+//        }
+//        return null;
+//    }
+
+//    public Chapter getChapterByIsbn(String Isbn) {
+//        ArrayList<Chapter> listC = getAllChapter();
+//        for (Chapter c : listC) {
+//            if (c.getIsbn() == null ? Isbn == null : c.getIsbn().equals(Isbn)) {
+//                return c;
+//            }
+//        }
+//        return null;
+//    }
+
+
     public static void main(String[] args) {
         DAO d = new DAO();
-        ArrayList<Folder> s = d.getAllFolder();
+        ArrayList<ListBook> s = d.getAllBook();
         System.out.println(s.get(0).getTitle());
-        
+
     }
 }

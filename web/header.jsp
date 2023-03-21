@@ -27,7 +27,7 @@
                     <a href="home.jsp">Trang chủ</a>
                 </div>
                 <div class="nav-item">
-                    <a href="#">Lời giải chuyên gia</a>
+                    <a href="explanation">Lời giải chuyên gia</a>
                 </div>
                 <div class="nav-item">
                     <a href="#">Thư viện của bạn &nbsp;<i class="fa-solid fa-chevron-down"style="font-size: 10px"></i></a>
