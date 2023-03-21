@@ -479,6 +479,7 @@ a {
     margin-bottom: 20px;
     padding: 10px 0px;
     padding-left: 10px;
+    margin-top: 20px;
 
 }
 .links button{
@@ -496,8 +497,15 @@ a {
     border: 0px;
     font-size: 20px;
     color: white;
-    margin-bottom: 20px;
     padding: 10px 0px;
     padding-left: 10px;
 
 }
+
+.shared-button{
+    padding: 0px 15px;
+    }
+    
+    .button-folder input{
+        background-color: #4255ff;
+    }

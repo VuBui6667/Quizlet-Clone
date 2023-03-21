@@ -77,11 +77,11 @@
                         <div id="myModalEdit" class="modal">
                             <div class="modal-content">
                                 <span class="close" onClick="handleCloseModalEdit()">×</span>
-                                <h1 style="color: black">Sửa thư mục</h1>
+                                <h1 >Sửa thư mục</h1>
                                 <form action="updateFolder" method="post">
                                     <input class="folderId" value="${f.getId()}" name="folderId" /></br>
-                                    <input class="title" type="text" name="title" placeholder="Nhập tiêu đề"></br>
-                                    <input class="details" type="text" name="desc" placeholder="Nhập mô tả(tùy chọn)">
+                                    <input class="title" value="${f.getTitle()}" type="text" name="title" placeholder="Nhập tiêu đề"></br>
+                                    <input class="details" value="${f.getDesc()}" type="text" name="desc" placeholder="Nhập mô tả(tùy chọn)">
                                     <div class="button-folder">
                                         <input type="submit" value="Lưu" class="create-button"/>
                                     </div>

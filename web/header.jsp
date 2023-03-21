@@ -141,7 +141,7 @@
                                 <div id="myModal" class="modal">
                                     <div class="modal-content">
                                         <span class="close" onClick="handleCloseModal()">×</span>
-                                        <h1 style="color: black">Tạo thư mục mới</h1>
+                                        <h1>Tạo thư mục mới</h1>
                                         <form action="folder" method="post">
                                             <input class="title" type="text" name="title" placeholder="Nhập tiêu đề"></br>
                                             <input class="details" type="text" name="details" placeholder="Nhập mô tả(tùy chọn)">

@@ -12,18 +12,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import model.Folder;
-import model.ListClass;
-import model.User;
 
 /**
  *
- * @author ASUS
+ * @author vieta
  */
-@WebServlet(name = "CreateFolder", urlPatterns = {"/folder"})
-public class CreateFolder extends HttpServlet {
+@WebServlet(name = "DeleteMember", urlPatterns = {"/deleteMember"})
+public class DeleteMember extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,10 +37,10 @@ public class CreateFolder extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet CreateFolder</title>");
+            out.println("<title>Servlet DeleteMember</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet CreateFolder at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet DeleteMember at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,16 +58,7 @@ public class CreateFolder extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DAO d = new DAO();
-        HttpSession ses = request.getSession();
-        User user = (User)ses.getAttribute("user");
-     
-        ArrayList<Folder> listF = d.getAllFolderByUserId(user.getId());
-        ses.setAttribute("listF", listF);
-        
-        ses.setAttribute("d", d);
-        ses.setAttribute("user", user);
-       request.getRequestDispatcher("folder.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
     /**
@@ -86,31 +72,13 @@ public class CreateFolder extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int classId = 0;
-        try{
-             classId = Integer.parseInt(request.getParameter("classId"));
-        }catch(Exception e){
-            System.out.println(e);
-            
-        }
-
-        String title = request.getParameter("title");
-        String details = request.getParameter("details");
-        HttpSession ses = request.getSession();
-        User user = (User) ses.getAttribute("user");
-        Folder f = new Folder(1, title, details, user.getId(), false);
-        DAO dao = new DAO();
-        dao.createFolder(f);
-        
-        
-         if (classId != 0) {
-                      ListClass ListCl = new ListClass(classId, dao.getIdFolder(), 10);
-                    dao.createListFolderInClass(ListCl);
-                    response.sendRedirect("classSet?id="+classId);
-                    ses.setAttribute("classId", "");
-                }
-         doGet(request, response);
-         
+        int classId = Integer.parseInt(request.getParameter("classId"));
+        int memberId = Integer.parseInt(request.getParameter("memberId"));
+        DAO d = new DAO();
+        int id_raw= d.getListMemberIdByClassIdAndUserId(classId, memberId);
+//                 int id_raw = d.getOneUserIdByClassId(classId);
+        d.removeMemberInClassByListMember(id_raw);
+                response.sendRedirect("class");
     }
 
     /**

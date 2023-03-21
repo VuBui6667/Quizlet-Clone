@@ -44,7 +44,7 @@
                                         Thêm học phần
                                     </div>
                                     <div class="create-studySet">
-                                        <a href="createSet?classId=${f.getId()}" class="button-studySet">+ TẠO HỌC PHẦN MỚI</a>
+                                        <a href="createSet?classId=${c.getId()}" class="button-studySet">+ TẠO HỌC PHẦN MỚI</a>
                                     </div>
                                     <div class="combo-box">
                                         <select class="combo-box1"> <i class="fa-solid fa-chevron-down"></i>
@@ -127,8 +127,27 @@
                                     Thêm thư mục
                                 </div>
                                 <div class="create-studySet">
-                                    <a href="createSet?classId=${f.getId()}" class="button-studySet">+ TẠO THƯ MỤC MỚI</a>
+                                    <b  class="button-studySet" onClick="handleOpenModalF()">+ TẠO THƯ MỤC MỚI</b>
                                 </div>
+
+                                <div id="myModalF" class="modal">
+                                    <div class="modal-content">
+                                        <span class="close" onClick="handleCloseModalF()">×</span>
+                                        <h1 style="color: black">Tạo thư mục mới</h1>
+                                        <form action="folder" method="post">
+                                            <input class="title" type="text" name="title" placeholder="Nhập tiêu đề"></br>
+                                            <input class="details" type="text" name="details" placeholder="Nhập mô tả(tùy chọn)">
+                                            <input name="classId" value="${classId}" class="input-send"/>
+                                            <div class="button-folder">
+                                                <input type="submit" value="Tạo thư mục" class="create-button"/>
+
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+
+
+
                                 <div class="content-container">
                                     <c:forEach items="${listFS}" var="f">
                                         <span > 
@@ -326,7 +345,6 @@
                                                                         <div>
                                                                             ${d.getUserByUserId(c.getUserId()).getName()}
                                                                         </div>
-
                                                                     </div>
 
 
@@ -334,11 +352,47 @@
                                                             </div>
 
                                                             <c:forEach items="${listMem}" var="m">
-                                                                <div class="item-study-set">
+                                                                <div class="item-study-setD">
                                                                     <div class="author-study-set2">
                                                                         <span class="user-avatar-sub2"><%= user.getName().charAt(0)%></span>
                                                                         ${m.getName()}
                                                                     </div>
+                                                                                        <c:if test="${userId == c.getUserId()}">
+
+                                                                    <div class="delete-member method-item">
+                                                                        <i class="fa-regular fa-trash-can" onClick ="handleOpenModalDelD()"></i>
+                                                                    </div>
+                                                                                        </c:if>
+                                                                    <div id="myModalD" class="modal">
+                                                                        <div class="contentdel">
+                                                                            <div class="modalDel-content">
+                                                                                <div class="modal-container">
+                                                                                    <span class="close" onClick="handleCloseModalDelD()">×</span>
+                                                                                    <div class="delcontent">
+                                                                                        <div>
+                                                                                            <h3>Xóa thành viên này?</h3>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <div class="delcontent1">
+                                                                                        <h4>${c.getName()}</h4>
+                                                                                        <h5>Bạn có chắc chắn không? Bạn sẽ không được hoàn tác.</h5>
+                                                                                    </div>
+
+                                                                                </div>
+                                                                                <div class="container-controll">
+                                                                                    <div class="btn-cancel" onClick="handleCloseModalDelD()">Hủy</div>
+                                                                                    <form action="deleteMember" method="POST">
+                                                                                        <input name="classId" value="${classId}" class="input-send"/>
+                                                                                          <input name="memberId" value="${m.getId()}" class="input-send"/>
+                                                                                        <button type="submit" class="btn-del">
+                                                                                            Vâng,hãy xóa thành viên
+                                                                                    </form>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+
+
                                                                 </div>
                                                             </c:forEach>
                                                         </div>
@@ -370,7 +424,7 @@
                                                     </div>
                                                     <div class ="items-mini1">
                                                         <i class="fa-regular fa-folder"></i>
-                                                        <p>${listSS.size()} Học phần</p>
+                                                        <p>${listSS.size()+listFAdded.size()} Học phần</p>
                                                     </div>
                                                     <div class ="items-mini1">
                                                         <i class="fa-regular fa-user"></i>
@@ -395,11 +449,27 @@
                                             var modal3 = document.getElementById("myModal3");
                                             var modal4 = document.getElementById("myModal4");
                                             var modal5 = document.getElementById("myModal5");
+                                            var modalF = document.getElementById("myModalF");
+                                            var modalD = document.getElementById("myModalD");
+
+
 
                                             var modalShow1 = document.getElementsByClassName("main")[0];
                                             var modalShow2 = document.getElementsByClassName("main2")[0];
 
+                                            function handleOpenModalF() {
+                                                modalF.style.display = "block";
+                                            }
+                                            function handleCloseModalF() {
+                                                modalF.style.display = "none";
 
+                                            }
+                                            function handleOpenModalDelD() {
+                                                modalD.style.display = "block";
+                                            }
+                                            function handleCloseModalDelD() {
+                                                modalD.style.display = "none";
+                                            }
 
                                             function handleOpenStudySetFolder() {
                                                 modalShow1.style.display = "block";
@@ -433,6 +503,12 @@
                                                 }
                                                 if (e.target.matches("#myModal5")) {
                                                     modal5.style.display = "none";
+                                                }
+                                                if (e.target.matches("#myModalF")) {
+                                                    modalF.style.display = "none";
+                                                }
+                                                if (e.target.matches("#myModalD")) {
+                                                    modalD.style.display = "none";
                                                 }
                                             };
 

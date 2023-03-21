@@ -50,6 +50,23 @@ body {
     cursor: pointer;
 }
 
+.method-itemX {
+    border: 1px solid white;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 5px;
+}
+
+.method-itemX:hover {
+    background-color: #2e3856;
+    cursor: pointer;
+    margin-left:700px;
+}
+
 .classSet-info {
     display: flex;
 }
@@ -240,6 +257,17 @@ a {
     border-bottom: 4px solid #2e3856;
 }
 
+.item-study-setD{
+    width: 100%;
+    background-color: #2e3856;
+    padding: 12px 20px;
+    color: white;
+    border-radius: 6px;
+    cursor: pointer;
+    border-bottom: 4px solid #2e3856;
+    display: flex;
+}
+
 .container-studySet {
     display: flex;
     flex-wrap: wrap;
@@ -248,6 +276,9 @@ a {
 }
 
 .item-study-set:hover {
+    border-bottom: 4px solid #fff;
+}
+.item-study-setD:hover {
     border-bottom: 4px solid #fff;
 }
 
@@ -350,6 +381,14 @@ a{
     margin-bottom: 3px;
 }
 
+.item-study-setD:hover {
+    border-bottom: 4px solid #fff;
+}
+
+.item-study-setD div:nth-child(1) {
+    margin-bottom: 3px;
+}
+
 .title-studySet {
     font-weight: 700;
     font-size: 20px;
@@ -426,6 +465,18 @@ a{
         0 16px 16px rgba(0,0,0,0.12);
     color: black;
 }
+/*.dropdown-controller1 {
+    background: #0a092d !important;
+    width: 120px;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid #000;
+    border-radius: 12px;
+    z-index: 99;
+    padding-bottom: 7px;
+    display: none;
+}*/
 
 
 .dropdown-controller {
