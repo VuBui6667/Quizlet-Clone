@@ -106,6 +106,8 @@ public class CreateSet extends HttpServlet {
         } catch(Exception e) {
             System.out.println(e);
         }
+                        System.out.println("folderId"+ folderId);
+
         String[] listTitleCard = request.getParameterValues("card-title");
         String[] listDescCard = request.getParameterValues("card-desc");
         for (int i = 0; i < listTitleCard.length; i++) {
