@@ -83,6 +83,7 @@ public class CreateFolder extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        int studySetId = Integer.parseInt(request.getParameter("studySetId"));
         String title = request.getParameter("title");
         String details = request.getParameter("details");
         HttpSession ses = request.getSession();
@@ -90,6 +91,7 @@ public class CreateFolder extends HttpServlet {
         Folder f = new Folder(1, title, details, user.getId(), false);
         DAO dao = new DAO();
         dao.createFolder(f);
+        dao.addStudySetInFolder(dao.getIdFolder(), studySetId);
         doGet(request, response);
     }
 
