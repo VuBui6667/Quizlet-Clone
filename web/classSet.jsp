@@ -32,48 +32,53 @@
 
                     </div>
                 </div>
-                        <c:if test="${userId == c.getUserId()}">
+
                 <div class="method-classSet">
-                    <div class="add-studySet method-item">
-                        <i class="fa-solid fa-plus" onClick="handleOpenModal2()"></i>
-                        <div id="myModal2" class="modal1">
-                            <div class="modal-content1">
-                                <span class="close" onClick="handleCloseModal2()">×</span>
-                                <div class="header-studySet">
-                                    Thêm học phần
-                                </div>
-                                <div class="create-studySet">
-                                    <a href="createSet?classId=${f.getId()}" class="button-studySet">+ TẠO HỌC PHẦN MỚI</a>
-                                </div>
-                                <div class="combo-box">
-                                    <select class="combo-box1"> <i class="fa-solid fa-chevron-down"></i>
-                                        <option style="color: black" value="yourSets">Học phần của bạn</option>
-                                        <option style="color: black" value="classSets">Học phần của lớp</option>
-                                        <option style="color: black" value="studiedSets">Học phần đã học</option>
-                                    </select> 
-                                </div>
-                                <div class="content-container">
-                                    <c:forEach items="${listS}" var="s">
-                                        <span > 
-                                            <div class="item-study-set1">
-                                                <div class="title-study-set1">
-                                                    ${s.getTitle()}
-                                                    <c:set var="checkAdded" scope="request" value="${d.isAddedInClass(classId,s.getId())}" />
-                                                    <c:if test="${checkAdded}">
-                                                        <i class="fa-solid fa-minus" onclick="sendMethod(${s.getId()}, ${classId}, 'delete')"></i>
-                                                    </c:if>
-                                                    <c:if test="${!checkAdded}">
-                                                        <i class="fa-solid fa-plus add-icon" onclick="sendMethod(${s.getId()}, ${classId}, 'add')"></i>
-                                                    </c:if>
+                    <c:if test="${userId == c.getUserId()}">
+                        <div class="add-studySet method-item">
+                            <i class="fa-solid fa-plus" onClick="handleOpenModal2()"></i>
+                            <div id="myModal2" class="modal1">
+                                <div class="modal-content1">
+                                    <span class="close" onClick="handleCloseModal2()">×</span>
+                                    <div class="header-studySet">
+                                        Thêm học phần
+                                    </div>
+                                    <div class="create-studySet">
+                                        <a href="createSet?classId=${f.getId()}" class="button-studySet">+ TẠO HỌC PHẦN MỚI</a>
+                                    </div>
+                                    <div class="combo-box">
+                                        <select class="combo-box1"> <i class="fa-solid fa-chevron-down"></i>
+                                            <option style="color: black" value="yourSets">Học phần của bạn</option>
+                                            <option style="color: black" value="classSets">Học phần của lớp</option>
+                                            <option style="color: black" value="studiedSets">Học phần đã học</option>
+                                        </select> 
+                                    </div>
+                                    <div class="content-container">
+                                        <c:forEach items="${listS}" var="s">
+                                            <span > 
+                                                <div class="item-study-set1">
+                                                    <div class="title-study-set1">
+                                                        ${s.getTitle()}
+                                                        <c:set var="checkAdded" scope="request" value="${d.isAddedInClass(classId,s.getId())}" />
+                                                        <c:if test="${checkAdded}">
+                                                            <i class="fa-solid fa-minus" onclick="sendMethod(${s.getId()}, ${classId}, 'delete')"></i>
+                                                        </c:if>
+                                                        <c:if test="${!checkAdded}">
+                                                            <i class="fa-solid fa-plus add-icon" onclick="sendMethod(${s.getId()}, ${classId}, 'add')"></i>
+                                                        </c:if>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </span>
-                                    </c:forEach>
+                                            </span>
+                                        </c:forEach>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="add-member method-item" onClick ="handleOpenModal5()">
+
+                    </c:if>
+
+                    <c:if test="${userId == c.getUserId()}">
+                         <div class="add-member method-item" onClick ="handleOpenModal5()">
                         <i class="fa-solid fa-user-plus" ></i>
                     </div>
                     <div id="myModal5" class="modal">
@@ -106,8 +111,12 @@
 
                         </div>
                     </div>       
+                    </c:if>
 
-                    <div class="add-class method-item" onClick="handleOpenModal3()">
+
+                   
+                    <c:if test="${userId == c.getUserId()}">
+                         <div class="add-class method-item" onClick="handleOpenModal3()">
                         <i class="fa-regular fa-folder" ></i>
                     </div>
 
@@ -140,14 +149,22 @@
                             </div>   
                         </div>
                     </div>
+                    </c:if>
+
+                   
                     <div class="nav-item1 container-dropdown1">
                         <div class="edit-class method-item" onClick ="handleOpenDropdown()">
                             <i class="fa-solid fa-ellipsis"></i>
                         </div>
                         <div id="dropdown-controller" class="dropdown-controller">
-                            <button id="myBtn" class="dropdown-item" onClick="handleOpenModal4()">Sửa</a> 
+                            <c:if test="${userId == c.getUserId()}">
+                                <button id="myBtn" class="dropdown-item" onClick="handleOpenModal4()">Sửa</a> 
                                 <button id="myBtn" class="dropdown-item" onclick="handleOpenModalDel()">Xóa</a> 
-
+                                
+                            </c:if>
+                               <c:if test="${userId != c.getUserId()}">
+                                <button id="myBtn" class="dropdown-item" onclick="handleOpenModalExit()">Bỏ lớp học này</a> 
+                                         </c:if>
                                     </div>
                                     </div>
                                     <div id="myModal4" class="modal">
@@ -175,6 +192,35 @@
                                                     <span class="close" onClick="handleCloseModalDel()">×</span>
                                                     <div class="delcontent">
                                                         <div>
+                                                            <h3>Bỏ lớp học này à?</h3>
+                                                        </div>
+                                                    </div>
+                                                    <div class="delcontent1">
+                                                        <h4>${c.getName()}</h4>
+                                                        <h5>Bạn sắp rời khỏi lớp này. Nếu làm vậy bạn sẽ bị xóa tên khỏi lớp này vĩnh viễn.</h5>
+                                                        <h5>Bạn có chắc chắn không? Bạn sẽ không được hoàn tác.</h5>
+                                                    </div>
+
+                                                </div>
+                                                <div class="container-controll">
+                                                    <div class="btn-cancel" onClick="handleCloseModalDel()">Hủy</div>
+                                                    <form action="classSet" method="POST">
+                                                        <input name="classId" value="${classId}" class="input-send"/>
+                                                        <button type="submit" class="btn-del">
+                                                           Vâng, bỏ lớp
+                                                    </form>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                 <div id="myModalExit" class="modalDel">
+                                        <div class="contentdel">
+                                            <div class="modalDel-content">
+                                                <div class="modal-container">
+                                                    <span class="close" onClick="handleCloseModalExit()">×</span>
+                                                    <div class="delcontent">
+                                                        <div>
                                                             <h3>Xóa lớp này?</h3>
                                                         </div>
                                                     </div>
@@ -187,8 +233,9 @@
                                                 </div>
                                                 <div class="container-controll">
                                                     <div class="btn-cancel" onClick="handleCloseModalDel()">Hủy</div>
-                                                    <form action="classSet" method="POST">
+                                                    <form action="removeMember" method="POST">
                                                         <input name="classId" value="${classId}" class="input-send"/>
+                                                        <input name="userId" value="${userId}" class="input-send"/>
                                                         <button type="submit" class="btn-del">
                                                             Vâng, hãy xóa lớp
                                                     </form>
@@ -197,9 +244,10 @@
                                         </div>
 
                                     </div>
+                                                        
 
                                     </div>
-                                                        </c:if>
+
                                     </div>
 
                                     <div class="contai-home">
@@ -278,7 +326,7 @@
                                                                     <div>
                                                                         ${d.getUserByUserId(c.getUserId()).getName()}
                                                                     </div>
-                                                               
+
                                                                 </div>
 
 
@@ -454,7 +502,16 @@
                                         }
 
                                         var modalDel = document.getElementById("myModalDel");
+                                        var modalExit = document.getElementById("myModalExit");
+                                        
+                                        function handleOpenModalExit() {
+                                            modalExit.style.display = "block";
+                                        }
 
+                                        function handleCloseModalExit() {
+                                            modalExit.style.display = "none";
+                                        }
+                                        
                                         function handleOpenModalDel() {
                                             modalDel.style.display = "block";
                                         }
@@ -465,6 +522,9 @@
                                         window.onclick = function (e) {
                                             if (e.target.matches("#myModalDel")) {
                                                 modalDel.style.display = "none";
+                                            }
+                                            if (e.target.matches("#myModalExit")) {
+                                                modalExit.style.display = "none";
                                             }
                                             if (!e.target.matches(".fa-ellipsis") && dropdownController.classList.contains("show")) {
                                                 dropdownController.classList.remove("show");

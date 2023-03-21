@@ -14,18 +14,14 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
-import model.StudySet;
 import model.User;
-import model.Class;
-import model.Folder;
 
 /**
  *
  * @author vieta
  */
-@WebServlet(name = "ClassSet", urlPatterns = {"/classSet"})
-
-public class ClassSet extends HttpServlet {
+@WebServlet(name = "RemoveMember", urlPatterns = {"/removeMember"})
+public class RemoveMember extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -44,10 +40,10 @@ public class ClassSet extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet ClassSet</title>");
+            out.println("<title>Servlet RemoveMember</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet ClassSet at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet RemoveMember at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -65,35 +61,7 @@ public class ClassSet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        DAO d = new DAO();
-        HttpSession ses = request.getSession();
-        User user = (User) ses.getAttribute("user");
-        int id = Integer.parseInt(request.getParameter("id"));
-        ArrayList<StudySet> listSS = d.getListStudySetByClassId(id);
-        ArrayList<Folder> listFAdded = d.getListFolderByClassId(id);
-        ArrayList<User> listMem = d.getListMemberByClassId(id);
-//        ArrayList<User> listUID = d.getUserByListMember(id);
-        Class c = d.getClassByClassId(id);
-        request.setAttribute("c", c);
-        request.setAttribute("classId", id);
-        request.setAttribute("listSS", listSS);
-        request.setAttribute("d", d);
-        request.setAttribute("user", user);
-        request.setAttribute("listFAdded", listFAdded);
-//        request.setAttribute("listUID", listUID);
-        request.setAttribute("listMem", listMem);
-        ArrayList<StudySet> listS = d.getAllStudySet();
-        ses.setAttribute("listS", listS);
-        ArrayList<Folder> listFS = d.getAllFolder();
-        ses.setAttribute("listFS", listFS);
-        
-        
-        int userId = user.getId();
-        request.setAttribute("userId", userId);
-        request.getRequestDispatcher("classSet.jsp").forward(request, response);
-        
-
-
+        processRequest(request, response);
     }
 
     /**
@@ -108,14 +76,19 @@ public class ClassSet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         int classId = Integer.parseInt(request.getParameter("classId"));
+        int userId = Integer.parseInt(request.getParameter("userId"));
         DAO d = new DAO();
-        d.removeListMember(classId);
-        d.removeListStudySet(classId);
-        d.removeListClass(classId);
-        d.deleteClassByClassId(classId);
-        response.sendRedirect("class");
+        int id_raw= d.getListMemberIdByClassIdAndUserId(classId, userId);
+//                 int id_raw = d.getOneUserIdByClassId(classId);
+        d.removeMemberInClassByListMember(id_raw);
+                response.sendRedirect("class");
     }
 
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
     @Override
     public String getServletInfo() {
         return "Short description";
