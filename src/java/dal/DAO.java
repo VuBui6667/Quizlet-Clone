@@ -15,6 +15,8 @@ import model.ListFolder;
 import model.StudySet;
 import model.User;
 import model.Class;
+import model.ListClass;
+import model.ListStudySet;
 
 /**
  *
@@ -540,6 +542,39 @@ public class DAO extends DBContext {
             System.out.println(e);
         }
     }
+    
+    
+      public void createListClass(ListStudySet lf) {
+        String sql = "INSERT INTO [dbo].[ListStudySet]\n"
+                + "           ([studySetId]\n"
+                + "           ,[classId])\n"
+                + "     VALUES(?,?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, lf.getStudySetId());
+            st.setInt(2, lf.getClassId());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+      
+       public void createListFolderInClass(ListClass lc) {
+        String sql = "INSERT INTO [dbo].[ListClass]\n"
+                + "           ([folderId]\n"
+                + "           ,[classId])\n"
+                + "     VALUES(?,?)";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, lc.getFolderId());
+            st.setInt(2, lc.getClassId());
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+      
+    
 
     public void deleteInListFolder(int studySetId) {
         String sql = "DELETE FROM [dbo].[ListFolder]\n"
@@ -631,6 +666,24 @@ public class DAO extends DBContext {
         }
         return idx;
     }
+    
+    
+     public int getIdFolder() {
+        int idx = 0;
+        String sql = "SELECT TOP 1 * FROM Folder ORDER BY folderId DESC";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                return rs.getInt("folderId");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return idx;
+    }
+    
+    
 
     public boolean activeAccount(String email) {
         boolean check = false;
