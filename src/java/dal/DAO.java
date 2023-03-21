@@ -222,7 +222,45 @@ public class DAO extends DBContext {
         }
         return null;
     }
+    
+    
+    public ArrayList<Integer> getClassIdByUserIdInListMember(int userId) {
+        ArrayList<Integer> listSSId = new ArrayList<>();
+        String sql = "select classId from [ListMember] where userId =? ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, userId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                listSSId.add(rs.getInt("classId"));
+            }
+            return listSSId;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
 
+        return null;
+    }
+    
+     public Class getClassByClassIdLM(int classId) {
+        ArrayList<Class> listU = getAllClass();
+        for (Class c : listU) {
+            if (c.getId() == classId) {
+                return c;
+            }
+        }
+        return null;
+    }
+
+     public ArrayList<Class> getListMemberByUserId(int userId) {
+        ArrayList<Integer> listSSId = getClassIdByUserIdInListMember(userId);
+        ArrayList<Class> listSS = new ArrayList<>();
+        for (Integer n : listSSId) {
+            listSS.add(getClassByClassIdLM(n));
+        }
+        return listSS;
+    }
+    
     public ArrayList<model.Class> getClassByUserId(int id) {
         ArrayList<model.Class> listC = new ArrayList<>();
         String sql = "select * from Class where userId = ?";
