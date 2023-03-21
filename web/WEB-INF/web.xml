@@ -45,6 +45,7 @@
         <url-pattern>/test</url-pattern>
         <url-pattern>/addLearnedCard</url-pattern>
         <url-pattern>/inviteMember</url-pattern>
+        <url-pattern>/studysets</url-pattern>
     </filter-mapping>
     <welcome-file-list>
         <welcome-file>homeLogin.jsp</welcome-file>
