@@ -1,0 +1,73 @@
+body{
+    background-color: #0a092d;
+}
+.Title{
+    margin: 25px 20%
+}
+.Title h3{
+    color: white;
+}
+.Title h5{
+    color: white;
+}
+.Title h6{
+    color: white;
+}
+.Title hr{
+    color: white;
+    margin: 15px 20%;
+}
+.Title p{
+    color: white;
+}
+.Title .Book img{
+    width: 54px;
+    height: 72px;
+    max-width: 100%;
+}
+.Step{
+    margin: 25px 20%;
+}
+.Step h6{
+    color: white;
+}
+.Step h5{
+    color: white;
+}
+.Step .First-Step{
+    background-color: #2e3856 ;
+    padding: 1.5rem ;
+    width: 880px;
+    height: fit-content;
+    border-radius: 10px;
+    margin: 20px 0;
+}
+
+.Step .Hidden-Step{
+    background-color: #2e3856 ;
+    padding: 1.5rem ;
+    width: 880px;
+    height: 80px;
+    border-radius: 10px ;
+    text-align: center;
+    margin: 20px 0;
+}
+.Step .Display-Step-Box{
+    background-color: #2e3856 ; 
+    padding: 1.5rem ; 
+    width: 880px;
+    height: fit-content;
+    border-radius: 10px; 
+    display: none;
+    margin: 20px 0;
+    
+}
+.Step .Display-Step-Space{
+    background-color: #303545 ;
+    padding: 1.5rem ;
+    width: 880px;
+    height: 80px;
+    border-radius: 5px ;
+    text-align: center;
+    margin: 20px 0;
+}

@@ -1,0 +1,65 @@
+/*
+.container-home {
+    background-color: #0a092d;
+    min-height: calc(100vh - 65px) !important;
+}*/
+body{
+    background-color: #0a092d;
+}
+
+.Book-title{
+    margin: 25px 24%
+}
+.Book-title h2{
+    color: white;
+}
+.Book-title h3{
+    color: white;
+}
+.Book-title p{
+    color: white;
+}
+.Book-title img{
+    width: 130px;
+    height: 180px;
+    max-width: 100%;
+}
+.answer{
+    padding-top: 20px;
+}
+.answer h5{
+    color: white;
+    margin: 25px 24%;
+}
+.answer .accordion{
+    background-color: #2e3856;
+    margin: 25px 24%;
+}
+.answer .accordion .accordion-item{
+    background-color: #2e3856;
+}
+.answer .accordion .accordion-item .accordion-header{
+    background-color: #2e3856;
+}
+.answer .accordion .accordion-item .accordion-body-left{
+    background-color: #2e3856;
+    color: white;
+    max-height: 468px;
+    overflow-y: scroll;
+    border-color: #2e3856;
+}
+.answer .accordion .accordion-item .accordion-body-right{
+    background-color: #2e3856;
+    color: white;
+    height: 100%;
+    width: 100%;
+    border-color: #2e3856;
+}
+button.accordion-button.collapsed{
+    color: white !important;
+    
+    }
+    
+.exercises {
+    display: none;
+}
