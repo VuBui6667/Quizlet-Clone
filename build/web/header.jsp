@@ -34,7 +34,7 @@
                         <div class="content-lib-name">
                             <c:if test="${user!=null}" >
                                 <span class="dropdown-item-lib" id="items" onclick="handleOpenStudySet()">Học phần</span>
-                                <span class="dropdown-item-lib" id="items1">Lời giải chuyên gia</span>
+                                <span class="dropdown-item-lib" id="items1" onclick="handleOpenBook()">Lời giải chuyên gia</span>
                                 <span class="dropdown-item-lib" id="items2" onclick="handleOpenFolder()">Thư mục</span>
                                 <span class="dropdown-item-lib" id="items3" onclick="handleOpenClass()">Lớp học</span>
                             </c:if>
@@ -63,6 +63,24 @@
                                 </div>
                                 <div class="get-all">
                                     <a href="studysets">Xem tất cả học phần </a>
+                                </div>
+                            </div>
+                            <div class="item-lib" id="book-container">
+                                <div class="item-set">
+                                    <c:forEach items="${listBook}" var="b">
+                                        <a href="book?isbn=${b.getIsbn()}">
+                                            <div class="book-item-lib">
+                                                <div>
+                                                    <div class="book-title-lib">${b.getTitle()}</div>
+                                                    <div class="edition">${b.getEdition()}</div>
+                                                </div>
+                                                <img class="image-book" src="${b.getImage()}" alt="Book">
+                                            </div>
+                                        </a>
+                                    </c:forEach> 
+                                </div>
+                                <div class="get-all">
+                                    <a href="explanation.jsp">Xem tất cả lời giải chuyên gia</a>
                                 </div>
                             </div>
                             <div class="item-lib" id="folder-container">
@@ -101,6 +119,7 @@
                                     <a href="class">Xem tất cả lớp học</a>
                                 </div>
                             </div>
+
                         </c:if>
                         <c:if test="${user==null}" >
                             <div class="before-login2">
@@ -193,33 +212,52 @@
                                                 var folderContainer = document.getElementById("folder-container");
                                                 var studySetContainer = document.getElementById("studySet-container");
                                                 var classContainer = document.getElementById("class-container");
+                                                var bookContainer = document.getElementById("book-container");
                                                 var under2 = document.getElementById("items2");
                                                 var under = document.getElementById("items");
+                                                var under1 = document.getElementById("items1");
                                                 var under3 = document.getElementById("items3");
 
                                                 function handleOpenFolder() {
                                                     folderContainer.style.display = "block";
                                                     studySetContainer.style.display = "none";
                                                     classContainer.style.display = "none";
+                                                    bookContainer.style.display = "none";
                                                     under2.classList.toggle("under");
                                                     under.classList.remove("under");
                                                     under3.classList.remove("under");
+                                                    under1.classList.remove("under");
                                                 }
                                                 function handleOpenStudySet() {
                                                     folderContainer.style.display = "none";
                                                     classContainer.style.display = "none";
                                                     studySetContainer.style.display = "block";
+                                                    bookContainer.style.display = "none";
+
                                                     under.classList.toggle("under");
                                                     under2.classList.remove("under");
                                                     under3.classList.remove("under");
+                                                    under1.classList.remove("under");
                                                 }
                                                 function handleOpenClass() {
                                                     folderContainer.style.display = "none";
                                                     studySetContainer.style.display = "none";
                                                     classContainer.style.display = "block";
+                                                    bookContainer.style.display = "none";
                                                     under3.classList.toggle("under");
                                                     under2.classList.remove("under");
                                                     under.classList.remove("under");
+                                                    under1.classList.remove("under");
+                                                }
+                                                function handleOpenBook() {
+                                                    folderContainer.style.display = "none";
+                                                    studySetContainer.style.display = "none";
+                                                    classContainer.style.display = "none";
+                                                    bookContainer.style.display = "block";
+                                                    under1.classList.toggle("under");
+                                                    under2.classList.remove("under");
+                                                    under.classList.remove("under");
+                                                    under3.classList.remove("under");
                                                 }
 
                                                 var modal = document.getElementById("myModal");

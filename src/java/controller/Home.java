@@ -15,6 +15,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
+import model.Book;
 import model.Folder;
 import model.StudySet;
 import model.User;
@@ -76,6 +77,8 @@ public class Home extends HttpServlet {
         ArrayList<StudySet> listSet = d.getFiveStudySet(user.getId());
         ses.setAttribute("nameS", d.getUserByUserId(user.getId()).getName());
         ses.setAttribute("listSet", listSet);
+        ArrayList<Book> listBook = d.getTopFiveBook();
+        ses.setAttribute("listBook", listBook);
         ArrayList<Class> listClass = d.getTopFiveClass(user.getId());
         ses.setAttribute("nameC", d.getUserByUserId(user.getId()).getName());
         ses.setAttribute("listClass", listClass);
