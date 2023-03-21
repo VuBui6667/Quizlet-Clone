@@ -168,6 +168,12 @@ body {
     background-color: rgba(10, 9, 45, 0.7);
 }
 
+
+
+.modal input{
+    background-color: #0a092d;
+}
+
 .modal-content {
     background-color: #2e3856;
     margin: auto;
@@ -223,11 +229,11 @@ body {
 .title{
     height: 30px;
     width: 100%;
-    background-color: #F6F7FB;
+    background-color: #0a092d;
     border-radius:8px;
     border:0px ;
     font-size: 20px;
-    color: black;
+    color: white;
     margin-bottom: 20px;
     padding: 10px 0px;
     padding-left: 10px;
@@ -239,10 +245,10 @@ body {
     border-radius:8px;
     border:0px ;
     font-size: 20px;
-    background-color: #F6F7FB;
-    color: black;
+    background-color: #282e3e;
+    color: white;
     margin-bottom: 20px;
-    padding: 15px 0px;
+    padding: 15px 0px 15px 10px;
 }
 
 .button-folder{
