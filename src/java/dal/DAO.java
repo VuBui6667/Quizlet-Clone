@@ -223,6 +223,44 @@ public class DAO extends DBContext {
         return null;
     }
     
+    
+    public ArrayList<Integer> getClassIdByUserIdInListMember(int userId) {
+        ArrayList<Integer> listSSId = new ArrayList<>();
+        String sql = "select classId from [ListMember] where userId =? ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, userId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                listSSId.add(rs.getInt("classId"));
+            }
+            return listSSId;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return null;
+    }
+    
+     public Class getClassByClassIdLM(int classId) {
+        ArrayList<Class> listU = getAllClass();
+        for (Class c : listU) {
+            if (c.getId() == classId) {
+                return c;
+            }
+        }
+        return null;
+    }
+
+     public ArrayList<Class> getListMemberByUserId(int userId) {
+        ArrayList<Integer> listSSId = getClassIdByUserIdInListMember(userId);
+        ArrayList<Class> listSS = new ArrayList<>();
+        for (Integer n : listSSId) {
+            listSS.add(getClassByClassIdLM(n));
+        }
+        return listSS;
+    }
+    
     public ArrayList<model.Class> getClassByUserId(int id) {
         ArrayList<model.Class> listC = new ArrayList<>();
         String sql = "select * from Class where userId = ?";
@@ -242,7 +280,7 @@ public class DAO extends DBContext {
                 c.setUserId(rs.getInt("userId"));
                 listC.add(c);
             }
-
+            return listC;
         } catch (SQLException e) {
             System.out.println(e);
         }
@@ -292,6 +330,24 @@ public class DAO extends DBContext {
             }
         }
         return false;
+    }
+
+    public ArrayList<Integer> getUserIdByClassId(int classId) {
+        ArrayList<Integer> listSSId = new ArrayList<>();
+        String sql = "select userId from [ListMember] where classId =? ";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, classId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                listSSId.add(rs.getInt("userId"));
+            }
+            return listSSId;
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+
+        return null;
     }
 
     public ArrayList<Integer> getStudySetIdByClassId(int classId) {
@@ -358,6 +414,15 @@ public class DAO extends DBContext {
         ArrayList<StudySet> listSS = new ArrayList<>();
         for (Integer n : listSSId) {
             listSS.add(getStudySetById(n));
+        }
+        return listSS;
+    }
+
+    public ArrayList<User> getListMemberByClassId(int classId) {
+        ArrayList<Integer> listSSId = getUserIdByClassId(classId);
+        ArrayList<User> listSS = new ArrayList<>();
+        for (Integer n : listSSId) {
+            listSS.add(getUserByUserId(n));
         }
         return listSS;
     }
@@ -488,6 +553,30 @@ public class DAO extends DBContext {
         }
     }
 
+    public void deleteInListClass(int studySetId) {
+        String sql = "DELETE FROM [dbo].[ListStudySet]\n"
+                + "      WHERE studySetId = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, studySetId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void deleteFolderInListClass(int folderId) {
+        String sql = "DELETE FROM [dbo].[ListClass]\n"
+                + "      WHERE folderId = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, folderId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
     public void createFolder(Folder folder) {
         String sql = "INSERT INTO [dbo].[Folder]\n"
                 + "           ([title]\n"
@@ -512,7 +601,7 @@ public class DAO extends DBContext {
         }
     }
 
-    public void updateFolder(String title,String desc,int folderId) {
+    public void updateFolder(String title, String desc, int folderId) {
 
         try {
             String sql = "UPDATE [dbo].[Folder]\n"
@@ -712,6 +801,29 @@ public class DAO extends DBContext {
 
         return listC;
     }
+    
+//     public ArrayList<User> getUserByListMember(int classId) {
+//        ArrayList<User> listUM = new ArrayList<>();
+//        String sql = "SELECT \n"
+//                + "      [userId]\n"
+//                + "      \n"
+//                + "  FROM [dbo].[ListMember]\n"
+//                + "  Where classId =?";
+//        try {
+//
+//            PreparedStatement st = connection.prepareStatement(sql);
+//            st.setInt(1, classId);
+//            ResultSet rs = st.executeQuery();
+//             while (rs.next()) {
+//                 User u = new User();
+//                 u.setId(rs.getInt("userId"));
+//            }
+//            return listUM;
+//        } catch (Exception e) {
+//        }
+//        return null;
+//    }
+    
 
     public User getUserByUserId(int userId) {
         ArrayList<User> listU = getAllUser();
@@ -926,7 +1038,7 @@ public class DAO extends DBContext {
         }
         return listS;
     }
-    
+
     public ArrayList<Folder> getListFolderByClassId(int classId) {
         ArrayList<Folder> listF = new ArrayList<>();
         String sql = "select folderId from [ListClass] where classId =? ";
@@ -944,7 +1056,7 @@ public class DAO extends DBContext {
 
         return null;
     }
-    
+
     public ArrayList<Folder> getAllFolder() {
         ArrayList<Folder> listFS = new ArrayList<>();
         String sql = "Select * from Folder";
@@ -966,7 +1078,7 @@ public class DAO extends DBContext {
         }
         return listFS;
     }
-    
+
     public void removeListClass(int classId) {
         String sql = "DELETE FROM [dbo].[ListClass]\n"
                 + "      WHERE classId = ?";
@@ -978,7 +1090,77 @@ public class DAO extends DBContext {
             System.out.println(e);
         }
     }
+
+    public void removeListStudySet(int classId) {
+        String sql = "DELETE FROM [dbo].[ListStudySet]\n"
+                + "      WHERE classId = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, classId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
+    public void removeMemberInClassByUserId(int userId, int classId) {
+        String sql = "DELETE FROM [dbo].[ListMember]\n"
+                + "      WHERE userId =? and classId =?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, userId);
+            st.setInt(1, classId);
+
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
     
+    public Integer getListMemberIdByClassIdAndUserId(int classId, int userId) {
+        String sql = "SELECT [listMemberId]\n"
+                + "From [dbo].[ListMember] \n"
+                + "Where classId=? and userId=?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, classId);
+            st.setInt(2, userId);
+            ResultSet rs = st.executeQuery();
+            while (rs.next()) {
+                return rs.getInt("listMemberId");
+            }
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        return null;
+    }
+    
+    
+    public void removeMemberInClassByListMember(int listId) {
+        String sql = "DELETE FROM [dbo].[ListMember]\n"
+                + "      WHERE listMemberId =?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, listId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+    
+
+    public void removeListMember(int classId) {
+        String sql = "DELETE FROM [dbo].[ListMember]\n"
+                + "      WHERE classId = ?";
+        try {
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, classId);
+            st.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+    }
+
     public void deleteClassByClassId(int classId) {
         String sql = "DELETE FROM [dbo].[Class]\n"
                 + "      WHERE classId = ?";
@@ -990,7 +1172,7 @@ public class DAO extends DBContext {
             System.out.println(e);
         }
     }
-    
+
     public void deleteFolderInClass(int classId, int folderId) {
         String sql = "DELETE FROM [dbo].[ListClass]\n"
                 + "      WHERE folderId=? and classId=?";
@@ -1003,7 +1185,7 @@ public class DAO extends DBContext {
             System.out.println(e);
         }
     }
-    
+
     public void addFolderInClass(int classId, int folderId) {
         String sql = "INSERT INTO [dbo].[ListClass]\n"
                 + "           ([folderId]\n"
@@ -1019,6 +1201,48 @@ public class DAO extends DBContext {
         }
     }
     
+   
+    
+    
+
+    public ArrayList<Integer> getUserIdByListMember(int classId) {
+        ArrayList<Integer> listUM = new ArrayList<>();
+        String sql = "SELECT \n"
+                + "      [userId]\n"
+                + "      \n"
+                + "  FROM [dbo].[ListMember]\n"
+                + "  Where classId =?";
+        try {
+
+            PreparedStatement st = connection.prepareStatement(sql);
+            st.setInt(1, classId);
+            ResultSet rs = st.executeQuery();
+            if (rs.next()) {
+                listUM.add(rs.getInt("userId"));
+                return listUM;
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+//    public Integer getOneUserIdByClassId(int classId) {
+//        String sql = "SELECT [userId]\n"
+//                + "From [dbo].[ListMember] \n"
+//                + "Where classId=?";
+//        try {
+//            PreparedStatement st = connection.prepareStatement(sql);
+//            st.setInt(1, classId);
+//            ResultSet rs = st.executeQuery();
+//            while (rs.next()) {
+//                return rs.getInt("userId");
+//            }
+//        } catch (SQLException e) {
+//            System.out.println(e);
+//        }
+//        return null;
+//    }
+
     public Integer getUserIdByNameOrEmail(String name) {
         String sql = "SELECT [userId]\n"
                 + "From [dbo].[User] \n"
@@ -1036,7 +1260,7 @@ public class DAO extends DBContext {
         }
         return null;
     }
-    
+
     public void addMember(int userId, int classId) {
         System.out.println("classID: " + classId);
         String sql = "INSERT INTO [dbo].[ListMember]\n"
@@ -1054,7 +1278,7 @@ public class DAO extends DBContext {
             System.out.println(e);
         }
     }
-    
+
     public void updateClass(model.Class cl) {
         String sql = "UPDATE [dbo].[Class]\n"
                 + "   SET [className] = ?\n"
@@ -1080,7 +1304,7 @@ public class DAO extends DBContext {
             System.out.println(e);
         }
     }
-    
+
     public boolean isAddedFolderInClass(int classId, int folderId) {
         ArrayList<Folder> listF = getListFolderByClassId(classId);
         for (Folder f : listF) {
@@ -1089,6 +1313,16 @@ public class DAO extends DBContext {
             }
         }
         return false;
+    }
+
+    public boolean checkUserInClass(int userId, int classId) {
+        ArrayList<Integer> listU = getUserIdByClassId(classId);
+        for (Integer u : listU) {
+            if (userId == u) {
+                return false;
+            }
+        }
+        return true;
     }
 
     public ArrayList<Card> getUnLearnedCard(int studySetId, int userId) {
@@ -1258,7 +1492,7 @@ public class DAO extends DBContext {
         ArrayList<Card> listC = getAllCardInSet(studySetId);
         Random rand = new Random();
         int size = listC.size() - 1;
-        int n = numCard/2;
+        int n = numCard / 2;
         for (int i = 0; i < n; i++) {
             int randomNumber = rand.nextInt(size - 0 + 1) + 0;
             if (checkDup(listCTF, listC.get(randomNumber)) == -1) {
@@ -1269,12 +1503,12 @@ public class DAO extends DBContext {
         }
         return listCTF;
     }
-    
+
     public Card getRandomAns(ArrayList<Card> listC, ArrayList<Card> listA) {
         Random rand = new Random();
         int size = listC.size() - 1;
         int randomNumber = rand.nextInt(size - 0 + 1) + 0;
-        if(checkDup(listA, listC.get(randomNumber)) == -1) {
+        if (checkDup(listA, listC.get(randomNumber)) == -1) {
             return listC.get(randomNumber);
         } else {
             return getRandomAns(listC, listA);
@@ -1289,25 +1523,25 @@ public class DAO extends DBContext {
         Random rand = new Random();
         for (Card c : listCTF) {
             if (rand.nextBoolean()) {
-               listATF.add(c);
+                listATF.add(c);
             } else {
                 listATF.add(getRandomAns(listC, listATF));
             }
         }
         return listATF;
     }
-    
+
     public ArrayList<Card> listCMC(int studySetId, int userId, ArrayList<Card> listCTF, int numCard) {
         ArrayList<Card> listCMC = new ArrayList<>();
         Random rand = new Random();
         ArrayList<Card> listC = getAllCardInSet(studySetId);
         int numCMC = numCard - listCTF.size();
         int size = listC.size() - 1;
-        for(int i=0; i<numCMC; i++) {
+        for (int i = 0; i < numCMC; i++) {
             int randomNumber = rand.nextInt(size - 0 + 1) + 0;
-            if(checkDup(listCTF, listC.get(randomNumber)) == -1 && checkDup(listCMC, listC.get(randomNumber)) == -1) {
+            if (checkDup(listCTF, listC.get(randomNumber)) == -1 && checkDup(listCMC, listC.get(randomNumber)) == -1) {
                 listCMC.add(listC.get(randomNumber));
-            }  else {
+            } else {
                 numCMC++;
             }
         }

@@ -138,7 +138,7 @@ public class Update extends HttpServlet {
             }
             for (Card c : listCAdd) {
                 if (!c.getTerm().equals("") || !c.getDefinition().equals("")) {
-                    Card c_new = new Card(c.getId(), c.getTerm(), c.getDefinition(), d.getIdStudySet());
+                    Card c_new = new Card(c.getId(), c.getTerm(), c.getDefinition(), id);
                     d.addCard(c_new);
                 }
             }

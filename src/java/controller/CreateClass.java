@@ -65,10 +65,14 @@ public class CreateClass extends HttpServlet {
         DAO d = new DAO();
         HttpSession ses = request.getSession();
         User user = (User) ses.getAttribute("user");
+        int userId = user.getId();
+        ArrayList<Class> listMemCl = d.getListMemberByUserId(userId);
+        ArrayList<Class> listCll = d.getClassByUserId(userId);
+        request.setAttribute("listCll", listCll);
+         request.setAttribute("listMemCl", listMemCl);
         ArrayList<Class> listC = d.getAllClass();
         ses.setAttribute("listC", listC);
         ses.setAttribute("d", d);
-
         request.getRequestDispatcher("class.jsp").forward(request, response);
     }
 
@@ -85,7 +89,7 @@ public class CreateClass extends HttpServlet {
             throws ServletException, IOException {
 
         String studySetId_raw = request.getParameter("studySetId");
-        int studySetId = Integer.parseInt(studySetId_raw);
+        int ssId = Integer.parseInt(studySetId_raw);
         String className = request.getParameter("classname");
         String details = request.getParameter("detailsclass");
         String schoolName = request.getParameter("schoolname");
@@ -99,7 +103,7 @@ public class CreateClass extends HttpServlet {
         request.setAttribute("classname", className);
         request.setAttribute("c", c);
         dao.createClass(c);
-        dao.addStudySetInClass(dao.getIdClass(), studySetId);
+        dao.addStudySetInClass(dao.getIdClass(), ssId);
         doGet(request, response);
 
     }

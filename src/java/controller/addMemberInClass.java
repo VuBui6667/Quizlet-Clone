@@ -14,14 +14,13 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.User;
-import model.Class;
 
 /**
  *
  * @author vieta
  */
-@WebServlet(name = "InviteMember", urlPatterns = {"/inviteMember"})
-public class InviteMember extends HttpServlet {
+@WebServlet(name = "addMemberInClass", urlPatterns = {"/addMemberInClass"})
+public class addMemberInClass extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +39,10 @@ public class InviteMember extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet InviteMember</title>");            
+            out.println("<title>Servlet addMemberInClass</title>");            
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet InviteMember at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet addMemberInClass at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -61,7 +60,16 @@ public class InviteMember extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+            DAO d = new DAO();
+            int id = Integer.parseInt(request.getParameter("id"));
+            HttpSession ses = request.getSession();
+            User user = (User) ses.getAttribute("user");
+            model.Class c = d.getClassByClassId(id);
+           
+            if(c.getUserId() != user.getId() && d.checkUserInClass(user.getId(), id)) {
+                d.addMember(user.getId(), id);
+            }
+            response.sendRedirect("classSet?id=" + id);
     }
 
     /**
@@ -75,34 +83,9 @@ public class InviteMember extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id_raw = Integer.parseInt(request.getParameter("classId"));
-         String Name = request.getParameter("addmem");
-         HttpSession ses = request.getSession();
-        DAO d = new DAO();
-        int UId = d.getUserIdByNameOrEmail(Name);
-        try{
-              d.addMember(UId, id_raw);
-               response.sendRedirect("classSet?id=" + id_raw);
-        }catch(Exception e){
-            
-        }
-        
-       Class c = d.getClassByClassId(id_raw);
-        User u = (User) ses.getAttribute("user");
-        SendEmailShare s = new SendEmailShare();
-        
-        s.sendEmailInviteClass(Name, u, "http://localhost:8080/projectquizlet/classSet?id=" + id_raw);
-        response.sendRedirect("classSet?id=" + id_raw);
-        
-        
+    }   
 
-    }
-
-    /**
-     * Returns a short description of the servlet.
-     *
-     * @return a String containing servlet description
-     */
+    
     @Override
     public String getServletInfo() {
         return "Short description";

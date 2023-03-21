@@ -35,29 +35,36 @@
             <div class="container-home">
                 <div class="class-container">
                     <div class="cate-class">
-                        <a href="folder.jsp" class="title-container-class">Thành tựu</a>
-                        <a href="folder.jsp" class="title-container-class">Học phần</a>
+                        <a href="home.jsp" class="title-container-class">Học phần</a>
                         <a href="folder.jsp" class="title-container-class">Lời giải chuyên gia</a>
                         <a href="folder.jsp" class="title-container-class">Thư Mục</a>
                         <a href="class.jsp" class="title-container-class">Lớp học</a>
                     </div>
-                     <div>
+                    <div>
                         <button  class="btn-folder">Đã Tạo &nbsp;&nbsp;<i class="fa-solid fa-chevron-down"></i></button>
-                        
+
                     </div>
-                 
+
                 </div>
-                
+
                 <div class="content-container">
-                        <c:forEach items="${listC}" var="c">
-                            <a href="classSet?id=${c.getId()}">
-                                <div class="item-class" >
-                                    <div class="class"></div>
-                                    <div class="title-class">${c.getName()} </div>
-                                </div>
-                            </a>
-                        </c:forEach>
-                    </div>
+                    <c:forEach items="${listCll}" var="c">
+                        <a href="classSet?id=${c.getId()}">
+                            <div class="item-class" >
+                                <div class="class"></div>
+                                <div class="title-class">${c.getName()} </div>
+                            </div>
+                        </a>
+                    </c:forEach>
+                    <c:forEach items="${listMemCl}" var="m">
+                        <a href="classSet?id=${m.getId()}">
+                            <div class="item-class" >
+                                <div class="class"></div>
+                                <div class="title-class">${m.getName()} </div>
+                            </div>
+                        </a>
+                    </c:forEach>
+                </div>
 
             </div>
 

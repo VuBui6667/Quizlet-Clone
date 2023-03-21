@@ -267,6 +267,12 @@ a {
     display: flex;
 }
 
+.author-study-set2 {
+    font-weight: 600;
+    font-size: 25px;
+    display: flex;
+}
+
 .container-home {
     background-color: #0a092d;
     min-height: calc(100vh - 65px) !important;
@@ -366,6 +372,20 @@ a{
     margin-right: 5px;
     text-transform: uppercase;
 }
+
+.user-avatar-sub2 {
+    background-color: #423ed8;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: 600;
+    margin-right: 5px;
+    text-transform: uppercase;
+}
+
 
 .bar {
     color: #13141b;
@@ -578,9 +598,36 @@ invite-cont{
     border-color: white;
     padding: 10px;
 }
+.btn-copy1 {
+      background: #4255ff !important;
+    color: #fff;
+    padding: 15px;
+    border-radius: 25px;
+}
 .btn-copy{
     background: #4255ff;
     color: #fff;
     padding: 15px;
     border-radius: 15px;
+}
+.empty-folder{
+    text-align: center;
+    color: white;
+}
+.empty-folder h3{
+    font-size: 30px;
+    font-weight: 700;
+    font-family: common-ligatures contextual;
+}
+.empty-folder button{
+    background-color: #3ccfcf;
+    font-size: 14px;
+    padding:12px 24px;
+    border-radius:0.25rem;
+    border:none;
+    cursor:pointer;
+}
+
+.main2 {
+    display: none;
 }

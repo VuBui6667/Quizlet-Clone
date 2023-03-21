@@ -13,15 +13,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.ArrayList;
 import model.User;
-import model.Class;
 
 /**
  *
  * @author vieta
  */
-@WebServlet(name = "InviteMember", urlPatterns = {"/inviteMember"})
-public class InviteMember extends HttpServlet {
+@WebServlet(name = "RemoveMember", urlPatterns = {"/removeMember"})
+public class RemoveMember extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -40,10 +40,10 @@ public class InviteMember extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet InviteMember</title>");            
+            out.println("<title>Servlet RemoveMember</title>");
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet InviteMember at " + request.getContextPath() + "</h1>");
+            out.println("<h1>Servlet RemoveMember at " + request.getContextPath() + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -75,27 +75,13 @@ public class InviteMember extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        int id_raw = Integer.parseInt(request.getParameter("classId"));
-         String Name = request.getParameter("addmem");
-         HttpSession ses = request.getSession();
+        int classId = Integer.parseInt(request.getParameter("classId"));
+        int userId = Integer.parseInt(request.getParameter("userId"));
         DAO d = new DAO();
-        int UId = d.getUserIdByNameOrEmail(Name);
-        try{
-              d.addMember(UId, id_raw);
-               response.sendRedirect("classSet?id=" + id_raw);
-        }catch(Exception e){
-            
-        }
-        
-       Class c = d.getClassByClassId(id_raw);
-        User u = (User) ses.getAttribute("user");
-        SendEmailShare s = new SendEmailShare();
-        
-        s.sendEmailInviteClass(Name, u, "http://localhost:8080/projectquizlet/classSet?id=" + id_raw);
-        response.sendRedirect("classSet?id=" + id_raw);
-        
-        
-
+        int id_raw= d.getListMemberIdByClassIdAndUserId(classId, userId);
+//                 int id_raw = d.getOneUserIdByClassId(classId);
+        d.removeMemberInClassByListMember(id_raw);
+                response.sendRedirect("class");
     }
 
     /**
