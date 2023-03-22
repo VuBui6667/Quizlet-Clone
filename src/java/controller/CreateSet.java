@@ -177,6 +177,7 @@ public class CreateSet extends HttpServlet {
                       ListStudySet ListC = new ListStudySet(classId, d.getIdStudySet() , 10);
                     d.createListClass(ListC);
                     ses.setAttribute("classId", "");
+                    response.sendRedirect("classSet?id="+classId);
                 }
                 response.sendRedirect("home");
             }

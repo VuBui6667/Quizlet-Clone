@@ -266,6 +266,7 @@ a {
     cursor: pointer;
     border-bottom: 4px solid #2e3856;
     display: flex;
+    justify-content: space-between;
 }
 
 .container-studySet {
@@ -605,6 +606,8 @@ invite-cont{
     padding-bottom: 30px;
 }
 .addmember{
+    color: white;
+    padding-left: 10px;
     outline: none;
     background-color:initial;
     width: 100%;
@@ -681,4 +684,61 @@ invite-cont{
 
 .main2 {
     display: none;
+}
+
+#myBtnDel{
+    color:red !important;
+}
+
+#myBtnDel:hover{
+    background: #282e3e;
+    border-radius: 12px;
+}
+
+#myBtnDel {
+    width: 200px;
+    background-color: #0a092d;
+    border: none;
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+    font-family: Time New Roman;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.12),
+        0 2px 2px rgba(0,0,0,0.12),
+        0 4px 4px rgba(0,0,0,0.12),
+        0 8px 8px rgba(0,0,0,0.12),
+        0 16px 16px rgba(0,0,0,0.12);
+    outline: none;
+    text-align: start !important;
+}
+
+
+#myBtnE:hover{
+    background: #282e3e;
+    border-radius: 12px;
+    color: white !important;
+}
+
+#myBtnE {
+    background-color: #0a092d;
+    border: none;
+    color: white;
+    text-decoration: none;
+    font-size: 17px;
+    font-family: Time New Roman;
+    cursor: pointer;
+    -webkit-transition-duration: 0.4s; /* Safari */
+    transition-duration: 0.4s;
+    box-shadow: 0 1px 1px rgba(0,0,0,0.12),
+        0 2px 2px rgba(0,0,0,0.12),
+        0 4px 4px rgba(0,0,0,0.12),
+        0 8px 8px rgba(0,0,0,0.12),
+        0 16px 16px rgba(0,0,0,0.12);
+    outline: none;
+    text-align: start !important;
+    width: 200px;
+    
 }

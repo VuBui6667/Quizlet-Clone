@@ -133,7 +133,7 @@
                                 <div id="myModalF" class="modal">
                                     <div class="modal-content">
                                         <span class="close" onClick="handleCloseModalF()">×</span>
-                                        <h1 style="color: black">Tạo thư mục mới</h1>
+                                        <h1>Tạo thư mục mới</h1>
                                         <form action="folder" method="post">
                                             <input class="title" type="text" name="title" placeholder="Nhập tiêu đề"></br>
                                             <input class="details" type="text" name="details" placeholder="Nhập mô tả(tùy chọn)">
@@ -177,12 +177,12 @@
                         </div>
                         <div id="dropdown-controller" class="dropdown-controller">
                             <c:if test="${userId == c.getUserId()}">
-                                <button id="myBtn" class="dropdown-item" onClick="handleOpenModal4()">Sửa</a> 
-                                    <button id="myBtn" class="dropdown-item" onclick="handleOpenModalDel()">Xóa</a> 
+                                <button id="myBtnE" class="dropdown-item" onClick="handleOpenModal4()">Sửa</a> 
+                                    <button id="myBtnDel" class="dropdown-item" onclick="handleOpenModalDel()">Xóa</a> 
 
                                     </c:if>
                                     <c:if test="${userId != c.getUserId()}">
-                                        <button id="myBtn" class="dropdown-item" onclick="handleOpenModalExit()">Bỏ lớp học này</a> 
+                                        <button  id="myBtnDel" class="dropdown-item" onclick="handleOpenModalExit()">Bỏ lớp học này</a> 
                                         </c:if>
                                         </div>
                                         </div>

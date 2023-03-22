@@ -87,7 +87,7 @@ public class CreateClass extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
+        
         String studySetId_raw = request.getParameter("studySetId");
         int ssId = 0;
         try {
