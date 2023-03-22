@@ -26,7 +26,7 @@
                     <a href="home.jsp">Trang chủ</a>
                 </div>
                 <div class="nav-item">
-                    <a href="#">Lời giải chuyên gia</a>
+                    <a href="explanation">Lời giải chuyên gia</a>
                 </div>
                 <div class="nav-item container-dropdown-lib">
                     <a onclick="handleOpenDropdownLib()" id="dropdown-btn-lib">Thư viện của bạn &nbsp;<i class="fa-solid fa-chevron-down"></i></a>
