@@ -13,20 +13,18 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
-import model.Book;
-import model.Folder;
-import model.StudySet;
-import model.User;
-import model.Class;
+import model.Chapter;
+import model.Exercises;
+import model.ListBook;
+import model.Page;
 
 /**
  *
- * @author LENOVO
+ * @author MSII
  */
-@WebServlet(name="home", urlPatterns={"/home"})
-public class Home extends HttpServlet {
+@WebServlet(name="Answer", urlPatterns={"/answer"})
+public class Answer extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -43,10 +41,10 @@ public class Home extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet home</title>");  
+            out.println("<title>Servlet Answer</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet home at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet Answer at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,31 +61,26 @@ public class Home extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        DAO d = new DAO();
-        HttpSession ses = request.getSession();
-        User user = (User)ses.getAttribute("user");
-        ArrayList<StudySet> listS = d.getAllStudySet();
-        ArrayList<StudySet> listN = new ArrayList<StudySet>();
-        ses.setAttribute("listS", listS);
-        for(StudySet s: listS) {
-            if(s.getUserId() == user.getId()) {
-                listN.add(s);
-            }
-        }
-        ArrayList<StudySet> listSet = d.getFiveStudySet(user.getId());
-        ses.setAttribute("nameS", d.getUserByUserId(user.getId()).getName());
-        ses.setAttribute("listSet", listSet);
-        ArrayList<Book> listBook = d.getTopFiveBook();
-        ses.setAttribute("listBook", listBook);
-        ArrayList<Class> listClass = d.getTopFiveClass(user.getId());
-        ses.setAttribute("nameC", d.getUserByUserId(user.getId()).getName());
-        ses.setAttribute("listClass", listClass);
-        ses.setAttribute("d", d);
-        ArrayList<Folder> listFd = d.getTopFiveFolder(user.getId());
-        ses.setAttribute("nameF", d.getUserByUserId(user.getId()).getName());
-        ses.setAttribute("listFd", listFd);
-        ses.setAttribute("listN", listN);
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+        DAO dao = new DAO();
+        int ExID = Integer.parseInt(request.getParameter("id")) ;
+        model.Answer a = dao.getAnswerByExID(ExID);
+        request.setAttribute("a", a);
+        String isbn = request.getParameter("isbn");
+        Exercises e = dao.getExercisesByExID(ExID);
+        request.setAttribute("e", e);
+        int cid = Integer.parseInt(request.getParameter("cid"));
+        Chapter c = dao.getChapterByChapterID(cid);
+        request.setAttribute("c", c);
+        Page p = dao.getPageByPageID(cid);
+        request.setAttribute("p", p);
+        ListBook b = dao.getBookByIsbn(isbn);
+        request.setAttribute("b", b);
+        ArrayList<model.Answer> la= dao.getAllAnswerByExID(ExID);
+        request.setAttribute("la", la);
+        
+        
+        request.getRequestDispatcher("exercises.jsp").forward(request, response);
+         
     } 
 
     /** 
@@ -100,7 +93,7 @@ public class Home extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+       
     }
 
     /** 

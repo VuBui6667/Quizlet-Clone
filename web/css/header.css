@@ -381,6 +381,9 @@ body {
 #folder-container {
     display: none;
 }
+#book-container {
+    display: none;
+}
 
 #class-container{
     display: none;
@@ -461,4 +464,26 @@ body {
     border-radius: 12px;
     color: white !important;
     cursor: pointer;
+}
+.book-title-lib{
+        width: 380px;
+    font-size: 20px;
+}
+
+.edition{
+    font-size: 12px;
+    color: gray;
+}
+.image-book{
+    width: 40px;
+    height: 40px;
+    margin: 5px 10px 10px 10px;
+}
+
+.book-item-lib{
+    display: flex;
+    margin: 18px 10px 10px 30px;
+}
+.book-item-lib:hover{
+    background-color: #2e3856;
 }

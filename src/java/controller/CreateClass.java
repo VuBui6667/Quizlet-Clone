@@ -89,7 +89,12 @@ public class CreateClass extends HttpServlet {
             throws ServletException, IOException {
 
         String studySetId_raw = request.getParameter("studySetId");
-        int ssId = Integer.parseInt(studySetId_raw);
+        int ssId = 0;
+        try {
+            ssId = Integer.parseInt(studySetId_raw);
+        } catch(Exception e ) {
+            System.out.println(e);
+        }
         String className = request.getParameter("classname");
         String details = request.getParameter("detailsclass");
         String schoolName = request.getParameter("schoolname");
@@ -103,9 +108,10 @@ public class CreateClass extends HttpServlet {
         request.setAttribute("classname", className);
         request.setAttribute("c", c);
         dao.createClass(c);
-        dao.addStudySetInClass(dao.getIdClass(), ssId);
+        if(ssId != 0) {
+            dao.addStudySetInClass(dao.getIdClass(), ssId);
+        }
         doGet(request, response);
-
     }
 
     /**

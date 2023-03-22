@@ -5,7 +5,6 @@
 
 package controller;
 
-import dal.DAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,20 +12,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.ArrayList;
-import model.Book;
-import model.Folder;
-import model.StudySet;
-import model.User;
-import model.Class;
 
 /**
  *
- * @author LENOVO
+ * @author MSII
  */
-@WebServlet(name="home", urlPatterns={"/home"})
-public class Home extends HttpServlet {
+@WebServlet(name="ListBook", urlPatterns={"/listBook"})
+public class ListBook extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -43,10 +35,10 @@ public class Home extends HttpServlet {
             out.println("<!DOCTYPE html>");
             out.println("<html>");
             out.println("<head>");
-            out.println("<title>Servlet home</title>");  
+            out.println("<title>Servlet ListBook</title>");  
             out.println("</head>");
             out.println("<body>");
-            out.println("<h1>Servlet home at " + request.getContextPath () + "</h1>");
+            out.println("<h1>Servlet ListBook at " + request.getContextPath () + "</h1>");
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,31 +55,7 @@ public class Home extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        DAO d = new DAO();
-        HttpSession ses = request.getSession();
-        User user = (User)ses.getAttribute("user");
-        ArrayList<StudySet> listS = d.getAllStudySet();
-        ArrayList<StudySet> listN = new ArrayList<StudySet>();
-        ses.setAttribute("listS", listS);
-        for(StudySet s: listS) {
-            if(s.getUserId() == user.getId()) {
-                listN.add(s);
-            }
-        }
-        ArrayList<StudySet> listSet = d.getFiveStudySet(user.getId());
-        ses.setAttribute("nameS", d.getUserByUserId(user.getId()).getName());
-        ses.setAttribute("listSet", listSet);
-        ArrayList<Book> listBook = d.getTopFiveBook();
-        ses.setAttribute("listBook", listBook);
-        ArrayList<Class> listClass = d.getTopFiveClass(user.getId());
-        ses.setAttribute("nameC", d.getUserByUserId(user.getId()).getName());
-        ses.setAttribute("listClass", listClass);
-        ses.setAttribute("d", d);
-        ArrayList<Folder> listFd = d.getTopFiveFolder(user.getId());
-        ses.setAttribute("nameF", d.getUserByUserId(user.getId()).getName());
-        ses.setAttribute("listFd", listFd);
-        ses.setAttribute("listN", listN);
-        request.getRequestDispatcher("home.jsp").forward(request, response);
+        response.sendRedirect("explanations.jsp");
     } 
 
     /** 
